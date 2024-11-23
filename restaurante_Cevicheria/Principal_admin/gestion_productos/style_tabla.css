@@ -1,0 +1,74 @@
+.btn-custom {
+    background-color: #031b34;
+    color: #fff;
+}
+
+.btn-custom:hover {
+    background-color: #2e7cc0;
+    color: #fff;
+}
+
+.table-custom {
+    color: black;
+}
+
+.table-custom thead th {
+    border-bottom: 2px solid #fff;
+}
+
+.table-custom tbody td {
+    border-top: 1px solid #fff;
+}
+
+.col-md-6 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    /* max-width: 50%; */
+    margin-left: -45px;
+}
+
+.col-md-5 {
+    -ms-flex: 0 0 41.666667%;
+    flex: 0 0 41.666667%;
+    /* max-width: 54.666667%; */
+    margin-left: 140px;
+}
+
+.h2, h2 {
+    font-size: 1.7rem;
+}
+
+
+/*para la barra*/
+.table-fixed tbody{
+
+height: 320px;
+overflow-y:auto;
+width: 100%;
+
+}
+
+.table-fixed thead,
+.table-fixed tbody,
+.table-fixed td,
+.table-fixed th{
+display: block;
+}
+
+.table-fixed tbody td,
+.table-fixed thead > tr > th{
+    float: left;
+    border-bottom-width: 0;
+}
+
+.table {
+    width: 170%;
+    margin-bottom: 1rem;
+    color: #212529;
+    margin-left: -136px;
+}
+
+.col-md-6.offset-md-3.tableactu {
+    margin-left: 49%;
+    margin-top: -22%;
+}

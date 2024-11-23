@@ -1,0 +1,540 @@
+* {
+    block-size: border-box;
+    text-decoration: none;
+    padding: 0;
+}
+
+
+*,*:before, *:after{
+box-sizing: inherit;
+}
+
+
+body {  
+    margin: 0;
+    padding-top: 1px;
+}
+
+/*video*/
+.inic-video {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+  }
+
+  .inic-video video {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+
+
+/*seccion-1*/
+.seccion-1 {
+    position: relative;
+    background-color: #f1f1f0;
+    padding: 50px;
+    min-height: 400px;
+}
+
+.seccion-1 h2 {
+    font-family: 'Open Sans', sans-serif;
+    color: #263864;
+    text-align: left;
+    position: absolute;
+    top: 60px;
+    left: 130px;
+}
+  
+.seccion-1 p {
+    font-family: 'Open Sans', sans-serif;
+    color: #263864;
+    max-width: 550px;
+    position: absolute;
+    top: 110px;
+    left: 130px;
+    text-align: left;
+    line-height: 1.5;
+    font-size: 16px;
+    letter-spacing: .2px;
+}
+
+.awa {
+    width: 500px;
+    height: 300px;
+    position: absolute;
+    top: 90px;
+    border-radius: 5px;
+    right: 120px;
+    background-size: 100% 100%;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    animation: BgAnimation 10s linear infinite;
+}
+
+@keyframes BgAnimation{
+    4% {background-image: url('/restaurante_Cevicheria/Images/is-a-party.png');
+    }
+    30% {background-image: url('/restaurante_Cevicheria/Images/pescadores.jpg');
+    }
+    60% {
+        background-image: url('/restaurante_Cevicheria/Images/plato 1.png');
+    }
+    100% {background-image: url('/restaurante_Cevicheria/Images/mar.jpg');
+    }
+}
+
+
+.separador-4 {
+    position: absolute;
+    width: 400px;
+    height: 7px;
+    background-color: #263864;
+    margin: 220px 120px;
+}
+
+/*seccion-2*/
+.seccion-2 {
+    font-family: Helvetica , Helvetica, Arial, sans-serif;
+    text-align: center;
+    background-color: #21213b;
+    height: 584px;
+}
+
+
+.seccion-2 h1 {
+    color: white;
+    position: absolute;
+    top: 165%;
+    left: 39%;
+    font-size: 1.9em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+/* Container for all cards */
+
+.cards-container {
+position: relative;
+    margin-top: 30px; /* Ajusta según necesites */
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+
+}
+
+/* Base card styles */
+
+.card {
+    width: 100px;
+    height: 400px;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.5s ease;
+}
+
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.2));
+    color: white;
+    padding: 1.5rem;
+    transform: translateY(70%); /* Base transform for all cards */
+    transition: transform 0.5s ease;
+}
+
+
+.card:hover .card-content {
+    transform: translateY(0);
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.card-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.card:hover .card-text {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Specific card styles */
+.card.pilares {
+    top: 90px;
+    left: -17%;
+    width: 367px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card.historia {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    top: 90px;
+    left: -25%;
+    width: 367px;
+}
+
+.card.experiencia {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    top: -344px;
+    left: 43%;
+    width: 367px;
+}
+
+/* Specific adjustments for the experience card */
+.card.experiencia .card-content {
+    transform: translateY(40%); /* Changed from 85% to 70% to match other cards */
+    background: linear-gradient(to top, 
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.8) 20%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+}
+
+.card.experiencia .card-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card.experiencia:hover .card-content {
+    transform: translateY(0);
+}
+
+.card.experiencia .card-text {
+    margin-top: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.card.experiencia:hover .card-text {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/*Imagenes galeria*/
+
+.Leer-mas {
+    position: absolute;
+    top: 240%;
+    left: 1372px;
+    font-size: 1em;
+    color: white;
+    border-bottom: 2px solid white;
+    padding-bottom: 2px;
+}
+
+.Leer-mas:hover {
+    color: #22a7f0;
+    border-bottom-color: #22a7f0;
+}
+
+/*seccion-3*/
+.seccion-3 {
+    text-align: center;
+    background-color: #1a1a33;
+    padding: 200px;
+    position: relative;
+}
+
+.seccion-3 h2 {
+    font-family: Helvetica , Helvetica, Arial, sans-serif;
+    color: white;
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-align: left;
+    margin: 1px -101px;
+}
+
+.seccion-3 p {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    max-width: 600px;
+    margin: 1px -101px;
+    text-align: left;
+    color: white;
+}
+
+.separador-1 {
+    position: absolute;
+    width: 1360px;
+    height: 6px;
+    background-color: white;
+    margin: -11% -130px 62px;
+}
+
+
+.separador-2 {
+    width: 560px;
+    height: 6px;
+    background-color: white;
+    margin: 20px -101px;
+}
+
+
+.separador-3 {
+    position: absolute;
+    width: 1360px;
+    height: 6px;
+    background-color: white;
+    margin: 11% -130px 61px;
+}
+.a img{
+    box-shadow: 15px 15px 15px rgba(22, 21, 21, 0.3);
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: -18%;
+    margin-left: 15%;
+    width: 28%;
+    height: 77%;
+    position: absolute;
+    transition: transform 0.3s ease;
+}
+
+.a img:hover {
+    transform: scale(1.05);
+}
+
+
+
+/*seccion-4*/
+
+.seccion-4 {
+    position: relative;
+    text-align: center;
+    color: white;
+    padding: 130px 0;
+    background-color: #0c0c22;
+}
+
+.seccion-4 h2 {
+    font-family: Helvetica, Arial, sans-serif;
+    color: white;
+    font-size: 3em;
+    margin-top: -60px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.seccion-4 p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2em;
+    color: #b3b3b3;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* divicion 2 =Estilo de Reseñas Individuales */
+.reseñas_contenedor {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.reseña_bloque{
+    background-color: #1a1a33;
+    width: 300px;
+    height: 130px;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.reseña_bloque:hover {
+    transform: translateY(-10px);
+}
+
+.reseña_bloque h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.2em;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.reseña_bloque p {
+    font-size: 1em;
+    line-height: 1.5;
+    color: #b3b3b3;
+
+}
+
+/* Botón Leer Más */
+.leer_mas {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    border: 2px solid #463ebe;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.leer_mas:hover {
+    background-color: #3624db;
+    color: white;
+}
+
+/*Politicas*/
+footer {
+    font-family: Helvetica , Helvetica, Arial, sans-serif;
+    background-color: white;
+    padding: 100px 70px;
+    font-size: 14px;
+    color: #333;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1600px;
+    margin: 6px auto;
+    margin-top: -70px;
+    margin-left: 150px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin: 10px;
+}
+
+.footer-section h3 {
+    font-size: 16px;
+    margin-bottom: px;
+    color: #2C2C2C;
+}
+
+.socialTittle{
+    margin-top: 64px;
+    margin-left: -303px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 9px;
+    max-width: 225px
+}
+
+.footer-section ul li a {
+    position: relative;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #007BFF;
+}
+
+.footer-section p {
+    margin: 10px 0;
+}
+
+/*Iconos*/
+
+.social-icons a {
+    font-family: Helvetica , Helvetica, Arial, sans-serif;
+    display: flex;
+    color: #333;
+    transition: color 0.3s ease;
+    margin-left: 34px;
+}
+
+.info-libro-reclamaciones{
+    position: absolute;
+    margin-top: -23px;
+    height: 90px;
+    margin-left: -7px;
+
+}
+
+.social-fc{
+    position: absolute;
+    margin-top: -2px;
+    height: 25px;
+    margin-left: -335px;
+}
+.social-ig{
+    position: absolute;
+    margin-top: -2px;
+    height: 25px;
+    margin-left: -306px;
+}
+.social-tikTok{
+    position: absolute;
+    margin-top: -2px;
+    height: 25px;
+    margin-left: -276px;
+}
+
+
+.social-icons a:hover {
+    color: #007BFF;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+    font-size: 12px;
+}
+
+.footer-bottom a {
+    color: #333;
+    text-decoration: none;
+}
+
+.footer-bottom a:hover {
+    color: #007BFF;
+}
+
+/*mi perfil*/

@@ -1,0 +1,73 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #031b34 100%);
+}
+
+.verification-container {
+    margin: 2rem auto;
+    max-width: 500px;
+    width: 100%;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    padding: 2rem;
+    animation: slideIn 0.5s ease-out;
+}
+
+.icon-container {
+    font-size: 4rem;
+}
+
+.success-icon {
+    color: #031b34;
+    animation: scaleIn 0.5s ease-out;
+}
+
+.error-icon {
+    color: #031b34;
+    animation: scaleIn 0.5s ease-out;
+}
+
+.card-title {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.btn-primary {
+    background-color: #031b34;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.2);
+}
+/* Animaciones */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

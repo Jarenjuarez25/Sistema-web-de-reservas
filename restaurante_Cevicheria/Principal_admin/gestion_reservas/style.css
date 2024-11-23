@@ -1,0 +1,57 @@
+.table-hover tbody tr:hover {
+    background-color: rgba(0,0,0,.075);
+}
+.status-badge {
+    width: 100px;
+    text-align: center;
+}
+.table th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+}
+.action-buttons .btn {
+    margin: 0 2px;
+}
+.card {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+
+/*para la barra*/
+.table-fixed tbody{
+
+    height: 390px;
+    overflow-y:auto;
+    width: 100%;
+    
+    }
+    
+    .table-fixed thead,
+    .table-fixed tbody,
+    .table-fixed td,
+    .table-fixed th{
+    display: block;
+    }
+    
+    .table-fixed tbody td,
+    .table-fixed thead > tr > th{
+        float: left;
+        border-bottom-width: 0;
+    }
+    
+    .table {
+        width: 102%;
+        margin-bottom: 1rem;
+        color: #212529;
+        margin-left: -15px;
+    }
+    
+    .col-md-6.offset-md-3.tableactu {
+        margin-left: 49%;
+        margin-top: -22%;
+    }
+
+    .text-primary {
+        --bs-text-opacity: 1;
+        color: rgb(14 14 14) !important;
+    }

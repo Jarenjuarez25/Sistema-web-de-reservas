@@ -1,0 +1,64 @@
+* {
+    block-size: border-box;
+    text-decoration: none;
+}
+
+body {
+    
+    background-color: #f2f4f5;
+    margin: 0;
+    padding-top: 1px;
+}
+
+
+/*seccion-1*/
+.seccion-1 {
+    text-align: center;
+    color: white;
+    padding: 360px;
+    background-color: #0c0c22;
+}
+
+.seccion-1 h2 {
+    font-family: Helvetica , Helvetica, Arial, sans-serif;
+    color: white;
+    position: absolute;
+    text-align: left;
+    top: 7%;
+    left: 100px;
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.seccion-1 p {
+    font-family: 'Open Sans', sans-serif;
+    position: absolute;
+    top: 11%;
+    left: 60%;
+    max-width: 550px;
+    font-size: 1.0em;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.separador-1 {
+    position: absolute;
+    width: 257px;
+    height: 7px;
+    background-color: white;
+    margin: -17% 220px;
+}
+
+.ubicacion {
+    position: absolute;
+    margin:  -10% -10%;
+}
+
+.seccion-1 video {
+    position: absolute;
+  margin: -10% 10%;
+}
+
+/*Fin seccion-1*/

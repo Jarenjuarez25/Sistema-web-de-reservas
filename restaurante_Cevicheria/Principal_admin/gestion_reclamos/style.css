@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.btn i {
+    margin-right: 5px;
+}
+
+.main-container,
+.container mt-5 {
+    margin-left: 250px;
+    /* Ajusta este valor según el ancho de tu aside */
+    width: calc(100% - 250px);
+    padding: 10px;
+}
+
+.container {
+    margin-top: 10px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 1.7rem;
+    margin-top: 21px;
+    margin-left: -45%;
+}
+
+.table {
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.table thead {
+    background-color: #031b34;
+    color: white;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.btn {
+    margin: 5px;
+}
+
+/*para la barra*/
+.table-fixed tbody{
+
+    height: 400px;
+    overflow-y:auto;
+    width: 100%;
+    
+    }
+    
+    .table-fixed thead,
+    .table-fixed tbody,
+    .table-fixed td,
+    .table-fixed th{
+    display: block;
+    }
+    
+    .table-fixed tbody td,
+    .table-fixed thead > tr > th{
+        float: left;
+        border-bottom-width: 0;
+    }
+    
+    .table {
+        width: 352%;
+        margin-bottom: 1rem;
+        color: #212529;
+        margin-left: -244px;
+    }
+    
+    .col-md-6.offset-md-3.tableactu {
+        margin-left: 49%;
+        margin-top: -22%;
+    }

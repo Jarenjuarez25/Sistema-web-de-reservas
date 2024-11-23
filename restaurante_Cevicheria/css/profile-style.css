@@ -1,0 +1,160 @@
+:root {
+    --navy-blue: #1a237e;
+    --navy-light: #303f9f;
+    --navy-hover: #283593;
+    --gray-light: #f5f7fa;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--gray-light);
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+
+.profile-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    height: 74%;
+    margin-top: 7%;
+}
+
+
+.content-area {
+    padding: 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.tab-content {
+    flex: 1;
+    min-height: 500px;
+    overflow: auto;
+}
+
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background: white;
+}
+
+.table th {
+    background-color: var(--navy-blue);
+    color: white;
+    padding: 1rem;
+    text-align: left;
+}
+
+.table td {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+
+.sidebar {
+    background: white;
+    border-right: 1px solid #eee;
+}
+
+.nav-link {
+    color: #555;
+    padding: 1rem 1.5rem;
+    display: block;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.nav-link:hover {
+    background-color: #f8f9fa;
+    color: var(--navy-blue);
+}
+
+.nav-link.active {
+    background-color: var(--navy-blue);
+    color: white;
+    border-left: 4px solid var(--navy-light);
+}
+
+.content-area {
+    padding: 2rem;
+}
+
+h2 {
+    color: var(--navy-blue);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    font-weight: 500;
+    color: #555;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    width: 93%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--navy-blue);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(26,35,126,0.1);
+}
+
+
+
+.status-pending {
+    color: #dc3545;
+}
+
+.status-process {
+    color: #007bff;
+}
+
+.status-resolved {
+    color: #28a745;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.password-input-container {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+}

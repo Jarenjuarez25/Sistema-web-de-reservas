@@ -1,0 +1,269 @@
+* {
+    block-size: border-box;
+    text-decoration: none;
+}
+
+body {
+    background-color: #0c0c22;
+    margin: 0;
+    padding-top: 1px;
+}
+
+
+/* Contenedor del menú */
+.menu-item {
+    background: white;
+    border-radius: 10px;
+    width: 233px;
+    height: 223px;
+    padding: 2.9rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem;
+}
+
+.menu-item img {
+    width: 160px;
+    height: 140px;
+    object-fit: contain;
+    margin-bottom: 0.5rem; 
+    margin-top: -21px;
+}
+
+.menu-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0rem;
+    padding: 2rem;
+    margin-top: -48px;
+}
+
+.menu-item-price {
+    font-size: 1.2rem;
+    color: #666;
+    margin: 0.5rem 0;
+}
+
+.menu-item .nombre {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+
+
+
+/*Contenedor de carta*/
+.h1_0{
+
+    font-family: 'Trade Gothic LT', sans-serif;
+    text-align: center;
+    margin: 30px 0 2rem;
+    color: #fffefe;
+    font-size: 2rem;
+    margin-top: 58px;
+}
+
+
+.h1_1{
+    font-family: 'Trade Gothic LT', sans-serif;
+    text-align: center;
+    margin: 30px 0 2rem;
+    color: #fffefe;
+    font-size: 2rem;
+    margin-top: -5px;
+}
+
+.h1_2{
+    font-family: 'Trade Gothic LT', sans-serif;
+    text-align: center;
+    margin: 20px 0 2rem;
+    color: #fffefe;
+    font-size: 2rem;
+}
+
+.h1_3{
+    font-family: 'Trade Gothic LT', sans-serif;
+    text-align: center;
+    margin: 20px 0 2rem;
+    color: #fffefe;
+    font-size: 2rem;
+}
+
+.h1_4{
+    font-family: 'Trade Gothic LT', sans-serif;
+    text-align: center;
+    margin: 20px 0 2rem;
+    color: #fffefe;
+    font-size: 2rem;
+}
+
+.h1_2{
+    font-family: 'Trade Gothic LT', sans-serif;
+    text-align: center;
+    margin: 20px 0 2rem;
+    color: #fffefe;
+    font-size: 2rem;
+}
+
+.h1_5{
+    font-family: 'Trade Gothic LT', sans-serif;
+    text-align: center;
+    margin: 20px 0 2rem;
+    color: #fffefe;
+    font-size: 2rem;
+}
+
+.h1_7{
+    font-family: 'Trade Gothic LT', sans-serif;
+    text-align: center;
+    margin: 20px 0 2rem;
+    color: #fffefe;
+    font-size: 2rem;
+}
+
+.h1_8{
+    font-family: 'Trade Gothic LT', sans-serif;
+    text-align: center;
+    margin: 20px 0 2rem;
+    color: #fffefe;
+    font-size: 2rem;
+}
+
+.h1_9{
+    font-family: 'Trade Gothic LT', sans-serif;
+    text-align: center;
+    margin: 20px 0 2rem;
+    color: #fffefe;
+    font-size: 2rem;
+}
+
+.menu-grid p{
+    color: #ff0707;
+}
+
+.menu-item label{
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+}
+
+.menu-item p {
+    color: black;
+}
+
+/*buscador*/
+.navbar .search-box{
+    position: relative;
+     height: 40px;
+     width: 40px;
+  }
+  .navbar .search-box i{
+    position: absolute;
+    left: 4px;
+    height: 100%;
+    width: 100%;
+    line-height: 40px;
+    text-align: center;
+    font-size: 22px;
+    color: #363435;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .navbar .search-box .input-box{
+    position: absolute;
+    right: calc(100% - 40px);
+    top: 80px;
+    height: 48px;
+    width: 316px;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s ease;
+  }
+  .navbar.showInput .search-box .input-box{
+    top: 65px;
+    opacity: 1;
+    pointer-events: auto;
+    background: white;
+  }
+  
+  .search-box .input-box::before{
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    background: white;
+    right: 10px;
+    top: -6px;
+    transform: rotate(45deg);
+  }
+  .search-box .input-box input{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 4px;
+    transform: translate(-50%, -50%);
+    height: 35px;
+    width: 280px;
+    outline: none;
+    padding: 0 15px;
+    font-size: 16px;
+    border: none;
+  }
+
+  /*para el conteneder de busqueda*/
+  .menu-grid2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    margin-top: 7%;
+    display: flex;
+    margin-left:10%;
+    flex-wrap: wrap;
+}
+
+.menu-grid2 .menu-item2 {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.menu-grid .menu-item:hover {
+    transform: translateY(-5px);
+}
+
+.menu-grid2 .menu-item:hover {
+    transform: translateY(-5px);
+}
+
+.btn-limpiar{
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 75px;
+    left: 17px;
+}
+
+.p-nobus{
+    text-align: center;
+    width: 100%;
+    margin-left: -70;
+    margin-top: 50px;
+    color: white;
+}

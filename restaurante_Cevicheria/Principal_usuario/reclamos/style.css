@@ -1,0 +1,41 @@
+/* Styles for the reclamaciones form */
+.reclamaciones-form h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+.reclamaciones-form{
+    padding-top: 10px
+}
+
+.reclamaciones-form p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.reclamaciones-form .form-control {
+    border-radius: 0;
+    border-color: #ced4da;
+}
+
+.reclamaciones-form .form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.reclamaciones-form .btn-primary {
+    background-color: #031b34;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+
+.reclamaciones-form .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+
+.reclamaciones-form .form-group {
+    margin-bottom: 25px;
+}

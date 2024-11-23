@@ -1,0 +1,224 @@
+*{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*seccion de reservas*/
+.section-Gre{
+    position: relative;
+    padding: 104px 50px;
+    background-color: #f5f5f5;
+    left: 100px;
+    top: 50px;
+    width: 39%;
+    box-shadow: 2px 9px 8px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center; 
+}
+
+.section-Gre h2 {
+    position: relative;
+    top: -40px;
+    left: 198px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.section-Gre a {
+    position: absolute;
+    text-decoration: none;
+    color: black;
+    padding: 17px 10px;
+    box-shadow: 2px 9px 30px rgba(0,0,0,0.2);
+    border: 0.5px solid #0a0a0a;
+    border-radius: 9px;
+    font-weight: bold;
+    top: 120px;
+    left: 196px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.section-Gre a:hover {
+    background-color: #031b34;
+    color: white;
+}
+
+
+
+/*seccion de Gestion Usuarios*/
+.section-Gu{
+    position: relative;
+    padding: 104px 50px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    left: 820px;
+    top: -202px;
+    width: 39%;
+    box-shadow: 2px 9px 8px rgba(0,0,0,0.2);
+    display: flex; 
+    align-items: center; 
+}
+
+.section-Gu h2 {
+    position: relative;
+    top: -40px;
+    left: 197px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.section-Gu a {
+    position: absolute;
+    text-decoration: none;
+    color: black;
+    padding: 17px 10px;
+    box-shadow: 2px 9px 30px rgba(0,0,0,0.2);
+    border: 0.5px solid #0a0a0a;
+    border-radius: 9px;
+    font-weight: bold;
+    top: 112px;
+    left: 196px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.section-Gu a:hover {
+    background-color: #031b34;
+    color: white;
+}
+
+/*seccion de Gestion Reseñas*/
+.section-Grese{
+    position: relative;
+    padding: 105px 50px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    width: 39%;
+    top: -150px;
+    left: 100px;
+    box-shadow: 2px 9px 8px rgba(0,0,0,0.2); 
+    display: flex; 
+    align-items: center; 
+}
+
+
+.section-Grese h2 {
+    position: relative;
+    top: -40px;
+    left: 188px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.section-Grese a {
+    position: absolute;
+    text-decoration: none;
+    color: black;
+    padding: 17px 10px;
+    box-shadow: 2px 9px 30px rgba(0,0,0,0.2);
+    border: 0.5px solid #0a0a0a;
+    border-radius: 9px;
+    font-weight: bold;
+    top: 112px;
+    left: 200px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.section-Grese a:hover {
+    background-color: #031b34;
+    color: white;
+}
+
+
+/*seccion de Gestion reclamos*/
+
+.section-Gr{
+    position: relative;
+    padding: 105px 50px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    width: 39%;
+    top: -410px;
+    left: 820px;
+    box-shadow: 2px 9px 8px rgba(0,0,0,0.2); 
+    display: flex; 
+    align-items: center; 
+}
+
+
+.section-Gr h2 {
+    position: relative;
+    top: -40px;
+    left: 189px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.section-Gr a {
+    position: absolute;
+    text-decoration: none;
+    color: black;
+    padding: 17px 10px;
+    box-shadow: 2px 9px 30px rgba(0,0,0,0.2);
+    border: 0.5px solid #0a0a0a;
+    border-radius: 9px;
+    font-weight: bold;
+    top: 112px;
+    left: 207px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.section-Gr a:hover {
+    background-color: #031b34;
+    color: white;
+}
+
+
+/*dashborad*/
+.section-dahs{
+    position: relative;
+    padding: 105px 50px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    width: 39%;
+    top: -363px;
+    left: 99px;
+    box-shadow: 2px 9px 8px rgba(0,0,0,0.2); 
+    display: flex; 
+    align-items: center; 
+}
+
+
+.section-dahs h2 {
+    position: relative;
+    top: -40px;
+    left: 164px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.section-dahs a {
+    position: absolute;
+    text-decoration: none;
+    color: black;
+    padding: 17px 10px;
+    box-shadow: 2px 9px 30px rgba(0,0,0,0.2);
+    border: 0.5px solid #0a0a0a;
+    border-radius: 9px;
+    font-weight: bold;
+    top: 112px;
+    left: 200px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.section-dahs a:hover {
+    background-color: #031b34;
+    color: white;
+}
