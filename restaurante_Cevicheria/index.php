@@ -202,7 +202,7 @@ if (isset($_SESSION['user_id'])) {
             <a href="https://www.google.com.pe/maps/place/Rest+CEVICHERIA+luigys/@-5.1686779,-80.6632394,17z/data=!4m8!3m7!1s0x904a1b813a27393f:0x2ec49b2e5608ff02!8m2!3d-5.1686832!4d-80.6606645!9m1!1b1!16s%2Fg%2F11q383_qmm?hl=es-419&entry=ttu&g_ep=EgoyMDI0MTAyOS4wIKXMDSoASAFQAw%3D%3D"
                 target="_blank" class="tarjeta-link">
                 <div class="reseña_bloque">
-                    <h3>Jia Mego</h3>
+                    <h3>Mego</h3>
                     <p>Muy rica la. Comida recomendado.</p>
                 </div>
             </a>
