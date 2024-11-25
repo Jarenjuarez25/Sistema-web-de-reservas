@@ -17,7 +17,7 @@ if (isset($_SESSION['user_id'])) {
     $nombre = $con->getNombreByUserId($_SESSION['user_id']);
 }
 
-$total_mesas = 10;
+$total_mesas = 40;
 ?>
 
 
@@ -134,7 +134,7 @@ $total_mesas = 10;
                         <input type="hidden" id="numeroMesa" name="numeroMesa">
                         <div class="mb-3">
                             <label for="cantidadPersonas" class="form-label">Cantidad de Personas</label>
-                            <input type="number" class="form-control" id="cantidadPersonas" name="cantidadPersonas" min="1" max="8" required>
+                            <input type="number" class="form-control" id="cantidadPersonas" name="cantidadPersonas" min="1" max="10" required>
                         </div>
                         <div class="mb-3">
                             <label for="descripcion" class="form-label">Descripción/Notas</label>

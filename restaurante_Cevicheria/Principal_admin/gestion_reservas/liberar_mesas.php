@@ -82,7 +82,7 @@ $reservas = $con->Mostrar_Reservas();
                                             Liberar
                                         </button>
                                     <?php elseif ($reserva['estado'] === 'Resuelto'): ?>
-                                        <button class="btn btn-success btn-sm" disabled>Liberado</button>
+                                        <button class="btn btn-success btn-sm">Liberado</button>
                                     <?php endif; ?>
                                 </td>
                             </tr>

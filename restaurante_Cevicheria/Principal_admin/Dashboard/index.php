@@ -19,7 +19,6 @@ $distribucion = $conexion -> getdistribucionData();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuarios</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="/restaurante_Cevicheria/Images/Logo.ico">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
@@ -55,17 +54,6 @@ $distribucion = $conexion -> getdistribucionData();
     <button id="deleteFiltros1">Borrar filtros</button>
 </div>
             
-
-            <div class="selection-section">
-                <label for="chartSelection">Seleccione el gráfico:</label>
-                <select id="chartSelection">
-                    <option value="usuariosChart">Registro de usuarios</option>
-                    <option value="distribucionChart">Distribución de usuarios por género</option>
-                    <option value="reservasChart">Registro de reservas</option>
-                    <option value="reclamosChart">Reclamos por tipo</option>
-                </select>
-            </div>
-            <button id="printPdfBtn"><i class="fas fa-file-pdf"></i> Imprimir Graficos</button>
             <button id="printTablesPdfBtn"><i class="fas fa-file-pdf"></i> Imprimir Tablas</button>
         </div>
 
@@ -100,6 +88,7 @@ $distribucion = $conexion -> getdistribucionData();
         const reservasData = <?php echo json_encode($reservas); ?>;
         const distribucionData = <?php echo json_encode($distribucion); ?>;
     </script>
+
     <script src="script.js"></script>
     <script src="/restaurante_Cevicheria/js/loader.js"></script>
 </body>

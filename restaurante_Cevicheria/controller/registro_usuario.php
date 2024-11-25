@@ -41,7 +41,7 @@ if ($con->isEmailRegistered($correo)) {
     // Redirigir al login con un mensaje
     echo "<script>
         alert('Registro exitoso. Por favor, verifica tu correo.');
-        window.location.href = '/restaurante_Cevicheria/Principal_usuario/Login/index.php?openModal=login';
+        window.location.href = '/restaurante_Cevicheria/Principal_usuario/Login/index.php';
     </script>";
     exit();
 }

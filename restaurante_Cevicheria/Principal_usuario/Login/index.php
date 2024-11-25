@@ -104,7 +104,7 @@ $con = new Conexion();
                 }
                 ?>
           <h1>INICIAR SESION</h1>
-              <form method="POST" action="/restaurante_Cevicheria/controller/login_usuario.php">
+              <form method="POST" action="/restaurante_Cevicheria/controller/login_usuario.php?accion=login">
                 <br><br>
                 <label class="lb-correo">Correo*</label>
                 <input type="email" id="correo" class="input-correo" name="correo" placeholder="Ingresa tu correo" required>

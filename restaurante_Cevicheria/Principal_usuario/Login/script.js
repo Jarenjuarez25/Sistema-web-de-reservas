@@ -1,4 +1,4 @@
-/*Modal 1*/
+/*Registrarse*/
 const modalADD1 = document.querySelector("#modalADD1");
 
 const abrirModal1 = () => {
@@ -11,8 +11,17 @@ const cerrarModal1 = () => {
     document.querySelectorAll("#modalADD1 input").forEach(input => input.value = '');
 };
 
+// Verificar parámetros URL para abrir modal automáticamente
+document.addEventListener('DOMContentLoaded', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('openModal') === 'registro') {
+      abrirModal1();
+      
+      window.history.replaceState({}, document.title, window.location.pathname);
+  }
+});
 
-/*Modal 2*/
+/*Login*/
 const modalADD = document.querySelector("#modalADD");
 
 const abrirModal = () => {
@@ -27,8 +36,8 @@ const cerrarModal = () => {
 // Verificar parámetros URL para abrir modal automáticamente
 document.addEventListener('DOMContentLoaded', function() {
   const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('openModal') === 'registro') {
-      abrirModal1();
+  if (urlParams.get('openModal') === 'login') {
+    abrirModal();
       
       window.history.replaceState({}, document.title, window.location.pathname);
   }
@@ -125,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function() {
   if (mensaje) {
       setTimeout(function() {
           mensaje.remove();
-      }, 2000);
+      }, 3000);
   }
 });
 

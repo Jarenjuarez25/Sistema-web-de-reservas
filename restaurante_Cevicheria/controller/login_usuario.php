@@ -21,7 +21,7 @@ if($query && mysqli_num_rows($query) > 0) {
     // Obtener los datos del usuario
     $usuario = mysqli_fetch_assoc($query);
 
-    $_SESSION['user_id'] = $usuario['id'];
+                $_SESSION['user_id'] = $usuario['id'];
                 $_SESSION['user_nombre'] = $usuario['nombre'];
                 $_SESSION['user_correo'] = $usuario['correo'];
                 $_SESSION['user_email'] = $usuario['correo'];
@@ -37,7 +37,7 @@ if($query && mysqli_num_rows($query) > 0) {
 } else {
     $_SESSION['mensaje'] = 'Correo o contraseña incorrectos';
     $_SESSION['tipo_mensaje'] = 'error';
-    header("Location: /restaurante_Cevicheria/Principal_usuario/Login/index.php?openModal=true");
+    header("Location: /restaurante_Cevicheria/Principal_usuario/Login/index.php?openModal=login");
 }
 
 mysqli_close($conexion);
