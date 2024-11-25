@@ -58,12 +58,12 @@ $con = new Conexion();
             <br></br>
             <input type="text" id="nombre" name="nombre" class="input-Nombre" placeholder="Nombre*" required>
             <input type="text" id="apellidos" name="apellidos" class="input-Apellido" placeholder="Apellido*" required>
-            <input type="text" id="dni" name="dni" class="input-Dni" placeholder="Dni*" maxlength="8" minlength="8" required>
+            <input type="text" id="dni" name="dni" class="input-Dni" placeholder="Dni*"required>
             <input type="email" id="correo" name="correo" class="input-Correo" placeholder="Correo electrónico*" required>
-            <input type="password" id="contraseña" name="contraseña" class="input-contrasenaa" placeholder="Contraseña*" maxlength="9" minlength="9" required>
+            <input type="password" id="contraseña" name="contraseña" class="input-contrasenaa" placeholder="Contraseña*" required>
             <img src="/restaurante_Cevicheria/Images/ojo.png" class="pass-icon" onclick="togglePasswordVisibility('contraseña', 'pass-icon')" id="pass-icon" style="display: none;"></img>
             
-            <input type="password" id="confirmarContraseña" name="confirmarContraseña" class="input-confirmarContrasena" placeholder="Repetir contraseña*" maxlength="9" minlength="9" required>
+            <input type="password" id="confirmarContraseña" name="confirmarContraseña" class="input-confirmarContrasena" placeholder="Repetir contraseña*" required>
             <img src="/restaurante_Cevicheria/Images/ojo.png" class="pass-icon2" onclick="togglePasswordVisibility('confirmarContraseña', 'pass-icon2')" id="pass-icon2" style="display: none;"></img>
 
             <label class="lb-Genero">Género*</label>
@@ -109,7 +109,7 @@ $con = new Conexion();
                 <label class="lb-correo">Correo*</label>
                 <input type="email" id="correo" class="input-correo" name="correo" placeholder="Ingresa tu correo" required>
                 <label class="lb-Contrasena">Contraseña*</label>
-                <input type="password" id="contra" class="input-Contrasena" name="contra" placeholder="Ingrese contraseña" maxlength="9" required>
+                <input type="password" id="contra" class="input-Contrasena" name="contra" placeholder="Ingrese contraseña"required>
                 <img src="/restaurante_Cevicheria/Images/ojo.png" class="pass-icon3" onclick="togglePasswordVisibility('contra', 'pass-icon3')" id="pass-icon3" style="display: none;"></img>
                 <button type="submit">INGRESAR</button>
                 

@@ -29,7 +29,6 @@ if ($con->isEmailRegistered($correo)) {
     $sql_usuario = $con->insertUser($nombre, $apellidos, $dni, $correo, $contrasenia, $genero, $fechaNacimiento);
     
     // Generar token de verificación
-    $idUsuario = $con->verifyEmail($sql_usuario);
     $token_verificacion = bin2hex(random_bytes(20));
     $token_verificacion_expira = date('Y-m-d H:i:s', strtotime('+20 minutes'));
     

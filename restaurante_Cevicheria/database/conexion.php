@@ -247,7 +247,7 @@ class Conexion {
         $stmt->bind_result($verificado);
         $stmt->fetch();
         $stmt->close();
-        return $verificado == 1; // Supongamos que el campo 'verificado' es 1 si el correo está verificado
+        return $verificado == 1;
     }
 
     public function loginUser($email, $contraseña)

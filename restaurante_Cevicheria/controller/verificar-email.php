@@ -15,7 +15,7 @@ if ($token) {
         exit();
     } else {
         // Token inválido o expirado
-        header("Location: /restaurante_Cevicheria/Principal_usuario/Verifi-interfa/expirado.html");
+        header("Location: /restaurante_Cevicheria/Principal_usuario/Verifi-interfa/error.html");
         exit();
     }
 } else {

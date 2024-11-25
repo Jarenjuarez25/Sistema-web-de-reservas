@@ -43,7 +43,7 @@ if (!isset($_SESSION['reset_email'])) {
                     <label for="contrasenia" class="login-label">Nueva contraseña:</label>
                     <div class="password-input-container">
                         <input type="password" id="contrasenia" name="contrasenia" class="login-input" 
-                        oninput="togglePasswordIconVisibility('contrasenia')" maxlength="9" minlength="9" required>
+                        oninput="togglePasswordIconVisibility('contrasenia')"required>
                        
                         <span class="password-toggle" id="contrasenaia-toggle"
                         onclick="togglePasswordVisibility('contrasenia')">
@@ -57,7 +57,7 @@ if (!isset($_SESSION['reset_email'])) {
                     <label for="confirm_contrasenia" class="login-label">Confirmar contraseña:</label>
                     <div class="password-input-container">
                         <input type="password" id="confirm_contrasenia" name="confirm_contrasenia" class="login-input" 
-                        required oninput="togglePasswordIconVisibility('confirm_contrasenia')" maxlength="9" minlength="9" required>
+                        required oninput="togglePasswordIconVisibility('confirm_contrasenia')" required>
 
                         <span class="password-toggle" id="confirm_contrasena-toggle"
                         onclick="togglePasswordVisibility('confirm_contrasenia')">
@@ -153,8 +153,8 @@ function validatePassword(contrasena, confirmContrasena) {
     if (contrasena !== confirmContrasena) {
         return "Las contraseñas no coinciden.";
     }
-    if (contrasena.length < 9) {
-        return "La contraseña debe tener al menos 9 caracteres.";
+    if (contrasena.length < 8) {
+        return "La contraseña debe tener al menos 8 caracteres.";
     }
     if (!/[A-Z]/.test(contrasena)) {
         return "La contraseña debe tener al menos una letra mayúscula.";
@@ -173,10 +173,6 @@ document.querySelectorAll('#contrasenia, #confirm_contrasenia').forEach(input =>
     input.addEventListener('input', function(e) {
         var valor = this.value;
         
-        // Limitar la longitud a 16 caracteres (opcional)
-        if (valor.length > 16) {
-            this.value = valor.slice(0, 16);
-        }
     });
 });
 

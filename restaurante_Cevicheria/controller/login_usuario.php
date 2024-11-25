@@ -17,6 +17,30 @@ $_SESSION['user_email'] = $correo;
 $sql = "SELECT * FROM tbusuario WHERE correo='$correo' AND contrasenia='$password'";
 $query = mysqli_query($conexion, $sql);
 
+if(!filter_var($correo, FILTER_VALIDATE_EMAIL) || !preg_match('/^[a-zA-Z0-9._%+-]+@([a-zA-Z0-9.-]+\.)?(gmail\.com|yahoo\.com|hotmail\.com|outlook\.com|live\.com|icloud\.com|edu\.pe)$/', $correo) ){
+    $_SESSION['mensaje'] = 'Por favor, ingrese un correo valido';
+    $_SESSION['tipo_mensaje'] = 'error';
+    header("Location: /restaurante_Cevicheria/Principal_usuario/Login/index.php?openModal=login");
+    exit();
+}
+
+    // Verificar si el correo está registrado
+    if (!$con->isEmailRegistered($correo)) {
+        $_SESSION['mensaje'] = "El correo electrónico no está registrado.";
+        $_SESSION['tipo_mensaje'] = "error";
+        header("Location: /restaurante_Cevicheria/Principal_usuario/Login/index.php?openModal=login");
+        exit();
+    }
+
+    // Verificar si el correo está verificado
+if (!$con->isEmailVerified($correo)) {
+        $_SESSION['mensaje'] = "El correo electrónico no está verificado. <br>
+        Por favor, verifica tu correo electrónico.";
+        $_SESSION['tipo_mensaje'] = "error";
+        header("Location: /restaurante_Cevicheria/Principal_usuario/Login/index.php?openModal=login");
+        exit();
+}
+
 if($query && mysqli_num_rows($query) > 0) {
     // Obtener los datos del usuario
     $usuario = mysqli_fetch_assoc($query);

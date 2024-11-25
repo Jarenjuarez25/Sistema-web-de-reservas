@@ -52,45 +52,44 @@ function validarFormularioRegister() {
   const confirmarContraseña = document.getElementById('confirmarContraseña').value;
   const correo = document.getElementById('correo').value;
 
-  // Validar que las contraseñas coincidan
-  if (contraseña !== confirmarContraseña) {
-      alert('Las contraseñas no coinciden');
+  const regexNombre = /^[a-zA-ZÀ-ÿ\s]+$/;
+  if (!regexNombre.test(nombre)){
+      alert("El nombre solo debe contener letras");
       return false;
   }
 
-  // Validar formato de la contraseña (mínimo 8 caracteres, una mayúscula, un número, y un carácter especial)
-  const regexContraseña = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,}$/;
-  if (!regexContraseña.test(contraseña)) {
-    alert('La contraseña debe incluit al menos una letra mayúscula, un número y un carácter especial.');
-    return false;
-  }
-
-  // Validar el formato del correo
-  const regexCorreo = /^[a-zA-Z0-9._%+-]+@([a-zA-Z0-9.-]+\.)?(gmail\.com|yahoo\.com|hotmail\.com|outlook\.com|live\.com|icloud\.com|edu\.pe)$/;
-  if (!regexCorreo.test(correo)) {
-      alert('El correo electrónico no es válido');
+  const regexApellido = /^[a-zA-ZÀ-ÿ\s]+$/;
+  if (!regexApellido.test(apellido)){
+      alert("El Apellido solo debe contener letras");
       return false;
   }
-  
-  // Validar DNI (solo números y 8 dígitos)
+
+
   const regexDni = /^\d{8}$/;
   if (!regexDni.test(dni)) {
       alert("El DNI no debe contener letras o caracteres especiales");
       return false;
   }
 
-  // Validar nombre (solo letras)
-  const regexNombre = /^[a-zA-ZÀ-ÿ\s]+$/;
-  if (!regexNombre.test(nombre)){
-      alert("El nombre solo debe contener letras");
-     
+  const regexCorreo = /^[a-zA-Z0-9._%+-]+@([a-zA-Z0-9.-]+\.)?(gmail\.com|yahoo\.com|hotmail\.com|outlook\.com|live\.com|icloud\.com|edu\.pe)$/;
+  if (!regexCorreo.test(correo)) {
+      alert('El correo electrónico no es válido');
+      return false;
   }
+
+
+  const regexContraseña = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,}$/;
+  if (!regexContraseña.test(contraseña)) {
+    alert('La contraseña debe incluit al menos una letra mayúscula, un número y un carácter especial.');
+    return false;
+  }
+
+  if (contraseña !== confirmarContraseña) {
+      alert('Las contraseñas no coinciden');
+      return false;
+  }
+
 }
-
-// Validar si existe correo existente
-
-
-
 
 function togglePasswordVisibility(fieldId, iconId) {
   const passwordInput = document.getElementById(fieldId);

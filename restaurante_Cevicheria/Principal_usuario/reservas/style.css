@@ -315,9 +315,11 @@ body.modal-open {
     transform: scale(1.05);
 }
 .mesa-imagen {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
+  width: 108px;
+  height: 135px;
+  object-fit: contain;
+  left: 4;
+  margin-left: 94px;
 }
 
 
