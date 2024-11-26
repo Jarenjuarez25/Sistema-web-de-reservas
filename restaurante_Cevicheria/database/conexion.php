@@ -492,6 +492,16 @@ return $reservas;
         return ['error' => false, 'tieneReservas' => $tieneReservas];
     }
     
+    public function Desactivar_Usuario($id) {
+        $sql = "UPDATE tbusuario SET verificado = 0 WHERE id = $id";
+        $this->con->query($sql);
+    }
+
+    public function Activar_Usuario($id) {
+        $sql = "UPDATE tbusuario SET verificado = 1 WHERE id = $id";
+        $this->con->query($sql);
+    }
+
 }
 
 ?>

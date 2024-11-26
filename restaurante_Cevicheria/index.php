@@ -224,8 +224,8 @@ if (isset($_SESSION['user_id'])) {
 
             <div class="footer-section reservations">
                 <h3>DATOS DE CONTACTO</h3>
-                <a href="https://wa.me/51952308626" target="_blank" style="color:black">- +51 952308626</a><br>
-                <a href="https://mail.google.com/mail/?view=cm&to=Luigy14851@gmail.com" target="_blank" style="color:black">- Luigy14851@gmail.com</a>
+                <p><a href="https://wa.me/51952308626" target="_blank" style="color:black">- +51 952308626</a></p>
+                <p><a href="https://mail.google.com/mail/?view=cm&to=Luigy14851@gmail.com" target="_blank" style="color:black">- Luigy14851@gmail.com</a></p>
             </div>
 
             <div class="footer-section contact-info">

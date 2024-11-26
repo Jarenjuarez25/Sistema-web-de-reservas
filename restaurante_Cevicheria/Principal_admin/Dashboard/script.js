@@ -101,14 +101,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Función para actualizar un gráfico
+
     function updateChart(chart, data, labelKey, valueKey) {
         chart.data.labels = data.map(item => item[labelKey]);
         chart.data.datasets[0].data = data.map(item => item[valueKey]);
         chart.update();
     }
 
-    // Función para filtrar datos por rango de fechas
+
     function filterDataByDate(data, startDate, endDate) {
         const start = new Date(startDate);
         const end = new Date(endDate);
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Función para aplicar filtros
+
     function applyFilters() {
         const fechaInicio = fechaInicioInput.value;
         const fechaFin = fechaFinInput.value;
@@ -128,35 +128,34 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Filtrar datos
+
         const usuariosFiltrados = filterDataByDate(usuariosData, fechaInicio, fechaFin);
         const reservasFiltradas = filterDataByDate(reservasData, fechaInicio, fechaFin);
 
-        // Actualizar gráficos
+
         updateChart(usuariosChart, usuariosFiltrados, 'fecha', 'cantidad');
         updateChart(reservasChart, reservasFiltradas, 'fecha', 'cantidad');
     }
 
-    // Función para borrar filtros
+
     function clearFilters() {
         fechaInicioInput.value = '';
         fechaFinInput.value = '';
 
-        // Restaurar gráficos con datos originales
+
         updateChart(usuariosChart, usuariosData, 'fecha', 'cantidad');
         updateChart(reservasChart, reservasData, 'fecha', 'cantidad');
     }
 
-    // Vincular eventos
+
     applyFilterBtn.addEventListener('click', applyFilters);
     deleteFiltersBtn.addEventListener('click', clearFilters);
 
-    // Inicializar gráficos
-    initCharts();
 
+initCharts();
 
 });
 
-document.getElementById('printTablesPdfBtn').addEventListener('click', function() {
-        window.location.href = 'generate_report.php';
+document.getElementById('printTablesPdfBtn').addEventListener('click', function () {
+    window.location.href = 'generate_report.php';
 });

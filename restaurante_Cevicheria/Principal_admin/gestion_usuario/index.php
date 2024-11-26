@@ -52,8 +52,8 @@ $cliente = $con->Mostrar_Usuarios(2);
                 <th style="width: 150px">DNI</th>
                 <th style="width: 230px">Nombres</th>
                 <th style="width: 210px">Apellidos</th>
-                <th style="width: 290px">Email</th>
-                <th style="width: 200px">Acciones</th>
+                <th style="width: 320px">Email</th>
+                <th style="width: 100px">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -65,10 +65,9 @@ $cliente = $con->Mostrar_Usuarios(2);
                     <td style="width: 150px"><?php echo ($row['dni']); ?></td>
                     <td style="width: 230px"><?php echo ($row['nombre']); ?></td>
                     <td style="width: 210px"><?php echo ($row['apellidos']); ?></td>
-                    <td style="width: 290px"><?php echo ($row['correo']); ?></td>
-                    <td style="width: 200px">
+                    <td style="width: 320px"><?php echo ($row['correo']); ?></td>
+                    <td style="width: 100px">
                         <a href="actualizar.php?id=<?php echo ($row['id']); ?>" class="btn btn-primary">Editar</a>
-                        <a href="eliminar_usuario.php?id=<?php echo ($row['id']); ?>" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar este usuario?');">Eliminar</a>
                     </td>
                 </tr>
             <?php
@@ -90,7 +89,7 @@ $cliente = $con->Mostrar_Usuarios(2);
                     <th style="width: 350px">Correo</th>
                     <th style="width: 210px">Rol</th>
                     <th style="width: 220px">Estado</th>
-                    <th style="width: 200px">Dar Rol</th>
+                    <th style="width: 300px">Dar Rol</th>
                 </tr>
             </thead>   
             <tbody>
@@ -111,7 +110,12 @@ $cliente = $con->Mostrar_Usuarios(2);
                             ?>
                         </td>
                         <td style="width: 160px"><?php echo $usuario['estado']; ?></td>
-                        <td style="width: 240px">
+                        <td style="width: 300px">
+                        <?php if ($usuario['verificado'] == '1') { ?>
+                                <a href="/restaurante_Cevicheria/controller/desactivar.php?id=<?=$usuario['id']?>" class="btn btn-warning">Quitar verificado</a>
+                            <?php } else { ?>
+                                <a href="/restaurante_Cevicheria/controller/activar.php?id=<?=$usuario['id']?>" class="btn btn-success">Verificar</a>
+                            <?php } ?>
                             <a href="/restaurante_Cevicheria/controller/cambiar_rol.php?id=<?=$usuario['id']?>&rol=<?=$usuario['cargo_id']?>" class="btn btn-primary">
                                 <?php echo ($usuario['cargo_id'] == 1) ? 'Quitar Admin' : 'Hacer Admin'; ?>
                             </a>
@@ -130,7 +134,7 @@ $cliente = $con->Mostrar_Usuarios(2);
                     <th style="width: 360px">Correo</th>
                     <th style="width: 150px">Rol</th>
                     <th style="width: 150px">Estado</th>
-                    <th style="width: 200px">Dar rol</th>
+                    <th style="width: 300px">Dar rol</th>
                 </tr>
             </thead>   
             <tbody>
@@ -151,7 +155,12 @@ $cliente = $con->Mostrar_Usuarios(2);
                             ?>
                         </td>
                         <td style="width: 150px"><?php echo $usuario['estado']; ?></td>
-                        <td style="width: 200px">
+                        <td style="width: 300px">
+                        <?php if ($usuario['verificado'] == '1') { ?>
+                                <a href="/restaurante_Cevicheria/controller/desactivar.php?id=<?=$usuario['id']?>" class="btn btn-warning">Quitar verificado</a>
+                            <?php } else { ?>
+                                <a href="/restaurante_Cevicheria/controller/activar.php?id=<?=$usuario['id']?>" class="btn btn-success">Verificar</a>
+                            <?php } ?>
                             <a href="/restaurante_Cevicheria/controller/cambiar_rol.php?id=<?=$usuario['id']?>&rol=<?=$usuario['cargo_id']?>" class="btn btn-primary">
                                 <?php echo ($usuario['cargo_id'] == 1) ? 'Quitar Admin' : 'Hacer Admin'; ?>
                             </a>
