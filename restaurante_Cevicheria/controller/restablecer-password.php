@@ -33,11 +33,10 @@ if ($accion == 'accion') {
         exit();
     }
     // Generar un token único para restablecer contraseña y almacenarlo en la base de datos
-    $token = mt_rand(100000, 999999); // Genera un número aleatorio de 6 dígitos
+    $token = mt_rand(100000, 999999);
 
     if ($con->savePasswordResetToken($email, $token)) {
         $_SESSION['reset_email'] = $email;
-        enviarCorreoRecuperacionPass($email, $token);
         $_SESSION['mensaje'] = "El código de recuperación ha sido enviado a tu correo, expirará en 45 minutos.";
         $_SESSION['tipo_mensaje'] = "exito";
         header("Location: /restaurante_Cevicheria/Principal_usuario/Restablecer_pass/restablecer-pass-formularion.php");

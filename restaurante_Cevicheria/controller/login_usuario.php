@@ -6,14 +6,12 @@ require_once '../database/conexion.php';
 $con = new Conexion();
 $conexion = $con->getConexion();
 
-// Recibir datos del formulario
 $correo = $_POST['correo'];
 $password = $_POST['contra'];
 
 $_SESSION['correo'] = $correo;
 $_SESSION['user_email'] = $correo; 
 
-// Consulta para verificar las credenciales
 $sql = "SELECT * FROM tbusuario WHERE correo='$correo' AND contrasenia='$password'";
 $query = mysqli_query($conexion, $sql);
 
@@ -24,7 +22,6 @@ if(!filter_var($correo, FILTER_VALIDATE_EMAIL) || !preg_match('/^[a-zA-Z0-9._%+-
     exit();
 }
 
-    // Verificar si el correo está registrado
     if (!$con->isEmailRegistered($correo)) {
         $_SESSION['mensaje'] = "El correo electrónico no está registrado.";
         $_SESSION['tipo_mensaje'] = "error";

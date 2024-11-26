@@ -10,13 +10,9 @@ if (session_status() === PHP_SESSION_NONE) {
 require('database/conexion.php');
 
 $con = new Conexion();
-$nombre = ''; // Inicializa $nombre con un valor predeterminado
-//var_dump($_SESSION);
-//exit("1");
+$nombre = '';
 if (isset($_SESSION['user_id'])) {
     $nombre = $con->getNombreByUserId($_SESSION['user_id']);
-    //var_dump($nombre);
-    //exit("");
 }
 
 ?>
@@ -75,11 +71,9 @@ if (isset($_SESSION['user_id'])) {
 
                     <div class="usuario-dropdown">
                         <?php if (isset($_SESSION['user_nombre'])) : ?>
-                            <!-- If the user is logged in, show options -->
                             <p><a href="/restaurante_Cevicheria/profile.php#profile-personal"><i class="fas fa-user-circle"></i> Mi perfil</a></p>
                             <p><a href="/restaurante_Cevicheria/controller/logout-user.php"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></p>
                         <?php else : ?>
-                            <!-- If the user is not logged in, show login option -->
                             <p><a href="/restaurante_Cevicheria/Principal_usuario/Login/index.php"><i class="fas fa-sign-in-alt"></i> Inicia sesión</a></p>
                         <?php endif; ?>
                     </div>
@@ -113,7 +107,6 @@ if (isset($_SESSION['user_id'])) {
         <h1>RestCevicheria Luigy's</h1>
 
         <div class="cards-container">
-    <!-- Pilares Card -->
     <div class="card pilares">
         <a href="/restaurante_Cevicheria/Principal_usuario/nosotros/index.php" alt="Leer-mas">
             <img src="Images/carta.jpg" alt="Pilares" style="color: black">
@@ -133,7 +126,6 @@ if (isset($_SESSION['user_id'])) {
         </a>  
     </div>
 
-    <!-- Historia Card -->
     <div class="card historia">
         <a href="/restaurante_Cevicheria/Principal_usuario/nosotros/index.php" alt="Leer-mas">
             <img src="Images/Fotogragia.jpeg" alt="Historia">
@@ -149,7 +141,6 @@ if (isset($_SESSION['user_id'])) {
          </a>
     </div>
 
-    <!-- Experiencia Card -->
     <div class="card experiencia">
         <a href="/restaurante_Cevicheria/Principal_usuario/nosotros/index.php" alt="Leer-mas">
             <img src="Images/experiencia-logo.jpeg" alt="Experiencia">
@@ -183,7 +174,6 @@ if (isset($_SESSION['user_id'])) {
         <h2>RESEÑAS</h2>
 
         <div class="reseñas_contenedor">
-            <!-- reseñas ejemplo-->
             <a href="https://www.google.com.pe/maps/place/Rest+CEVICHERIA+luigys/@-5.1686779,-80.6632394,17z/data=!4m8!3m7!1s0x904a1b813a27393f:0x2ec49b2e5608ff02!8m2!3d-5.1686832!4d-80.6606645!9m1!1b1!16s%2Fg%2F11q383_qmm?hl=es-419&entry=ttu&g_ep=EgoyMDI0MTAyOS4wIKXMDSoASAFQAw%3D%3D"
                 target="_blank" class="tarjeta-link">
                 <div class="reseña_bloque">

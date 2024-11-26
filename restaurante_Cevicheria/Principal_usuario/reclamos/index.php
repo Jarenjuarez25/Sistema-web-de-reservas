@@ -4,12 +4,8 @@ require('../../database\conexion.php');
 
 $con = new Conexion();
 
-//var_dump($_SESSION);
-//exit("1");
 if (isset($_SESSION['user_id'])) {
     $datos = $con->getNombreByUserId($_SESSION['user_id']);
-    //var_dump($nombre);
-    //exit("");
 }
 
 ?>

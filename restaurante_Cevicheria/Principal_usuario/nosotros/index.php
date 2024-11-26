@@ -10,13 +10,9 @@ if (session_status() === PHP_SESSION_NONE) {
 require('../../database\conexion.php');
 
 $con = new Conexion();
-$nombre = ''; // Inicializa $nombre con un valor predeterminado
-//var_dump($_SESSION);
-//exit("1");
+$nombre = '';
 if (isset($_SESSION['user_id'])) {
     $nombre = $con->getNombreByUserId($_SESSION['user_id']);
-    //var_dump($nombre);
-    //exit("");
 }
 
 ?>
@@ -76,11 +72,9 @@ if (isset($_SESSION['user_id'])) {
 
                     <div class="usuario-dropdown">
                     <?php if (isset($_SESSION['user_nombre'])) : ?>
-                            <!-- If the user is logged in, show options -->
                             <p><a href="/restaurante_Cevicheria/profile.php#profile-personal"><i class="fas fa-user-circle"></i> Mi perfil</a></p>
                             <p><a href="/restaurante_Cevicheria/controller/logout-user.php"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></p>
                         <?php else : ?>
-                            <!-- If the user is not logged in, show login option -->
                             <p><a href="/restaurante_Cevicheria/Principal_usuario/Login/index.php"><i class="fas fa-sign-in-alt"></i> Inicia sesión</a></p>
                         <?php endif; ?>
                     </div>
@@ -88,7 +82,7 @@ if (isset($_SESSION['user_id'])) {
             </ul>
         </nav>
     </div>
-<!-- Nosotros Section -->
+
 <div class="nosotros">
   <div class="container">
       <h2>CONOCE UN POCO MAS DE ESTA LINDA FAMILIA!</h2>

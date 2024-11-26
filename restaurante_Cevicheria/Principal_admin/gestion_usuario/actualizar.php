@@ -4,14 +4,13 @@ $con = new Conexion();
 $conexion = $con->getConexion();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Obtener los datos enviados desde el formulario
     $idUsuario = $_POST['idUsuario'];  
     $dni = $_POST['dni'];
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
     $correo = $_POST['correo'];
 
-    // Consulta para actualizar los datos del usuario
+
     $sql = "UPDATE tbusuario SET dni = '$dni', nombre = '$nombre', apellidos = '$apellidos', correo = '$correo' WHERE id = '$idUsuario'";
     $query = mysqli_query($conexion, $sql);
     
@@ -28,11 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     mysqli_close($conexion);
 } else {
-    // Obtener el idUsuario del usuario a actualizar desde el parámetro de la URL
-    if (isset($_GET['id'])) { // Verificamos si el parámetro 'id' existe
+    if (isset($_GET['id'])) {
         $idUsuario = $_GET['id'];
 
-        // Consulta para obtener los datos del usuario
+
         $sql = "SELECT * FROM tbusuario WHERE id= '$idUsuario'";
         $query = mysqli_query($conexion, $sql);
         $row = mysqli_fetch_assoc($query);
@@ -49,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         alert('ID no proporcionado');
         window.location = 'index.php';
       </script>";
-        exit; // Terminar la ejecución si no hay ID
+        exit;
     }
 }
 ?>
@@ -74,8 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="container mt-5">
     <h1>Actualizar Usuario</h1>
     <form action="actualizar.php?id=<?php echo $idUsuario; ?>" method="POST" onsubmit="return validarFormularioRegister()";>
-        <!-- ID oculto -->
-        <input type="hidden" name="idUsuario" value="<?php echo ($row['id']); ?>"> <!-- Solo si $row está definido -->
+
+        <input type="hidden" name="idUsuario" value="<?php echo ($row['id']); ?>">
         
         <label>DNI:</label>
         <input type="text" id="dni" class="form-control mb-3" name="dni" value="<?php echo ($row['dni'] ?? ''); ?>" placeholder="Dni*" maxlength="8" minlength="8" required>

@@ -14,14 +14,9 @@ require_once __DIR__ . '/../../controller/ProductController.php';
 $con = new Conexion();
 $productController = new ProductController($con->getConexion());
 
-$nombre = ''; // Inicializa $nombre con un valor predeterminado
-//var_dump($_SESSION);
-//exit("1");
+$nombre = '';
 if (isset($_SESSION['user_id'])) {
     $nombre = $con->getNombreByUserId($_SESSION['user_id']);
-    //var_dump($nombre);
-    //exit("");
-
     $busqueda = isset($_GET['busqueda']) ? htmlspecialchars($_GET['busqueda']) : '';
     $categoria_filtro = isset($_GET['categoria']) ? htmlspecialchars($_GET['categoria']) : '';
     $orden = isset($_GET['orden']) ? htmlspecialchars($_GET['orden']) : '';
@@ -39,7 +34,7 @@ $festival = $productController->getProductsByCategory('Festival de TACU TACU');
 $criollos = $productController->getProductsByCategory('Criollos');
 $sabado = $productController->getProductsByCategory('Sabado, Domingo y Feriados');
 
-// Si hay una búsqueda activa
+
 if (isset($_GET['busqueda'])) {
     $busqueda = $_GET['busqueda'];
 
@@ -47,7 +42,7 @@ if (isset($_GET['busqueda'])) {
             <a href="' . $_SERVER['PHP_SELF'] . '" class="btn-limpiar">Limpiar Filtro</a>
           </div>';
 
-    // Realiza la consulta de búsqueda
+
     $stmt = $con->getConexion()->prepare("SELECT * FROM tbproductos WHERE nombre LIKE ?");
     $param = "%$busqueda%";
     $stmt->bind_param("s", $param);
@@ -153,11 +148,9 @@ if (isset($_GET['busqueda'])) {
 
                     <div class="usuario-dropdown">
                     <?php if (isset($_SESSION['user_nombre'])) : ?>
-                            <!-- If the user is logged in, show options -->
                             <p><a href="/restaurante_Cevicheria/profile.php#profile-personal"><i class="fas fa-user-circle"></i> Mi perfil</a></p>
                             <p><a href="/restaurante_Cevicheria/controller/logout-user.php"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></p>
                         <?php else : ?>
-                            <!-- If the user is not logged in, show login option -->
                             <p><a href="/restaurante_Cevicheria/Principal_usuario/Login/index.php"><i class="fas fa-sign-in-alt"></i> Inicia sesión</a></p>
                         <?php endif; ?>
                     </div>

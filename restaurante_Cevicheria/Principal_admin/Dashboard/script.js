@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let usuariosChart, reservasChart, reclamosChart, distribucionChart;
 
-    // Función para inicializar los gráficos
     function initCharts() {
         usuariosChart = new Chart(document.getElementById('usuariosChart').getContext('2d'), {
             type: 'bar',

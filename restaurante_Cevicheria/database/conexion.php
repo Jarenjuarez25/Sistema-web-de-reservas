@@ -12,18 +12,15 @@ class Conexion {
         // Crear la conexión
         $this->con = new mysqli($host, $user, $pass, $bd);
 
-        // Verificar si hubo algún error en la conexión
         if ($this->con->connect_error) {
             die("Conexión fallida: " . $this->con->connect_error);
         }
     }
 
-    // Método para obtener la conexión
     public function getConexion() {
         return $this->con;
     }
 
-    // Método para cerrar la conexión
     public function cerrarConexion() {
         return $this->con->close();
     }
@@ -55,20 +52,15 @@ class Conexion {
             $sql = "INSERT INTO tbreclamos (usuario_id, telefono, asunto, descripcion, fecha_reclamo, estado) VALUES (?, ?, ?, ?, current_timestamp(), 'Pendiente')";
             $stmt = $this->con->prepare($sql);
     
-            // Verificar si la preparación de la declaración ha fallado
             if ($stmt === false) {
                 die('Prepare failed: ' . htmlspecialchars($this->con->error));
             }
-    
-            // Vincular los parámetros
+
             $stmt->bind_param('isss', $usuario_id, $telefono, $asunto, $descripcion);
-    
-            // Ejecutar la declaración
             if ($stmt->execute() === false) {
                 die('Execute failed: ' . htmlspecialchars($stmt->error));
             }
     
-            // Cerrar la declaración
             $stmt->close();
         }
     
@@ -127,26 +119,14 @@ class Conexion {
     {
         $sql = "INSERT INTO tbusuario (nombre, apellidos, dni, correo, contrasenia, cargo_id, genero, fechaNacimiento) VALUES (?, ?, ?, ?, ?, 2, ?, ?)";
         
-        // Preparar la sentencia
         $stmt = $this->con->prepare($sql);
-        
-        // Verificar si la preparación fue exitosa
         if ($stmt === false) {
             die("Error en la preparación de la consulta: " . $this->con->error);
         }
-        
-        // Enlazar los parámetros
         $stmt->bind_param("sssssss", $nombre, $apellidos, $dni, $correo, $contrasenia, $genero, $fechaNacimiento);
-        
-        // Ejecutar la sentencia
         if ($stmt->execute()) {
-            // Obtener el último ID insertado
             $last_id = $this->con->insert_id;
-            
-            // Cerrar la sentencia
             $stmt->close();
-            
-            // Devolver el ID del usuario insertado
             return $last_id;
         } else {
             echo "Error al insertar el usuario: " . $stmt->error;
@@ -257,9 +237,7 @@ class Conexion {
 
         if ($result->num_rows == 1) {
             $user = $result->fetch_assoc();
-            // Verificar la contraseña
             if (password_verify($contraseña, $user['contrasenia'])) {
-                // Iniciar sesión y almacenar información del usuario en la sesión
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_nombre'] = $user['nombre'];
                 $_SESSION['user_correo'] = $user['correo'];
@@ -358,7 +336,7 @@ class Conexion {
         $result = $this->con->query($sql);
     
         if (!$result) {
-            die("Query failed: " . $this->con->error); // Debugging output
+            die("Query failed: " . $this->con->error); 
         }
     
         $usuarios = [];
@@ -376,7 +354,7 @@ class Conexion {
         $result = $this->con->query($sql);
 
         if (!$result) {
-            die("Query failed: " . $this->con->error); // Debugging output
+            die("Query failed: " . $this->con->error);
 }
 
 $reservas = [];
@@ -394,7 +372,7 @@ return $reservas;
                 ORDER BY cantidad DESC";
         $result = $this->con->query($sql);
         if (!$result) {
-            die("Query failed: " . $this->con->error); // Debugging output
+            die("Query failed: " . $this->con->error);
         }
     
         $reclamos = [];

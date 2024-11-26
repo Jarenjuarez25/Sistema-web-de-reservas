@@ -1,9 +1,7 @@
 <?php
 require_once '../database/conexion.php';
-// Ajusta la ruta según donde tengas tu archivo enviar_rpta_reclamacion.php
 $enviar_rpta_path = realpath(__DIR__ . '../../library/PHPMailer-master/enviar_rpta_reclamacion.php');
 
-// Depuración: imprimir la ruta absoluta y verificar su existencia
 if ($enviar_rpta_path === false) {
     die('Error: No se pudo resolver la ruta absoluta. Verifique la ruta: ' . __DIR__ . '../../library/PHPMailer-master/enviar_rpta_reclamacion.php');
 }

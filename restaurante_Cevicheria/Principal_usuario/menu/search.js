@@ -13,19 +13,19 @@ searchBox.addEventListener("click", () => {
   }
 });
 
-// Enviar el formulario de búsqueda al presionar Enter
+
 searchInput.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     searchForm.submit();
   }
 });
 
-// Función para limpiar el campo de búsqueda
+
 function clearSearchInput() {
   searchInput.value = "";
 }
 
-// Cerrar el cuadro de búsqueda si se hace clic fuera de este :v
+
 document.addEventListener("click", function (e) {
   if (!searchContainer.contains(e.target)) {
     navbar.classList.remove("showInput");

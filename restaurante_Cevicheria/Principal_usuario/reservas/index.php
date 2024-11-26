@@ -71,11 +71,9 @@ $total_mesas = 40;
 
                     <div class="usuario-dropdown">
                     <?php if (isset($_SESSION['user_nombre'])) : ?>
-                            <!-- If the user is logged in, show options -->
                             <p><a href="/restaurante_Cevicheria/profile.php#profile-personal"><i class="fas fa-user-circle"></i> Mi perfil</a></p>
                             <p><a href="/restaurante_Cevicheria/controller/logout-user.php"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></p>
                         <?php else : ?>
-                            <!-- If the user is not logged in, show login option -->
                             <p><a href="/restaurante_Cevicheria/Principal_usuario/Login/index.php"><i class="fas fa-sign-in-alt"></i> Inicia sesión</a></p>
                         <?php endif; ?>
                     </div>
@@ -88,7 +86,6 @@ $total_mesas = 40;
 <body>
 
 <?php if ($mostrarModal): ?>
-    <!-- Modal de Inicio de Sesión -->
     <div class="modal-backdrop-sesion" id="modalSesionBackdrop">
         <div class="modal-content-sesion">
             <h2>¡Inicia sesión!</h2>
@@ -112,7 +109,6 @@ $total_mesas = 40;
                     <img src="/restaurante_Cevicheria/Images/mesa.png" class="card-img-top mesa-imagen" alt="Mesa <?php echo $i; ?>">
                     <div class="card-body text-center">
                         <h5 class="card-title">Mesa <?php echo $i; ?></h5>
-                        <!-- <p class="card-text">Disponible</p> -->
                         <p class="card-text"><?php echo $estado == 'ocupada' ? 'Ocupada' : 'Disponible'; ?></p>
                     </div>
                 </div>
@@ -121,7 +117,7 @@ $total_mesas = 40;
         </div>
     </div>
 
-    <!-- Modal de Reserva -->
+
     <div class="modal fade" id="reservaModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -179,7 +175,7 @@ $total_mesas = 40;
             .catch(error => console.error('Error al obtener el estado de las mesas:', error));
     };
     actualizarEstadoMesas();
-    // Actualiza el estado de las mesas cada 5 segundos.
+
     setInterval(actualizarEstadoMesas, 5000);
 </script>
 <script src="/restaurante_Cevicheria/js/drop.js"></script>

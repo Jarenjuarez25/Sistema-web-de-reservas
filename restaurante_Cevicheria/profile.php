@@ -73,7 +73,6 @@ $reclamos = $con->getReclamosByUserId($user_id);
 
                     <div class="usuario-dropdown">
                         <?php if (isset($_SESSION['user_nombre'])) : ?>
-                            <!-- If the user is logged in, show options -->
                             <p><a href="/restaurante_Cevicheria/controller/logout-user.php"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></p>
                         <?php endif; ?>
                     </div>
@@ -95,7 +94,7 @@ $reclamos = $con->getReclamosByUserId($user_id);
                 </div>
 
                 <div class="content-area" style="flex: 1;">
-                    <!-- Datos Personales Tab -->
+                    <!-- Datos Personales -->
                     <div id="profile-personal" class="tab-content active">
                         <h2>Datos personales</h2>
 
@@ -147,7 +146,7 @@ $reclamos = $con->getReclamosByUserId($user_id);
                         </form>
                     </div>
 
-                    <!-- Reclamos Tab -->
+                    <!-- Reclamos -->
                     <div id="profile-reclamos" class="tab-content">
                         <h2>Mis reclamos</h2>
                         <table class="table">

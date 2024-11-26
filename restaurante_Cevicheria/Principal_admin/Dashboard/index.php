@@ -4,8 +4,6 @@ require_once '../../database/conexion.php';
 $conexion = new Conexion();
 
 
-
-// Obtener datos de usuarios, productos, ventas, reclamos, ingresos mensuales, retención de clientes, análisis de cohorte y satisfacción del cliente
 $usuarios = $conexion->getUsuariosData();
 $reclamos = $conexion->getReclamosData();
 $reservas = $conexion->getReservas();
