@@ -131,7 +131,15 @@ $total_mesas = 40;
 
                         <div class="mb-3">
                             <label for="cantidadPersonas" class="form-label">Cantidad de Personas</label>
-                            <input type="number" class="form-control" id="cantidadPersonas" name="cantidadPersonas" min="1" max="20" required>
+                            <select class="form-select" id="cantidadPersonas" name="cantidadPersonas" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                                <option value="">4</option>
+                                <option value="">5</option>
+                                <option value="">6</option>
+                            </select>
                         </div>
                         
                         <div class="mb-3">
@@ -146,16 +154,17 @@ $total_mesas = 40;
 
                         <div class="mb-3">
                             <label for="turno" class="form-label">Turno</label>
-                            <select class="form-select" id="turno" name="turno" required>
+                            <select class="form-select turno" id="turno" name="turno" required>
                                 <option value="" disabled selected>Selecciona una opción</option>
                                 <option value="mañana">Mañana/10:00-11:59</option>
                                 <option value="tarde">Tarde/12:00-18:00</option>
                                 <option value="noche">Noche/18:01-22:00</option>
                             </select>
                         </div>
+
                         <div class="mb-3">
-                            <label for="hora" class="form-label">Hora de reserva</label>
-                            <input type="time" class="form-control" id="hora" name="hora" required>
+                            <label for="hora" class="form-label hora">Hora de reserva</label>
+                            <input type="time" class="form-control hora" id="hora" name="hora" required>
                         </div>
 
                         <div class="mb-3">
@@ -163,6 +172,14 @@ $total_mesas = 40;
                                 *Se aplicará un incentivo de 1so por reserva realizada
                             </label>
                         </div>
+
+                        
+                        <div class="mb-3">
+                            <div class="custom-button" ng-click="do_group_request()">
+                                <a href="/restaurante_Cevicheria/Principal_usuario/reservas/plus-person.php"><span class="ng-binding">Para reservas o eventos de mas de 15 personas, pulse aqui</span></a>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
                 <div class="modal-footer">

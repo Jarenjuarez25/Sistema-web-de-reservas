@@ -125,14 +125,13 @@ body.modal-open {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 97%;
+    width: 139%;
     pointer-events: auto;
-    
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, .2);
     border-radius: .3rem;
     outline: 0;
-    top: 64px;
+    top: 74px;
     margin: 0 auto; /* Centrar el modal */
 }
 
@@ -150,17 +149,16 @@ body.modal-open {
 }
 
 .modal-content {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 97%;
-    pointer-events: auto;
-  
-    background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, .2);
-    border-radius: .3rem;
-    outline: 0;
-    top: 64px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 110%;
+  pointer-events: auto;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: .3rem;
+  outline: 0;
+  top: 59px;
 }
 
 /*Header*/
@@ -201,6 +199,42 @@ body.modal-open {
     gap: 15px;
     margin-right: 5px;
     align-items: center;
+}
+
+/*adicional*/
+.turno{
+  width: 46%;
+}
+
+label.form-label.hora {
+  /* margin-top: -12px; */
+  position: absolute;
+  top: 62%;
+  left: 51%;
+}
+
+input#hora {
+  width: 46%;
+  position: absolute;
+  top: 68%;
+  left: 50%;
+  height: 36px;
+}
+
+.custom-button {
+  border: 2px solid #150b5a; /* Color del borde */
+  background-color: transparent; /* Sin fondo */
+  color: black; /* Color del texto */
+  padding: 10px 15px; /* Espaciado interno */
+  text-align: center; /* Centrar el texto */
+  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+  border-radius: 4px; /* Bordes redondeados (opcional) */
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+.custom-button:hover {
+  background-color: #0b5ed7; /* Color de fondo al pasar el mouse */
+  color: white; /* Color del texto al pasar el mouse */
 }
 
 .navbar ul li a {
@@ -404,4 +438,9 @@ body.modal-open {
 .custom-checkbox {
   display: flex;
   align-items: center;
+}
+
+.custom-button .a {
+  color: #0d6efd;
+  text-decoration: none;
 }
