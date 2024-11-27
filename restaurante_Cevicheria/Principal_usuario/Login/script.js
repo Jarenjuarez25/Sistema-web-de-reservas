@@ -80,7 +80,7 @@ function validarFormularioRegister() {
 
   const regexContraseña = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,}$/;
   if (!regexContraseña.test(contraseña)) {
-    alert('La contraseña debe incluit al menos una letra mayúscula, un número y un carácter especial.');
+    alert('La contraseña debe incluir al menos 9 digitos, una letra mayúscula, un número y un carácter especial.');
     return false;
   }
 

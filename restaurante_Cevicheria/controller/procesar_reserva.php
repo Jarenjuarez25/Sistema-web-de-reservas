@@ -10,16 +10,6 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$verificacion = $con->verificarSiExiste($user_id);
-if ($verificacion['error']) {
-    echo json_encode(['success' => false, 'message' => $verificacion['message']]);
-    exit;
-}
-if ($verificacion['tieneReservas']) {
-    echo json_encode(['success' => false, 'message' => 'Ya tienes una reserva activa.']);
-    exit;
-}
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $con = new Conexion();

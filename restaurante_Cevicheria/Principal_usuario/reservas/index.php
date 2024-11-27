@@ -128,13 +128,40 @@ $total_mesas = 40;
                 <div class="modal-body">
                     <form id="reservaForm">
                         <input type="hidden" id="numeroMesa" name="numeroMesa">
+
                         <div class="mb-3">
                             <label for="cantidadPersonas" class="form-label">Cantidad de Personas</label>
-                            <input type="number" class="form-control" id="cantidadPersonas" name="cantidadPersonas" min="1" max="10" required>
+                            <input type="number" class="form-control" id="cantidadPersonas" name="cantidadPersonas" min="1" max="20" required>
                         </div>
+                        
                         <div class="mb-3">
                             <label for="descripcion" class="form-label">Descripción/Notas</label>
                             <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label">Telefono</label>
+                            <input type="text" class="form-control" id="telefono" name="telefono" maxlength="9" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="turno" class="form-label">Turno</label>
+                            <select class="form-select" id="turno" name="turno" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="mañana">Mañana/10:00-11:59</option>
+                                <option value="tarde">Tarde/12:00-18:00</option>
+                                <option value="noche">Noche/18:01-22:00</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="hora" class="form-label">Hora de reserva</label>
+                            <input type="time" class="form-control" id="hora" name="hora" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="custom-checkbox">
+                                *Se aplicará un incentivo de 1so por reserva realizada
+                            </label>
                         </div>
                     </form>
                 </div>

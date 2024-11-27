@@ -21,7 +21,7 @@ function abrirModalReserva(numero_mesa) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Reserva realizada con éxito');
+            alert('Reserva realizada con éxito, ve a mis reservas en Mi Perfil y procede con el pago!');
             window.location.reload();
         } else {
             alert(data.message || 'Error al realizar la reserva');

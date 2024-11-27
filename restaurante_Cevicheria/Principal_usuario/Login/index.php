@@ -58,7 +58,7 @@ $con = new Conexion();
             <br></br>
             <input type="text" id="nombre" name="nombre" class="input-Nombre" placeholder="Nombre*" required>
             <input type="text" id="apellidos" name="apellidos" class="input-Apellido" placeholder="Apellido*" required>
-            <input type="text" id="dni" name="dni" class="input-Dni" placeholder="Dni*"required>
+            <input type="text" id="dni" name="dni" class="input-Dni" placeholder="Dni*"  maxlength="8" required>
             <input type="email" id="correo" name="correo" class="input-Correo" placeholder="Correo electrónico*" required>
             <input type="password" id="contraseña" name="contraseña" class="input-contrasenaa" placeholder="Contraseña*" required>
             <img src="/restaurante_Cevicheria/Images/ojo.png" class="pass-icon" onclick="togglePasswordVisibility('contraseña', 'pass-icon')" id="pass-icon" style="display: none;"></img>
