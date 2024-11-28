@@ -17,13 +17,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $numero_mesa = $_POST['numeroMesa'];
     $cantidad_personas = $_POST['cantidadPersonas'];
     $descripcion = $_POST['descripcion'];
+    $telefono = $_POST['telefono'];
+    $turno = $_POST['turno'];
+    $hora = $_POST['hora'];
     
     try {
-        $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, estado) 
-                VALUES (?, ?, ?, ?, 'Pendiente')";
+        $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, estado, telefono, turno, hora_reserva, pago) 
+                VALUES (?, ?, ?, ?, 'Pendiente',?,?,?,'10')";
         
         $stmt = $con->getConexion()->prepare($sql);
-        $stmt->bind_param("iiis", $user_id, $numero_mesa, $cantidad_personas, $descripcion);
+        $stmt->bind_param("iiissss", $user_id, $numero_mesa, $cantidad_personas, $descripcion, $telefono, $turno, $hora);
         
         if ($stmt->execute()) {
             echo json_encode([

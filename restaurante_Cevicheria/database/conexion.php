@@ -319,6 +319,29 @@ class Conexion {
         $stmt->close();
         return $consultas;
     }
+    public function getReservasByUserId($user_id) {
+        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? ORDER BY fecha_reserva DESC");
+        if ($stmt === false) {
+            return false;
+        }
+    
+        if (!$stmt->bind_param('i', $user_id)) {
+            $stmt->close();
+            return false;
+        }
+    
+        if (!$stmt->execute()) {
+            $stmt->close();
+            return false;
+        }
+    
+        $result = $stmt->get_result();
+        $consultas = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $consultas;
+    }
+
+
 
     public function updateUsuarioNombre($user_id, $nombre) {
         $sql = "UPDATE tbusuario SET nombre = ? WHERE id = ?";
@@ -405,12 +428,11 @@ return $reservas;
         return $usuarios;
     }
     
-
-    public function insertarReserva($usuario_id, $numeroMesa, $cantidadPersonas, $descripcion) {
-        $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, fecha_reserva, estado) 
-                VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, 'Pendiente')";
+    public function insertarReserva($usuario_id, $numeroMesa, $cantidadPersonas, $descripcion, $telefono, $turno, $horaReserva) {
+        $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, fecha_reserva, estado, telefono, turno, hora_reserva, pago)
+                VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, 'Pendiente', ?, ?, ?, '10')";
         $stmt = $this->con->prepare($sql);
-        $stmt->bind_param("iiis", $usuario_id, $numeroMesa, $cantidadPersonas, $descripcion);
+        $stmt->bind_param("iiiss", $usuario_id, $numeroMesa, $cantidadPersonas, $descripcion, $telefono, $turno, $horaReserva);
         return $stmt->execute();
     }
 

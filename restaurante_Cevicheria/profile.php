@@ -21,6 +21,7 @@ $user_email = $_SESSION['user_email'];
 $persona = $con->getPersonaByUserId($user_id);
 $usuario = $con->getNombreByUserId($user_id);
 $reclamos = $con->getReclamosByUserId($user_id);
+$reservas = $con->getReservasByUserId($user_id);
 ?>
 
 
@@ -91,6 +92,11 @@ $reclamos = $con->getReclamosByUserId($user_id);
                     <a href="#" class="nav-link" data-target="profile-reclamos">
                         <i class="fas fa-clipboard-list mr-2"></i> Mis reclamos
                     </a>
+
+                    <a href="#" class="nav-link" data-target="profile-reservas">
+                        <i class="fas fa-clipboard-list mr-2"></i>  Mis reservas
+                    </a>
+
                 </div>
 
                 <div class="content-area" style="flex: 1;">
@@ -193,6 +199,64 @@ $reclamos = $con->getReclamosByUserId($user_id);
                             </tbody>
                         </table>
                     </div>
+
+                   <!-- reservas -->
+                   <div id="profile-reservas" class="tab-content">
+    <h2>Mis reservas</h2>
+    <div class="table-container" style="max-height: 400px; overflow-y: auto; position: relative;">
+        <table class="table" style="width: 100%; border-collapse: collapse;">
+            <thead style="position: sticky; top: 0; background-color: #f8f9fa; z-index: 1;">
+                <tr>
+                    <th>Numero de mesa</th>
+                    <th>Cantidad de personas</th>
+                    <th>Descripcion</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Telefono</th>
+                    <th>Turno</th>
+                    <th>Hora de reserva</th>
+                    <th>Pago</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php foreach ($reservas as $reserva): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($reserva['numero_mesa']); ?></td>
+                        <td><?php echo htmlspecialchars($reserva['cantidad_personas']); ?></td>
+                        <td><?php echo htmlspecialchars($reserva['descripcion']); ?></td>
+                        <td style="color: 
+                            <?php
+                            switch (strtolower($reserva['estado'])) {
+                                case 'pendiente':
+                                    echo 'red';
+                                    break;
+                                case 'en proceso':
+                                    echo 'blue';
+                                    break;
+                                case 'resuelto':
+                                    echo 'green';
+                                    break;
+                                default:
+                                    echo 'black';
+                            }
+                            ?>">
+                            <?php echo htmlspecialchars($reserva['estado']); ?>
+                        </td>
+                        <td><?php echo htmlspecialchars($reserva['fecha_reserva']); ?></td>
+                        <td><?php echo htmlspecialchars($reserva['telefono']); ?></td>
+                        <td><?php echo htmlspecialchars($reserva['turno']); ?></td>
+                        <td><?php echo htmlspecialchars($reserva['hora_reserva']); ?></td>
+                        <td><?php echo htmlspecialchars($reserva['pago']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
 
                 </div>
             </div>

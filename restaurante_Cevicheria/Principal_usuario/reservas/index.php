@@ -100,6 +100,7 @@ $total_mesas = 40;
         <h2 class="titel">Reserva tu Mesa aa</h2>
         
         <div class="row g-4">
+
             <?php for($i = 1; $i <= $total_mesas; $i++) { 
               $estado = isset($mesas[$i]) ? $mesas[$i] : 'Disponible';    
             ?>
@@ -114,6 +115,8 @@ $total_mesas = 40;
                 </div>
             </div>
             <?php } ?>
+
+            
         </div>
     </div>
 
@@ -125,6 +128,7 @@ $total_mesas = 40;
                     <h5 class="modal-title">Realizar Reserva</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
+
                 <div class="modal-body">
                     <form id="reservaForm">
                         <input type="hidden" id="numeroMesa" name="numeroMesa">
@@ -133,12 +137,12 @@ $total_mesas = 40;
                             <label for="cantidadPersonas" class="form-label">Cantidad de Personas</label>
                             <select class="form-select" id="cantidadPersonas" name="cantidadPersonas" required>
                                 <option value="" disabled selected>Selecciona una opción</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
-                                <option value="">5</option>
-                                <option value="">6</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
                             </select>
                         </div>
                         
@@ -179,9 +183,9 @@ $total_mesas = 40;
                                 <a href="/restaurante_Cevicheria/Principal_usuario/reservas/plus-person.php"><span class="ng-binding">Para reservas o eventos de mas de 15 personas, pulse aqui</span></a>
                             </div>
                         </div>
-
                     </form>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" onclick="realizarReserva()">Confirmar Reserva</button>
