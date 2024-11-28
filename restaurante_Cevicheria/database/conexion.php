@@ -444,7 +444,10 @@ return $reservas;
             r.descripcion, 
             r.estado,
             r.fecha_reserva,
-            u.correo,
+            r.telefono,
+            r.turno,
+            r.hora_reserva,
+            r.pago,
             u.nombre
             FROM reservas r 
             JOIN tbusuario u ON r.usuario_id = u.id 

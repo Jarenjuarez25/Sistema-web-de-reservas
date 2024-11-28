@@ -22,6 +22,7 @@ $persona = $con->getPersonaByUserId($user_id);
 $usuario = $con->getNombreByUserId($user_id);
 $reclamos = $con->getReclamosByUserId($user_id);
 $reservas = $con->getReservasByUserId($user_id);
+$totalGeneral = 0; // Inicializa el total general
 ?>
 
 
@@ -35,6 +36,7 @@ $reservas = $con->getReservasByUserId($user_id);
     <link rel="icon" href="/restaurante_Cevicheria/Images/Logo.ico" />
     <link rel="stylesheet" href="/restaurante_Cevicheria/css/profile-style.css" />
     <link rel="stylesheet" href="/restaurante_Cevicheria/css/style.css" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -94,7 +96,7 @@ $reservas = $con->getReservasByUserId($user_id);
                     </a>
 
                     <a href="#" class="nav-link" data-target="profile-reservas">
-                        <i class="fas fa-clipboard-list mr-2"></i>  Mis reservas
+                        <i class="fas fa-clipboard-list mr-2"></i> Mis reservas
                     </a>
 
                 </div>
@@ -200,70 +202,175 @@ $reservas = $con->getReservasByUserId($user_id);
                         </table>
                     </div>
 
-                   <!-- reservas -->
-                   <div id="profile-reservas" class="tab-content">
-    <h2>Mis reservas</h2>
-    <div class="table-container" style="max-height: 400px; overflow-y: auto; position: relative;">
-        <table class="table" style="width: 100%; border-collapse: collapse;">
-            <thead style="position: sticky; top: 0; background-color: #f8f9fa; z-index: 1;">
-                <tr>
-                    <th>Numero de mesa</th>
-                    <th>Cantidad de personas</th>
-                    <th>Descripcion</th>
-                    <th>Estado</th>
-                    <th>Fecha</th>
-                    <th>Telefono</th>
-                    <th>Turno</th>
-                    <th>Hora de reserva</th>
-                    <th>Pago</th>
-                </tr>
-            </thead>
+                    <!-- reservas -->
+                    <div id="profile-reservas" class="tab-content">
+                        <h2>Mis reservas</h2>
+                        <div class="table-container" style="max-height: 400px; overflow-y: auto; position: relative;">
+                            <table class="table" style="width: 100%; border-collapse: collapse;">
+                                <thead style="position: sticky; top: 0; background-color: #f8f9fa; z-index: 1;">
+                                    <tr>
+                                        <th>Numero de mesa</th>
+                                        <th>Cantidad de personas</th>
+                                        <th>Descripcion</th>
+                                        <th>Estado</th>
+                                        <th>Fecha</th>
+                                        <th>Turno</th>
+                                        <th>Hora de reserva</th>
+                                        <th>Pago</th>
+                                    </tr>
+                                </thead>
 
-            <tbody>
-                <?php foreach ($reservas as $reserva): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($reserva['numero_mesa']); ?></td>
-                        <td><?php echo htmlspecialchars($reserva['cantidad_personas']); ?></td>
-                        <td><?php echo htmlspecialchars($reserva['descripcion']); ?></td>
-                        <td style="color: 
+                                <tbody>
+                                    <?php foreach ($reservas as $reserva): ?>
+                                        <tr>
+
+                                            <td><?php echo htmlspecialchars($reserva['numero_mesa']); ?></td>
+                                            <td><?php echo htmlspecialchars($reserva['cantidad_personas']); ?></td>
+                                            <td><?php echo htmlspecialchars($reserva['descripcion']); ?></td>
+                                            <td style="color: 
                             <?php
-                            switch (strtolower($reserva['estado'])) {
-                                case 'pendiente':
-                                    echo 'red';
-                                    break;
-                                case 'en proceso':
-                                    echo 'blue';
-                                    break;
-                                case 'resuelto':
-                                    echo 'green';
-                                    break;
-                                default:
-                                    echo 'black';
-                            }
+                                        switch (strtolower($reserva['estado'])) {
+                                            case 'pendiente':
+                                                echo 'red';
+                                                break;
+                                            case 'en proceso':
+                                                echo 'blue';
+                                                break;
+                                            case 'resuelto':
+                                                echo 'green';
+                                                break;
+                                            default:
+                                                echo 'black';
+                                        }
                             ?>">
-                            <?php echo htmlspecialchars($reserva['estado']); ?>
-                        </td>
-                        <td><?php echo htmlspecialchars($reserva['fecha_reserva']); ?></td>
-                        <td><?php echo htmlspecialchars($reserva['telefono']); ?></td>
-                        <td><?php echo htmlspecialchars($reserva['turno']); ?></td>
-                        <td><?php echo htmlspecialchars($reserva['hora_reserva']); ?></td>
-                        <td><?php echo htmlspecialchars($reserva['pago']); ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-</div>
+                                                <?php echo htmlspecialchars($reserva['estado']); ?>
+                                            </td>
+                                            <td><?php echo htmlspecialchars($reserva['fecha_reserva']); ?></td>
+                                            <td><?php echo htmlspecialchars($reserva['turno']); ?></td>
+                                            <td><?php echo htmlspecialchars($reserva['hora_reserva']); ?></td>
+                                            <td><?php echo htmlspecialchars($reserva['pago']); ?></td>
+                                        </tr>
+                                        <?php
+                                        $subtotal = $reserva['pago'] + $reserva['pago'];
+                                        $totalGeneral += $subtotal;
+                                        ?>
+                                    <?php endforeach; ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" class="text-right">Total a pagar:</td>
+                                        <td id="total-general-confirmacion" class="font-weight-bold">S/ <?php echo number_format($totalGeneral, 2); ?> PEN</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <form id="confirmar-pago-form" method="POST">
+                                <div class="form-group">
+                                    <p>Selecciona un método de pago:</p>
+                                    <div class="form-check">
+
+
+                                        <label class="form-check-label" for="opcion1">
+                                            <br>Yape
+                                            <img src="/restaurante_Cevicheria/Images/yape.jpg" alt="Opción 1" class="opcion-imagen" style="display: none;">
+                                        </label>
+                                        <input class="form-check-input" type="radio" value="Yape" id="opcion1" name="opcion" required>
+                                    </div>
+
+                                    <div class="form-check" style=" margin-top: -86px; margin-left: 50%;">
+
+                                        <label class="form-check-label" for="opcion2">
+                                            <br>Plin
+                                            <img src="/restaurante_Cevicheria/Images/yape.jpg" alt="Opción 2" class="opcion-imagen" style="display: none;">
+                                        </label>
+                                        <input class="form-check-input" type="radio" value="Plin" id="opcion2" name="opcion" required>
 
 
 
+                                    </div>
+                                </div>
 
+                                <div class="form-group">
+                                    <label for="numero_operacion">Número de Operación:</label>
+                                    <input type="text" class="form-control" id="numero_operacion" name="numero_operacion" placeholder="Ingrese el número de operación" maxlength="8" required>
+                                </div>
+                                <input type="hidden" name="monto_total" value="<?php echo $totalGeneral; ?>">
+                                <button type="submit" class="btn btn-success" name="confirmar_pago">Confirmar pago</button>
+                            </form>
+                            <button id="mostrar-form-pago" class="btn btn-primary">Confirmar pago</button>
+                            <form action="../Controllers/cancelar_compra.php" method="POST">
+                                <button type="submit" class="btn btn-danger" name="cancelar_compra">Cancelar compra</button>
+                            </form>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="/restaurante_Cevicheria/js/drop.js"></script>
     <script src="/restaurante_Cevicheria/js/profile.js"></script>
+    <style>
+        .mt-5 {
+            padding-top: 5px;
+        }
+
+        .confirmar-tit {
+            padding-top: 10px;
+        }
+
+        .opcion-imagen {
+            display: none;
+            /* Imágenes ocultas por defecto */
+            max-width: 300px;
+            /* Tamaño máximo ajustable según necesidades */
+            margin-top: 5px;
+            /* Espacio entre la imagen y el texto */
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mostrarFormPagoBtn = document.getElementById('mostrar-form-pago');
+            const confirmarPagoForm = document.getElementById('confirmar-pago-form');
+            const numeroOperacionInput = document.getElementById('numero_operacion');
+
+            mostrarFormPagoBtn.addEventListener('click', function() {
+                confirmarPagoForm.style.display = 'block';
+                mostrarFormPagoBtn.style.display = 'none';
+            });
+
+            const opcionesRadios = document.querySelectorAll('input[type="radio"]');
+            opcionesRadios.forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    const imagenesOpciones = document.querySelectorAll('.opcion-imagen');
+                    imagenesOpciones.forEach(function(imagen) {
+                        imagen.style.display = 'none';
+                    });
+
+                    const imagenMostrar = this.parentNode.querySelector('.opcion-imagen');
+                    imagenMostrar.style.display = 'inline-block';
+
+                    // Cambiar el placeholder del input numero_operacion según la opción seleccionada
+                    if (this.value === 'Yape') {
+                        numeroOperacionInput.placeholder = 'Ingrese el número de operación de Yape';
+                    } else if (this.value === 'Plin') {
+                        numeroOperacionInput.placeholder = 'Ingrese el número de operación de Plin';
+                    }
+                });
+            });
+
+            const cancelarCompraBtn = document.querySelector('btn.btn-danger');
+            cancelarCompraBtn.addEventListener('click', function(event) {
+                event.preventDefault(); // Evitar que se siga el enlace por defecto
+                if (confirm('¿Estás seguro de cancelar la compra?')) {
+                    window.location.href = cancelarCompraBtn.href;
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -99,7 +99,7 @@ body.modal-open {
     margin-left: 36%;
     margin-top: -54px;
 }
-/* Asegurar que el navbar permanezca fijo y centrado */
+
 .navbar-container {
     font-family: 'Trade Gothic LT', sans-serif;
     font-weight: bold;
@@ -117,10 +117,10 @@ body.modal-open {
     z-index: 1000;
     width: 100%;
     box-sizing: border-box;
-    padding-right: 60px !important; /* Forzar el padding derecho */
+    padding-right: 60px !important;
 }
 
-/* Ajustes para el modal */
+
 .modal-content {
     position: relative;
     display: flex;
@@ -132,17 +132,17 @@ body.modal-open {
     border-radius: .3rem;
     outline: 0;
     top: 74px;
-    margin: 0 auto; /* Centrar el modal */
+    margin: 0 auto; 
 }
 
-/* Asegurar que el logo mantenga su posición */
+
 .logo {
     width: 11%;
     margin-left: -59px;
-    position: relative; /* Añadir posición relativa */
+    position: relative; 
 }
 
-/* Ajustar el contenedor del modal */
+
 .modal-dialog {
     margin: 0 auto;
     padding: 0 15px;
@@ -222,19 +222,19 @@ input#hora {
 }
 
 .custom-button {
-  border: 2px solid #150b5a; /* Color del borde */
-  background-color: transparent; /* Sin fondo */
-  color: black; /* Color del texto */
-  padding: 10px 15px; /* Espaciado interno */
-  text-align: center; /* Centrar el texto */
-  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
-  border-radius: 4px; /* Bordes redondeados (opcional) */
-  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+  border: 2px solid #150b5a; 
+  background-color: transparent;
+  color: black; 
+  padding: 10px 15px; 
+  text-align: center; 
+  cursor: pointer;
+  border-radius: 4px; 
+  transition: background-color 0.3s, color 0.3s; 
 }
 
 .custom-button:hover {
-  background-color: #0b5ed7; /* Color de fondo al pasar el mouse */
-  color: white; /* Color del texto al pasar el mouse */
+  background-color: #0b5ed7;
+  color: black; 
 }
 
 .navbar ul li a {
@@ -302,20 +302,20 @@ input#hora {
 .usuario-dropdown::before {
     content: "";
     position: absolute;
-    top: -20px; /* Ajustar según sea necesario */
-    right: 20px; /* Ajustar para que apunte al icono de usuario */
+    top: -20px; 
+    right: 20px; 
     border-width: 10px;
     border-style: solid;
     border-color: transparent transparent white transparent;
     z-index: 1001;
   }
 
-/* Mostrar el dropdown cuando tenga la clase 'show' */
+
 .usuario-dropdown.show {
     display: block;
   }
 
-/* Estilo para los elementos dentro del dropdown */
+
 .usuario-dropdown p, .usuario-dropdown a {
     margin: 0;
     padding: 20px 20px;
@@ -332,8 +332,6 @@ input#hora {
     margin-bottom: 6px;
 }
 
-
-/* Estilo para los enlaces dentro del dropdown */
 
   .usuario-nombre {
     color: #150b5a;

@@ -42,35 +42,40 @@ $reservas = $con->Mostrar_Reservas();
                     <table class="table table-hover align-middle mb-0 table-fixed">
                         <thead>
                             <tr style="width: 400px">
-                                <th style="width: 40px" class="text-center">ID</th>
+                                <th style="width: 45px" class="text-center">ID</th>
                                 <th style="width: 150px" class="text-center">Cliente</th>
-                                <th style="width: 300px" class="text-center">Correo</th>
                                 <th style="width: 80px" class="text-center">Mesa N°</th>
                                 <th class="text-center" style="width: 100px"></i>Personas</th>
                                 <th class="text-center" style="width: 160px">Descripción</th>
-                                <th class="text-center" style="width: 180px">Fecha</th>
+                                <th class="text-center" style="width: 100px">telefono</th>
+                                <th class="text-center" style="width: 70px">turno</th>
+                                <th class="text-center" style="width: 70px">Hora</th>
+                                <th class="text-center" style="width: 190px">Fecha</th>
                                 <th class="text-center" style="width: 100px">Estado</th>
+                                <th class="text-center" style="width: 70px">Pago</th>
                                 <th class="text-center" style="width: 150px">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($reservas as $reserva): ?>
                             <tr id="reserva-<?php echo $reserva['id']; ?>">
-                                <td style="width: 40px" class="text-center"><?php echo $reserva['id']; ?></td>
+                                <td style="width: 45px" class="text-center"><?php echo $reserva['id']; ?></td>
                                 <td style="width: 150px" class="text-center"><?php echo $reserva['nombre']; ?></td>
-                                <td style="width: 300px; color: black" class="text-center">
-                                    <a href="mailto:<?php echo $reserva['correo']; ?>" class="text-decoration-none">
-                                        <?php echo $reserva['correo']; ?>
-                                    </a>
-                                </td>
                                 <td style="width: 70px" class="text-center"><?php echo $reserva['numero_mesa']; ?></td>
                                 <td class="text-center" style="width: 100px"><?php echo $reserva['cantidad_personas']; ?></td>
                                 <td style="width: 160px" class="text-center"><?php echo $reserva['descripcion']; ?></td>
+                                <td style="width: 100px" class="text-center"><?php echo $reserva['telefono']; ?></td>
+                                <td style="width: 80px" class="text-center"><?php echo $reserva['turno']; ?></td>
+                                <td style="width: 80px" class="text-center"><?php echo $reserva['hora_reserva']; ?></td>
                                 <td class="text-center" style="width: 180px"><?php echo $reserva['fecha_reserva']; ?></td>
-                                <td class="text-center estado-reserva" style="width: 100px">
+                                <td class="text-center estado-reserva" style="Color:red;  width: 100px">
                                     <?php echo htmlspecialchars($reserva['estado']); ?>
                                 </td>
+
+                                <td style="width: 70px" class="text-center"><?php echo $reserva['pago']; ?></td>
+
                                 <td class="text-center acciones-reserva" style="width: 150px">
+
                                     <?php if ($reserva['estado'] === 'Pendiente'): ?>
                                         <button class="btn btn-primary btn-sm btn-aceptar" 
                                                 data-reserva-id="<?php echo $reserva['id']; ?>">

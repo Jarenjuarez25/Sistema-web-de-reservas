@@ -160,9 +160,9 @@ $total_mesas = 40;
                             <label for="turno" class="form-label">Turno</label>
                             <select class="form-select turno" id="turno" name="turno" required>
                                 <option value="" disabled selected>Selecciona una opción</option>
-                                <option value="mañana">Mañana/10:00-11:59</option>
-                                <option value="tarde">Tarde/12:00-18:00</option>
-                                <option value="noche">Noche/18:01-22:00</option>
+                                <option value="Mañana">Mañana/10:00-11:59</option>
+                                <option value="Tarde">Tarde/12:00-18:00</option>
+                                <option value="Noche">Noche/18:01-22:00</option>
                             </select>
                         </div>
 
@@ -176,7 +176,6 @@ $total_mesas = 40;
                                 *Se aplicará un incentivo de 1so por reserva realizada
                             </label>
                         </div>
-
                         
                         <div class="mb-3">
                             <div class="custom-button" ng-click="do_group_request()">
@@ -194,7 +193,6 @@ $total_mesas = 40;
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         <?php if ($mostrarModal): ?>
@@ -229,5 +227,6 @@ $total_mesas = 40;
 <script src="/restaurante_Cevicheria/js/drop.js"></script>
 <script src="/restaurante_Cevicheria/js/loader.js"></script>
 <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
