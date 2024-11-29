@@ -505,6 +505,38 @@ return $reservas;
         $this->con->query($sql);
     }
 
+    //pago
+
+    public function tienePagosPendientes($usuario_id) {
+        $query = "SELECT COUNT(*) AS num_pagos FROM pagos WHERE usuario_id = ? AND estado = 'pendiente'";
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("i", $usuario_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $num_pagos = $row['num_pagos'];
+        $stmt->close();
+        
+        return $num_pagos > 0;
+    }
+
+    public function insertarPago($usuario_id, $monto_total, $metodo_pago, $n_operacion, $estado) {
+        $fecha_pago = date('Y-m-d H:i:s'); // Fecha y hora actual del pago
+
+        $query = "INSERT INTO pagos (usuario_id, monto_total, metodo_pago, n_operacion, fecha_pago, estado)
+                  VALUES (?, ?, ?, ?, ?, ?)";
+       
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("isssss", $usuario_id, $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $estado);
+        
+        if ($stmt->execute()) {
+            return true; // Éxito al insertar en la base de datos
+        } else {
+            return false; // Error al insertar en la base de datos
+        }
+    }
+
+
 }
 
 ?>

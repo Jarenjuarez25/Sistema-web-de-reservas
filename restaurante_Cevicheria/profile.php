@@ -85,6 +85,15 @@ $totalGeneral = 0; // Inicializa el total general
     </div>
 
     <div class="container">
+        <?php
+            if (isset($_SESSION['mensaje'])) {
+                $mensaje = $_SESSION['mensaje'];
+                $tipo_mensaje = $_SESSION['tipo_mensaje'];
+                echo "<div class='mensaje $tipo_mensaje'>$mensaje</div>";
+                unset($_SESSION['mensaje']);
+                unset($_SESSION['tipo_mensaje']);
+            }
+        ?>
         <div class="profile-card">
             <div class="row" style="display: flex;">
                 <div class="sidebar" style="flex: 0 0 250px;">
@@ -266,7 +275,7 @@ $totalGeneral = 0; // Inicializa el total general
                         </div>
 
                         <div class="text-center mt-4">
-                            <form id="confirmar-pago-form" method="POST">
+                            <form id="confirmar-pago-form" action="/restaurante_Cevicheria/controller/confirmar_pago.php" method="POST" style="display: none;">
                                 <div class="form-group">
                                     <p>Selecciona un método de pago:</p>
                                     <div class="form-check">
@@ -300,9 +309,6 @@ $totalGeneral = 0; // Inicializa el total general
                                 <button type="submit" class="btn btn-success" name="confirmar_pago">Confirmar pago</button>
                             </form>
                             <button id="mostrar-form-pago" class="btn btn-primary">Confirmar pago</button>
-                            <form action="../Controllers/cancelar_compra.php" method="POST">
-                                <button type="submit" class="btn btn-danger" name="cancelar_compra">Cancelar compra</button>
-                            </form>
                         </div>
 
                     </div>
@@ -330,47 +336,6 @@ $totalGeneral = 0; // Inicializa el total general
             /* Espacio entre la imagen y el texto */
         }
     </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const mostrarFormPagoBtn = document.getElementById('mostrar-form-pago');
-            const confirmarPagoForm = document.getElementById('confirmar-pago-form');
-            const numeroOperacionInput = document.getElementById('numero_operacion');
-
-            mostrarFormPagoBtn.addEventListener('click', function() {
-                confirmarPagoForm.style.display = 'block';
-                mostrarFormPagoBtn.style.display = 'none';
-            });
-
-            const opcionesRadios = document.querySelectorAll('input[type="radio"]');
-            opcionesRadios.forEach(function(radio) {
-                radio.addEventListener('change', function() {
-                    const imagenesOpciones = document.querySelectorAll('.opcion-imagen');
-                    imagenesOpciones.forEach(function(imagen) {
-                        imagen.style.display = 'none';
-                    });
-
-                    const imagenMostrar = this.parentNode.querySelector('.opcion-imagen');
-                    imagenMostrar.style.display = 'inline-block';
-
-                    // Cambiar el placeholder del input numero_operacion según la opción seleccionada
-                    if (this.value === 'Yape') {
-                        numeroOperacionInput.placeholder = 'Ingrese el número de operación de Yape';
-                    } else if (this.value === 'Plin') {
-                        numeroOperacionInput.placeholder = 'Ingrese el número de operación de Plin';
-                    }
-                });
-            });
-
-            const cancelarCompraBtn = document.querySelector('btn.btn-danger');
-            cancelarCompraBtn.addEventListener('click', function(event) {
-                event.preventDefault(); // Evitar que se siga el enlace por defecto
-                if (confirm('¿Estás seguro de cancelar la compra?')) {
-                    window.location.href = cancelarCompraBtn.href;
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>
