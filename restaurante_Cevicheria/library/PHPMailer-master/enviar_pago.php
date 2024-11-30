@@ -6,7 +6,7 @@ require '../library/PHPMailer-master/src/PHPMailer.php';
 require '../library/PHPMailer-master/src/SMTP.php';
 require '../library/PHPMailer-master/src/Exception.php';
 
-function enviarCorreoPago($correo, $monto_total, $metodo_pago, $n_operacion, $estado){
+function enviarCorreoPago($correo, $nombre ,$monto_total, $metodo_pago, $n_operacion, $estado){
     $mail = new PHPMailer(true);
 
     try {
@@ -25,9 +25,9 @@ function enviarCorreoPago($correo, $monto_total, $metodo_pago, $n_operacion, $es
 
         // Contenido del correo
         $mail->isHTML(true);
-        $mail->Subject = 'Confirmación de Pago';
-        $mail->Body = "Hola,<br><br>
-                      Hemos registrado tu pago correctamente.<br>
+        $mail->Subject = 'Confirmacion de pago';
+        $mail->Body = "Hola $nombre,<br><br>
+                      Hemos registrado tu pago correctamente, puedes verificar el estado de aceptacion en Mis pagos!.<br>
                       Detalles del pago:<br>
                       Método de pago: $metodo_pago<br>
                       N° de operación: $n_operacion<br>

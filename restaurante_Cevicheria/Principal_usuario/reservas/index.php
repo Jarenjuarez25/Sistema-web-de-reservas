@@ -97,7 +97,7 @@ $total_mesas = 40;
 
 
     <div class="container my-5">
-        <h2 class="titel">Reserva tu Mesa aa</h2>
+        <h2 class="titel">Reserva tu Mesa</h2>
         
         <div class="row g-4">
 
@@ -115,16 +115,14 @@ $total_mesas = 40;
                 </div>
             </div>
             <?php } ?>
-
-            
         </div>
     </div>
-
 
     <div class="modal fade" id="reservaModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
+
                     <h5 class="modal-title">Realizar Reserva</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
@@ -188,6 +186,23 @@ $total_mesas = 40;
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" onclick="realizarReserva()">Confirmar Reserva</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para mensajes -->
+    <div id="mensajeModal" class="modal fade" tabindex="-1" aria-labelledby="mensajeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content"  style="margin-left: 10%; margin-top: -13%; background-color: beige;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mensajeModalLabel">Mensaje</h5>
+                </div>
+                <div class="modal-body" id="modalMensajeBody">
+                    <!-- El mensaje dinámico -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>

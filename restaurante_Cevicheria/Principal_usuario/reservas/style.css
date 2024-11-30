@@ -421,7 +421,7 @@ input#hora {
 
 .modal {
   position: fixed;
-  top: -44px;
+  top: -26px;
   left: 0;
   z-index: 1055;
   display: none;
@@ -441,4 +441,14 @@ input#hora {
 .custom-button .a {
   color: #0d6efd;
   text-decoration: none;
+}
+
+/* Estilo modal aceptar */
+.modal .modal-content {
+  border-radius: 10px;
+}
+
+
+.modal-footer11 {
+  justify-content: center;
 }

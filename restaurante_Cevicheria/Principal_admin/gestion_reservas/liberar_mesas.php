@@ -2,6 +2,7 @@
 require_once '../../database/conexion.php';
 $con = new Conexion();
 $reservas = $con->Mostrar_Reservas();
+$pagos = $con->Mostrar_Pagos();
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +31,62 @@ $reservas = $con->Mostrar_Reservas();
          <h1 class="menu_logo"> Panel administrativo - RestCevicheria Luigy's</h1>
       </section>
    </nav>
+
+    <!--Pago-->
+
+    <div class="container py-5">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h2 class="text-center mb-0 text-primary">
+                    <i class="fas fa-calendar-check me-2"></i>Verificacion de pagos
+                </h2>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table class="table table-hover align-middle mb-0 table-fixed">
+                    <thead>
+                        <tr style="width: 400px">
+                            <th style="width: 45px" class="text-center">ID</th>
+                            <th style="width: 220px" class="text-center">Usuario</th>
+                            <th style="width: 300px" class="text-center">Correo</th>
+                            <th class="text-center" style="width: 170px">Monto Total</th>
+                            <th class="text-center" style="width: 100px">Método de Pago</th>
+                            <th class="text-center" style="width: 100px">N° de operación</th>
+                            <th class="text-center" style="width: 100px">Fecha de pago</th>
+                            <th class="text-center" style="width: 100px">Estado</th>
+                            <th class="text-center" style="width: 150px">Acción</th>
+                        </tr>
+                    </thead>  
+                    <tbody>
+                        <?php foreach($pagos as $pago) { ?>
+                            <tr>
+                                <td style="width: 45px" class="text-center"><?php echo $pago['id']; ?></td>
+                                <td style="width: 220px" class="text-center"><?php echo $pago['usuario']; ?></td>
+                                <td style="width: 300px" class="text-center"><?php echo $pago['correo']; ?></td>
+                                <td class="text-center" style="width: 170px"><?php echo $pago['monto_total']; ?></td>
+                                <td class="text-center" style="width: 100px"><?php echo $pago['metodo_pago']; ?></td>
+                                <td class="text-center" style="width: 100px"><?php echo $pago['n_operacion']; ?></td>
+                                <td class="text-center" style="width: 100px"><?php echo $pago['fecha_pago']; ?></td>
+                                <td class="text-center" style="width: 100px" 
+                                    <?php if ($pago['estado'] === 'pendiente') echo 'class="estado-pendiente"'; ?>><?php echo $pago['estado']; ?></td>
+                                <td class="text-center" style="width: 150px">
+                                    <?php if ($pago['estado'] === 'pendiente') { ?>
+                                        <a href="/restaurante_Cevicheria/controller/confirmar_pago_Admin.php?id=<?= $pago['id'] ?>" class="btn btn-warning btn-sm"><i class="fa-regular fa-circle-check"></i> Confirmar</a>
+                                    <?php } else { ?>
+                                        <button class="btn btn-success btn-sm" disabled>Confirmado</button>
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <div class="container py-5">
         <div class="card">
             <div class="card-header bg-white">

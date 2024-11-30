@@ -22,6 +22,7 @@ $persona = $con->getPersonaByUserId($user_id);
 $usuario = $con->getNombreByUserId($user_id);
 $reclamos = $con->getReclamosByUserId($user_id);
 $reservas = $con->getReservasByUserId($user_id);
+$pagos = $con->getPagosByUserId($user_id);
 $totalGeneral = 0; // Inicializa el total general
 ?>
 
@@ -108,6 +109,12 @@ $totalGeneral = 0; // Inicializa el total general
                         <i class="fas fa-clipboard-list mr-2"></i> Mis reservas
                     </a>
 
+                    <a href="#" class="nav-link" data-target="profile-Pagos">
+                        <i class="fas fa-clipboard-list mr-2"></i> Mis Pagos
+                    </a>
+
+
+
                 </div>
 
                 <div class="content-area" style="flex: 1;">
@@ -119,7 +126,7 @@ $totalGeneral = 0; // Inicializa el total general
                             <div class="form-group">
                                 <label>Nombres:</label>
                                 <div style="display: flex; align-items: center;">
-                                    <input type="text" class="form-control" value="<?php echo htmlspecialchars($usuario['nombre']); ?>" readonly>
+                                    <input type="text" name='nombre' class="form-control" value="<?php echo htmlspecialchars($usuario['nombre']); ?>" readonly>
                                     <span class="edit-icon">
                                         <i class="fas fa-edit"></i>
                                     </span>
@@ -196,8 +203,6 @@ $totalGeneral = 0; // Inicializa el total general
                                                 case 'resuelto':
                                                     echo 'green';
                                                     break;
-                                                default:
-                                                    echo 'black';
                                             }
                                             ?>">
                                             <?php echo htmlspecialchars($reclamo['estado']); ?>
@@ -212,8 +217,61 @@ $totalGeneral = 0; // Inicializa el total general
                     </div>
 
                     <!-- reservas -->
-                    <div id="profile-reservas" class="tab-content">
+                     <div id="profile-reservas" class="tab-content">
                         <h2>Mis reservas</h2>
+                     <div class="table-container" style="max-height: 400px; overflow-y: auto; position: relative;">
+                        
+                        <table class="table" style="width: 100%; border-collapse: collapse;">
+                            <thead style="position: sticky; top: 0; background-color: #f8f9fa; z-index: 1;">
+                                <tr>
+                                        <th>Numero de mesa</th>
+                                        <th>Cantidad de personas</th>
+                                        <th>Descripcion</th>
+                                        <th>Estado</th>
+                                        <th>Fecha reserva</th>
+                                        <th>Telefono</th>
+                                        <th>Turno</th>
+                                        <th>Hora de reserva</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($pagos as $pago): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($pago['numero_mesa']); ?></td>
+                                        <td><?php echo htmlspecialchars($pago['cantidad_personas']); ?></td>
+                                        <td><?php echo htmlspecialchars($pago['descripcion']); ?></td>
+                                        <td style="color: 
+                                            <?php
+                                            switch (strtolower($pago['estado'])) {
+                                                case 'pendiente':
+                                                    echo 'red';
+                                                    break;
+                                                case 'en proceso':
+                                                    echo 'blue';
+                                                    break;
+                                                case 'resuelto':
+                                                    echo 'green';
+                                                    break;
+                                            }
+                                            ?>">
+                                            <?php echo htmlspecialchars($pago['estado']); ?>
+                                            <td><?php echo htmlspecialchars($pago['fecha_reserva']); ?></td>
+                                            <td><?php echo htmlspecialchars($pago['telefono']); ?></td>
+                                            <td><?php echo htmlspecialchars($pago['turno']); ?></td>
+                                            <td><?php echo htmlspecialchars($pago['hora_reserva']); ?></td>
+                                    </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+
+
+
+                    <!-- pago -->
+                    <div id="profile-Pagos" class="tab-content">
+                        <h2>Mis Pagos</h2>
                         <div class="table-container" style="max-height: 400px; overflow-y: auto; position: relative;">
                             <table class="table" style="width: 100%; border-collapse: collapse;">
                                 <thead style="position: sticky; top: 0; background-color: #f8f9fa; z-index: 1;">
@@ -237,7 +295,7 @@ $totalGeneral = 0; // Inicializa el total general
                                             <td><?php echo htmlspecialchars($reserva['cantidad_personas']); ?></td>
                                             <td><?php echo htmlspecialchars($reserva['descripcion']); ?></td>
                                             <td style="color: 
-                            <?php
+                                        <?php
                                         switch (strtolower($reserva['estado'])) {
                                             case 'pendiente':
                                                 echo 'red';
@@ -248,10 +306,8 @@ $totalGeneral = 0; // Inicializa el total general
                                             case 'resuelto':
                                                 echo 'green';
                                                 break;
-                                            default:
-                                                echo 'black';
                                         }
-                            ?>">
+                                            ?>">
                                                 <?php echo htmlspecialchars($reserva['estado']); ?>
                                             </td>
                                             <td><?php echo htmlspecialchars($reserva['fecha_reserva']); ?></td>
@@ -274,6 +330,8 @@ $totalGeneral = 0; // Inicializa el total general
                             </table>
                         </div>
 
+
+                        
                         <div class="text-center mt-4">
                             <form id="confirmar-pago-form" action="/restaurante_Cevicheria/controller/confirmar_pago.php" method="POST" style="display: none;">
                                 <div class="form-group">

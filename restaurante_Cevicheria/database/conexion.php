@@ -341,6 +341,27 @@ class Conexion {
         return $consultas;
     }
 
+    public function getPagosByUserId($user_id) {
+        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? ORDER BY fecha_reserva DESC");
+        if ($stmt === false) {
+            return false;
+        }
+    
+        if (!$stmt->bind_param('i', $user_id)) {
+            $stmt->close();
+            return false;
+        }
+    
+        if (!$stmt->execute()) {
+            $stmt->close();
+            return false;
+        }
+    
+        $result = $stmt->get_result();
+        $consultas = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $consultas;
+    }
 
 
     public function updateUsuarioNombre($user_id, $nombre) {
@@ -520,14 +541,14 @@ return $reservas;
         return $num_pagos > 0;
     }
 
-    public function insertarPago($usuario_id, $monto_total, $metodo_pago, $n_operacion, $estado) {
+    public function insertarPago($usuario_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado) {
         $fecha_pago = date('Y-m-d H:i:s'); // Fecha y hora actual del pago
 
-        $query = "INSERT INTO pagos (usuario_id, monto_total, metodo_pago, n_operacion, fecha_pago, estado)
-                  VALUES (?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO pagos (usuario_id, nombre, monto_total, metodo_pago, n_operacion, fecha_pago, estado)
+                  VALUES (?, ?, ?, ?, ?, ?, ?)";
        
         $stmt = $this->con->prepare($query);
-        $stmt->bind_param("isssss", $usuario_id, $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $estado);
+        $stmt->bind_param("issssss", $usuario_id, $nombre , $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $estado);
         
         if ($stmt->execute()) {
             return true; // Éxito al insertar en la base de datos
@@ -536,7 +557,48 @@ return $reservas;
         }
     }
 
+    //pagos
+    public function Mostrar_Pagos() {
+        $sql = 'SELECT p.id,
+                       u.nombre AS usuario,
+                       u.correo AS correo,
+                       p.monto_total,
+                       p.metodo_pago,
+                       p.n_operacion,
+                       p.fecha_pago,
+                       p.estado
+                FROM pagos p
+                LEFT JOIN tbusuario u ON p.usuario_id = u.id';
+    
+        $resultado = $this->con->query($sql);
+    
+        if (!$resultado) {
+            // Manejar errores en la consulta
+            echo "Error en la consulta: " . $this->con->error;
+            return array();
+        }
+    
+        $pagos = array();
+        while ($row = $resultado->fetch_assoc()) {
+            $pagos[] = $row;
+        }
+    
+        return $pagos;
+    }
 
+    public function Confirmar_pago($id){
+        $sql = "UPDATE pagos SET estado = 'completado' WHERE id = $id";
+        $this->con->query($sql);
+    }
+
+    public function obtenerDetallePago($id) {
+        $query = "SELECT * FROM pagos WHERE id = ?";
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        return $resultado->fetch_assoc();
+    }
 }
 
 ?>

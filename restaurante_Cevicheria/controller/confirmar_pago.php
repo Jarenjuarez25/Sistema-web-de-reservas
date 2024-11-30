@@ -7,7 +7,7 @@ $con = new Conexion();
 
 $user_id = $_SESSION['user_id'];
 $correo = $_SESSION['user_correo'];
-
+$nombre = $_SESSION['user_nombre'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
     $monto_total = $_POST['monto_total']; 
@@ -17,15 +17,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
 
     try {
         // Insertar el pago usando el método insertarPago
-        if ($con->insertarPago($user_id, $monto_total, $metodo_pago, $n_operacion, $estado)) {
+        if ($con->insertarPago($user_id, $nombre,$monto_total, $metodo_pago, $n_operacion, $estado)) {
             // Enviar correo de confirmación
-            enviarCorreoPago($correo,$monto_total, $metodo_pago, $n_operacion, $estado);
+            enviarCorreoPago($correo, $nombre ,$monto_total, $metodo_pago, $n_operacion, $estado);
 
           
             // Limpiar mensaje de sesión y redireccionar
             $_SESSION['mensaje'] = 'Pago exitoso. Verifique su correo o en Mis Pagos para más información.';
             $_SESSION['tipo_mensaje'] = 'exito';
-            header("Location: /restaurante_Cevicheria/index.php");
+            header("Location: /restaurante_Cevicheria/profile.php");
             exit();
         } else {
             // Error al insertar en la base de datos
