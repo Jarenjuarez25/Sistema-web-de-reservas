@@ -321,20 +321,8 @@ class Conexion {
     }
     public function getReservasByUserId($user_id) {
         $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? ORDER BY fecha_reserva DESC");
-        if ($stmt === false) {
-            return false;
-        }
-    
-        if (!$stmt->bind_param('i', $user_id)) {
-            $stmt->close();
-            return false;
-        }
-    
-        if (!$stmt->execute()) {
-            $stmt->close();
-            return false;
-        }
-    
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
         $result = $stmt->get_result();
         $consultas = $result->fetch_all(MYSQLI_ASSOC);
         $stmt->close();

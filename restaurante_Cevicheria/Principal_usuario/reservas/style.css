@@ -454,3 +454,15 @@ input#hora {
 .modal-footer11 {
   justify-content: center;
 }
+
+.mesa-card.ocupada {
+  opacity: 0.5;
+  pointer-events: none; /* Deshabilitar clics en mesas ocupadas */
+  cursor: not-allowed;
+}
+
+.mesa-card.disponible {
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}

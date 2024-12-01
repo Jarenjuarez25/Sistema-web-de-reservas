@@ -215,20 +215,30 @@ $total_mesas = 40;
     }
 
     function actualizarEstadoMesas() {
-        console.log('Actualizando estado de las mesas...');
-        fetch('/restaurante_Cevicheria/controller/obtener_estado_mesas.php')
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(mesa => {
-                    const elementoMesa = document.querySelector(`.mesa-card[onclick="abrirModalReserva(${mesa.numero_mesa})"]`);
-                    if (elementoMesa) {
-                        const estadoTexto = elementoMesa.querySelector('.card-text');
-                        estadoTexto.textContent = (mesa.estado === 'Pendiente' || mesa.estado === 'En proceso') ? 'Ocupada' : 'Disponible';
+    console.log('Actualizando estado de las mesas...');
+    fetch('/restaurante_Cevicheria/controller/obtener_estado_mesas.php')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(mesa => {
+                const elementoMesa = document.querySelector(`.mesa-card[onclick="abrirModalReserva(${mesa.numero_mesa})"]`);
+                if (elementoMesa) {
+                    const estadoTexto = elementoMesa.querySelector('.card-text');
+                    estadoTexto.textContent = (mesa.estado === 'Pendiente' || mesa.estado === 'En proceso') ? 'Ocupada' : 'Disponible';
+
+                    // Cambiar las clases según el estado
+                    if (mesa.estado === 'Pendiente' || mesa.estado === 'En proceso') {
+                        elementoMesa.classList.add('ocupada');
+                        elementoMesa.classList.remove('disponible');
+                    } else {
+                        elementoMesa.classList.add('disponible');
+                        elementoMesa.classList.remove('ocupada');
                     }
-                });
-            })
-            .catch(error => console.error('Error al obtener el estado de las mesas:', error));
-    };
+                }
+            });
+        })
+        .catch(error => console.error('Error al obtener el estado de las mesas:', error));
+}
+
     actualizarEstadoMesas();
 
     setInterval(actualizarEstadoMesas, 5000);
