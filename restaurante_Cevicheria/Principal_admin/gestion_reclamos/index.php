@@ -82,18 +82,15 @@ $reclamo = $con->Mostrar_Reclamaciones();
                             <?php if ($reclamos['estado'] === 'Resuelto') { ?>
                             <td style="width: 100px"><button class="btn btn-success btn-sm" disabled>Resuelto</button>
                             <td>
-
+                            <!--amarillo-->
                                 <?php } elseif ($reclamos['respuesta'] === null && $reclamos['estado'] == 'Pendiente') { ?>
                             <td><a href="/restaurante_Cevicheria/Principal_admin/gestion_reclamos/vistas/responder-reclamo.php?id=<?= $reclamos['id'] ?>"
                                     class="btn btn-warning"><i class="fas fa-edit"></i></a></td>
-                           
-                                    
+                                  <!--verde-->  
                                     <td><a href="/restaurante_Cevicheria/controller/leer_reclamo.php?id=<?=$reclamos['id']?>"
                                     class="btn btn-success"><i class="fa fa-eye-slash"></i></a></td>
+                            
                             <?php } elseif ($reclamos['estado'] === 'En proceso') { ?>
-                           
-                             <td><a href="/restaurante_Cevicheria/Principal_admin/gestion_reclamos/vistas/responder-reclamo.php?id=<?= $reclamos['id'] ?>"
-                                    class="btn btn-warning"><i class="fas fa-edit"></i></a></td>
                             <?php } else { ?>
                             <td>No disponible
                             <td>

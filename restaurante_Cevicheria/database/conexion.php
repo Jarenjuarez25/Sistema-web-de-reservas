@@ -342,7 +342,7 @@ class Conexion {
     }
 
     public function getPagosByUserId($user_id) {
-        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? ORDER BY fecha_reserva DESC");
+        $stmt = $this->con->prepare("SELECT * FROM pagos WHERE usuario_id = ? ORDER BY fecha_pago DESC");
         if ($stmt === false) {
             return false;
         }
@@ -362,14 +362,7 @@ class Conexion {
         $stmt->close();
         return $consultas;
     }
-
-
-    public function updateUsuarioNombre($user_id, $nombre) {
-        $sql = "UPDATE tbusuario SET nombre = ? WHERE id = ?";
-        $stmt = $this->con->prepare($sql);
-        $stmt->bind_param("si", $nombre, $user_id);
-        return $stmt->execute();
-    }
+    
 
     // Obtener datos de usuarios
     public function getUsuariosData() {
@@ -472,7 +465,7 @@ return $reservas;
             u.nombre
             FROM reservas r 
             JOIN tbusuario u ON r.usuario_id = u.id 
-            ORDER BY r.estado ASC";
+            ORDER BY r.fecha_reserva DESC";
         $resultado = $this->con->query($sql);
         $reservas = array();
         while ($row = $resultado->fetch_assoc()) {
@@ -560,15 +553,18 @@ return $reservas;
     //pagos
     public function Mostrar_Pagos() {
         $sql = 'SELECT p.id,
-                       u.nombre AS usuario,
-                       u.correo AS correo,
-                       p.monto_total,
-                       p.metodo_pago,
-                       p.n_operacion,
-                       p.fecha_pago,
-                       p.estado
-                FROM pagos p
-                LEFT JOIN tbusuario u ON p.usuario_id = u.id';
+        u.nombre AS usuario,
+        u.correo AS correo,
+        p.monto_total,
+        p.metodo_pago,
+        p.n_operacion,
+        p.fecha_pago,
+        p.estado,
+        r.numero_mesa
+        FROM pagos p
+        LEFT JOIN tbusuario u ON p.usuario_id = u.id
+        LEFT JOIN reservas r ON r.usuario_id = u.id
+        ORDER BY p.fecha_pago DESC';
     
         $resultado = $this->con->query($sql);
     
@@ -599,6 +595,23 @@ return $reservas;
         $resultado = $stmt->get_result();
         return $resultado->fetch_assoc();
     }
+
+//actu persona
+public function updatePersona($user_id, $nombre, $apellido_p, $dni, $fecha_nacimiento) {
+    $sql = "UPDATE tbusuario SET nombre = ?, apellidos = ?, dni = ?, fechaNacimiento = ? WHERE id = ?";
+    $stmt = $this->con->prepare($sql);
+    $stmt->bind_param("ssssi", $nombre, $apellido_p, $dni, $fecha_nacimiento, $user_id);
+    return $stmt->execute();
+}
+
+public function updateUsuarioNombre($user_id, $nombre) {
+    $sql = "UPDATE tbusuario SET nombre = ? WHERE id = ?";
+    $stmt = $this->con->prepare($sql);
+    $stmt->bind_param("si", $nombre, $user_id);
+    return $stmt->execute();
+}
+
+
 }
 
 ?>

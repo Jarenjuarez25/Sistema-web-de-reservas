@@ -47,7 +47,8 @@ $pagos = $con->Mostrar_Pagos();
                     <thead>
                         <tr style="width: 400px">
                             <th style="width: 45px" class="text-center">ID</th>
-                            <th style="width: 220px" class="text-center">Usuario</th>
+                            <th style="width: 70px" class="text-center">Mesa N°</th>
+                            <th style="width: 200px" class="text-center">Usuario</th>
                             <th style="width: 300px" class="text-center">Correo</th>
                             <th class="text-center" style="width: 170px">Monto Total</th>
                             <th class="text-center" style="width: 100px">Método de Pago</th>
@@ -61,15 +62,25 @@ $pagos = $con->Mostrar_Pagos();
                         <?php foreach($pagos as $pago) { ?>
                             <tr>
                                 <td style="width: 45px" class="text-center"><?php echo $pago['id']; ?></td>
+                                <td style="width: 70px" class="text-center"><?php echo $pago['numero_mesa']; ?></td>
                                 <td style="width: 220px" class="text-center"><?php echo $pago['usuario']; ?></td>
                                 <td style="width: 300px" class="text-center"><?php echo $pago['correo']; ?></td>
                                 <td class="text-center" style="width: 170px"><?php echo $pago['monto_total']; ?></td>
                                 <td class="text-center" style="width: 100px"><?php echo $pago['metodo_pago']; ?></td>
                                 <td class="text-center" style="width: 100px"><?php echo $pago['n_operacion']; ?></td>
                                 <td class="text-center" style="width: 100px"><?php echo $pago['fecha_pago']; ?></td>
-                                <td class="text-center" style="width: 100px" 
-                                    <?php if ($pago['estado'] === 'pendiente') echo 'class="estado-pendiente"'; ?>><?php echo $pago['estado']; ?></td>
-                                <td class="text-center" style="width: 150px">
+                                <td class="text-center" style="width: 100px; 
+    <?php
+    if ($pago['estado'] === 'pendiente') {
+        echo 'color: red; font-weight: bold;';
+    } elseif ($pago['estado'] === 'completado') {
+        echo 'color: green; font-weight: bold;';
+    }
+    ?>">
+    <?php echo htmlspecialchars($pago['estado']); ?>
+</td>
+                                
+                                    <td class="text-center" style="width: 150px">
                                     <?php if ($pago['estado'] === 'pendiente') { ?>
                                         <a href="/restaurante_Cevicheria/controller/confirmar_pago_Admin.php?id=<?= $pago['id'] ?>" class="btn btn-warning btn-sm"><i class="fa-regular fa-circle-check"></i> Confirmar</a>
                                     <?php } else { ?>
@@ -125,8 +136,23 @@ $pagos = $con->Mostrar_Pagos();
                                 <td style="width: 80px" class="text-center"><?php echo $reserva['turno']; ?></td>
                                 <td style="width: 80px" class="text-center"><?php echo $reserva['hora_reserva']; ?></td>
                                 <td class="text-center" style="width: 180px"><?php echo $reserva['fecha_reserva']; ?></td>
-                                <td class="text-center estado-reserva" style="Color:red;  width: 100px">
-                                    <?php echo htmlspecialchars($reserva['estado']); ?>
+                                <td class="text-center estado-reserva" style=" width: 100px; Color:
+                                <?php
+                                                switch (strtolower($reserva['estado'])) {
+                                                    case 'pendiente':
+                                                        echo 'red';
+                                                        break;
+                                                    case 'en proceso':
+                                                        echo 'blue';
+                                                        break;
+                                                    case 'resuelto':
+                                                        echo 'green';
+                                                        break;
+                                                    case 'cancelado':
+                                                        echo 'red';
+                                                }
+                                            ?>">
+                                <?php echo htmlspecialchars($reserva['estado']); ?>
                                 </td>
 
                                 <td style="width: 70px" class="text-center"><?php echo $reserva['pago']; ?></td>

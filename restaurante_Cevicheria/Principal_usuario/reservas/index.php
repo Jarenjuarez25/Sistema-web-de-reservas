@@ -168,12 +168,6 @@ $total_mesas = 40;
                             <label for="hora" class="form-label hora">Hora de reserva</label>
                             <input type="time" class="form-control hora" id="hora" name="hora" required>
                         </div>
-
-                        <div class="mb-3">
-                            <label class="custom-checkbox">
-                                *Se aplicará un incentivo de 1so por reserva realizada
-                            </label>
-                        </div>
                         
                         <div class="mb-3">
                             <div class="custom-button" ng-click="do_group_request()">
@@ -194,7 +188,7 @@ $total_mesas = 40;
     <!-- Modal para mensajes -->
     <div id="mensajeModal" class="modal fade" tabindex="-1" aria-labelledby="mensajeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content"  style="margin-left: 10%; margin-top: -13%; background-color: beige;">
+            <div class="modal-content"  style="margin-left: 10%; margin-top: -25%; background-color: #f6f6f6;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="mensajeModalLabel">Mensaje</h5>
                 </div>

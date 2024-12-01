@@ -207,16 +207,15 @@ body.modal-open {
 }
 
 label.form-label.hora {
-  /* margin-top: -12px; */
   position: absolute;
-  top: 62%;
+  top: 67%;
   left: 51%;
 }
 
 input#hora {
   width: 46%;
   position: absolute;
-  top: 68%;
+  top: 73%;
   left: 50%;
   height: 36px;
 }
@@ -224,7 +223,6 @@ input#hora {
 .custom-button {
   border: 2px solid #150b5a; 
   background-color: transparent;
-  color: black; 
   padding: 10px 15px; 
   text-align: center; 
   cursor: pointer;
@@ -233,9 +231,13 @@ input#hora {
 }
 
 .custom-button:hover {
-  background-color: #0b5ed7;
-  color: black; 
+  background-color: #636972;
 }
+
+.custom-button a{
+  color: black;
+}
+
 
 .navbar ul li a {
   position: relative;

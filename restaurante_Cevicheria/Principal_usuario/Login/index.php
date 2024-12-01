@@ -18,12 +18,6 @@ $con = new Conexion();
 </head>
 
 <body>
-    <div id="loaderPagina" class="section_loader">
-              <div class="loader">
-                   <div class="loader_1"></div>
-                  <div class="loader_2"></div>
-            </div>
-      </div>
     <narvar class="navbar-container">
         <a href="/restaurante_Cevicheria/index.php" ><img src="/restaurante_Cevicheria/Images/Logo.png" class="logo"></a>
         <nav class="navbar">
@@ -121,9 +115,7 @@ $con = new Conexion();
 
     </div>
   </div>
-
   <script src="script.js"></script>
-  <script src="/restaurante_Cevicheria/js/loader.js"></script>
 </body>
 
 </html>

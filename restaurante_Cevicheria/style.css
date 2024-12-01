@@ -5,12 +5,15 @@
 }
 
 
-*,*:before, *:after{
-box-sizing: inherit;
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
 }
 
 
-body {  
+body {
+    overflow-x: hidden; 
     margin: 0;
     padding-top: 1px;
 }
@@ -20,14 +23,14 @@ body {
     position: relative;
     width: 100%;
     height: 90vh;
-  }
+}
 
-  .inic-video video {
+.inic-video video {
     position: absolute;
     height: 100%;
     width: 100%;
     object-fit: cover;
-  }
+}
 
 
 
@@ -47,7 +50,7 @@ body {
     top: 60px;
     left: 130px;
 }
-  
+
 .seccion-1 p {
     font-family: 'Open Sans', sans-serif;
     color: #263864;
@@ -74,15 +77,21 @@ body {
     animation: BgAnimation 10s linear infinite;
 }
 
-@keyframes BgAnimation{
-    4% {background-image: url('/restaurante_Cevicheria/Images/is-a-party.png');
+@keyframes BgAnimation {
+    4% {
+        background-image: url('/restaurante_Cevicheria/Images/is-a-party.png');
     }
-    30% {background-image: url('/restaurante_Cevicheria/Images/pescadores.jpg');
+
+    30% {
+        background-image: url('/restaurante_Cevicheria/Images/pescadores.jpg');
     }
+
     60% {
         background-image: url('/restaurante_Cevicheria/Images/plato 1.png');
     }
-    100% {background-image: url('/restaurante_Cevicheria/Images/mar.jpg');
+
+    100% {
+        background-image: url('/restaurante_Cevicheria/Images/mar.jpg');
     }
 }
 
@@ -97,7 +106,7 @@ body {
 
 /*seccion-2*/
 .seccion-2 {
-    font-family: Helvetica , Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Helvetica, Arial, sans-serif;
     text-align: center;
     background-color: #21213b;
     height: 584px;
@@ -116,7 +125,7 @@ body {
 
 
 .cards-container {
-position: relative;
+    position: relative;
     margin-top: 30px;
     display: flex;
     justify-content: space-around;
@@ -212,12 +221,11 @@ position: relative;
 
 
 .card.experiencia .card-content {
-    transform: translateY(40%); 
-    background: linear-gradient(to top, 
-        rgba(0, 0, 0, 0.95) 0%,
-        rgba(0, 0, 0, 0.8) 20%,
-        rgba(0, 0, 0, 0.4) 100%
-    );
+    transform: translateY(40%);
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.95) 0%,
+            rgba(0, 0, 0, 0.8) 20%,
+            rgba(0, 0, 0, 0.4) 100%);
 }
 
 .card.experiencia .card-title {
@@ -270,7 +278,7 @@ position: relative;
 }
 
 .seccion-3 h2 {
-    font-family: Helvetica , Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Helvetica, Arial, sans-serif;
     color: white;
     font-size: 3rem;
     margin-bottom: 20px;
@@ -313,7 +321,8 @@ position: relative;
     background-color: white;
     margin: 11% -130px 61px;
 }
-.a img{
+
+.a img {
     box-shadow: 15px 15px 15px rgba(22, 21, 21, 0.3);
     border-radius: 10px;
     cursor: pointer;
@@ -367,7 +376,7 @@ position: relative;
     gap: 20px;
 }
 
-.reseña_bloque{
+.reseña_bloque {
     background-color: #1a1a33;
     width: 300px;
     height: 130px;
@@ -417,7 +426,7 @@ position: relative;
 
 /*Politicas*/
 footer {
-    font-family: Helvetica , Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Helvetica, Arial, sans-serif;
     background-color: white;
     padding: 100px 70px;
     font-size: 14px;
@@ -445,7 +454,7 @@ footer {
     color: #2C2C2C;
 }
 
-.socialTittle{
+.socialTittle {
     margin-top: 78px;
     margin-left: -303px;
 }
@@ -478,14 +487,14 @@ footer {
 /*Iconos*/
 
 .social-icons a {
-    font-family: Helvetica , Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Helvetica, Arial, sans-serif;
     display: flex;
     color: #333;
     transition: color 0.3s ease;
     margin-left: 34px;
 }
 
-.info-libro-reclamaciones{
+.info-libro-reclamaciones {
     position: absolute;
     margin-top: -23px;
     height: 90px;
@@ -493,19 +502,21 @@ footer {
 
 }
 
-.social-fc{
+.social-fc {
     position: absolute;
     margin-top: -2px;
     height: 25px;
     margin-left: -335px;
 }
-.social-ig{
+
+.social-ig {
     position: absolute;
     margin-top: -2px;
     height: 25px;
     margin-left: -306px;
 }
-.social-tikTok{
+
+.social-tikTok {
     position: absolute;
     margin-top: -2px;
     height: 25px;
@@ -537,46 +548,58 @@ footer {
 /*mi perfil*/
 
 .pago-main {
-    max-width: 800px; /* Ajusta el tamaño del contenedor */
+    max-width: 800px;
+    /* Ajusta el tamaño del contenedor */
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: space-between; /* Distribuye el espacio entre los elementos hijos */
+    justify-content: space-between;
+    /* Distribuye el espacio entre los elementos hijos */
 }
-.form-container, .checkbox-container {
-    width: 48%; /* Ajusta el ancho de las columnas */
+
+.form-container,
+.checkbox-container {
+    width: 48%;
+    /* Ajusta el ancho de las columnas */
 }
+
 .pago-titulo {
     text-align: center;
     margin-bottom: 20px;
     color: #333;
 }
+
 .form-group {
     margin-bottom: 15px;
     margin-top: 47px;
 }
+
 .form-group label {
     display: block;
     margin-bottom: 5px;
     color: #555;
     margin-top: -3%;
 }
+
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="file"],
-.form-group input[type="tel"] {
-    width: calc(93% - 22px);
+.form-group input[type="tel"],
+.form-group input[type="date"]{
+    width: calc(51% - 22px);
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
 .form-group input[type="file"] {
     padding: 5px;
 }
+
 .pago-boton {
     display: block;
     width: 100%;
@@ -588,9 +611,11 @@ footer {
     font-size: 18px;
     cursor: pointer;
 }
+
 .pago-boton:hover {
     background-color: #218838;
 }
+
 .sc-boton {
     display: block;
     width: 100%;
@@ -602,36 +627,225 @@ footer {
     font-size: 18px;
     cursor: pointer;
 }
+
 .sc-boton:hover {
     background-color: #bfec6a;
 }
+
 .checkbox-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Alinea los elementos a la izquierda */
+    align-items: flex-start;
+    /* Alinea los elementos a la izquierda */
 }
+
 .checkbox-group {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
+
 .checkbox-group label {
     margin-left: 5px;
     color: #555;
 }
+
 .image-container {
     display: none;
     margin-top: 20px;
     text-align: center;
 }
+
 .image-container img {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
 }
+
 #mensaje {
     text-align: center;
     font-size: 18px;
     color: #28a745;
     margin-top: 20px;
 }
+/*confirmar pago 1*/
+#mostrar-form-pago {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 14px;
+    background-color: #1a237e;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 22px;
+}
+
+#mostrar-form-pago i {
+    font-size: 18px;
+}
+
+#mostrar-form-pago:hover {
+    background-color: #4f565e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+#mostrar-form-pago:active {
+    background-color: #004080;
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/*confirmar pago 2*/
+.boton2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 14px;
+    background-color: #1a237e;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 22px;
+}
+
+.boton2 i {
+    font-size: 18px;
+}
+
+.boton2:hover {
+    background-color: #4f565e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.boton2:active {
+    background-color: #004080;
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 22px;
+  }
+
+  .container {
+    max-width: 1427px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+  
+  .boton3, .boton4 {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    background-color: #1a237e;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 17px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .boton3 i, .boton4 i {
+    font-size: 18px;
+  }
+  
+  .boton3:hover, .boton4:hover {
+    background-color: #4f565e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .boton3:active, .boton4:active {
+    background-color: #004080;
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .boton3 {
+    margin-right: auto;
+  }
+
+/*yape y pli imagenes*/
+.mt-5 {
+    padding-top: 5px;
+}
+
+.confirmar-tit {
+    padding-top: 10px;
+}
+
+.opcion-imagen {
+    display: none;
+    max-width: 300px;
+    margin-top: 5px;
+}
+
+.si {
+    color: var(--navy-blue);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    margin-top: -5%;
+    margin-left: 74%;
+
+}
+
+.btn-btn-primary{
+    padding-left: 50%;
+}
+
+/*mensaje*/
+.mensaje {
+    position: absolute;
+    top: 10%;
+    width: 226px;
+    padding: 20px;
+    border-radius: 16px;
+    font-family: 'Trade Gothic LT', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: center;
+    z-index: 1000;
+    animation: slideInFromRight 0.5s forwards;
+    background-color: #1a237e;
+    color: white;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(95, 187, 76, 0.1);
+}
+
+.mensaje.error {
+    background-color: #fc2b1f; /* Fondo rojo para mensajes de error */
+    color: white;
+}
+
+@keyframes slideInFromRight {
+    0% {
+        left: 100%;
+    }
+    100% {
+        left: 82%; /* Ajusta la posición final según tu diseño */
+    }
+}
+

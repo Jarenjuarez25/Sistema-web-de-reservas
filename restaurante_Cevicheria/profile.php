@@ -38,6 +38,7 @@ $totalGeneral = 0; // Inicializa el total general
     <link rel="stylesheet" href="/restaurante_Cevicheria/css/profile-style.css" />
     <link rel="stylesheet" href="/restaurante_Cevicheria/css/style.css" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -84,17 +85,17 @@ $totalGeneral = 0; // Inicializa el total general
             </ul>
         </nav>
     </div>
-
-    <div class="container">
         <?php
-            if (isset($_SESSION['mensaje'])) {
-                $mensaje = $_SESSION['mensaje'];
-                $tipo_mensaje = $_SESSION['tipo_mensaje'];
-                echo "<div class='mensaje $tipo_mensaje'>$mensaje</div>";
-                unset($_SESSION['mensaje']);
-                unset($_SESSION['tipo_mensaje']);
-            }
+        if (isset($_SESSION['mensaje'])) {
+            $mensaje = $_SESSION['mensaje'];
+            $tipo_mensaje = $_SESSION['tipo_mensaje'];
+            echo "<div class='mensaje $tipo_mensaje'>$mensaje</div>";
+            unset($_SESSION['mensaje']);
+            unset($_SESSION['tipo_mensaje']);
+        }
         ?>
+    <div class="container">
+
         <div class="profile-card">
             <div class="row" style="display: flex;">
                 <div class="sidebar" style="flex: 0 0 250px;">
@@ -105,31 +106,28 @@ $totalGeneral = 0; // Inicializa el total general
                         <i class="fas fa-clipboard-list mr-2"></i> Mis reclamos
                     </a>
 
-                    <a href="#" class="nav-link" data-target="profile-reservas">
+                    <a href="#" class="nav-link" data-target="profile-reservas1">
                         <i class="fas fa-clipboard-list mr-2"></i> Mis reservas
+                    </a>
+
+                    <a href="#" class="nav-link" data-target="profile-reservas">
+                        <i class="fas fa-clipboard-list mr-2"></i> Pagos
                     </a>
 
                     <a href="#" class="nav-link" data-target="profile-Pagos">
                         <i class="fas fa-clipboard-list mr-2"></i> Mis Pagos
                     </a>
 
-
-
                 </div>
 
-                <div class="content-area" style="flex: 1;">
-                    <!-- Datos Personales -->
-                    <div id="profile-personal" class="tab-content active">
+        <div class="content-area" style="flex: 1;">     
+                <div id="profile-personal" class="tab-content active">
                         <h2>Datos personales</h2>
-
-                        <form>
+                        <form method="post" action="/restaurante_Cevicheria/controller/edit-profile.php">
                             <div class="form-group">
                                 <label>Nombres:</label>
                                 <div style="display: flex; align-items: center;">
-                                    <input type="text" name='nombre' class="form-control" value="<?php echo htmlspecialchars($usuario['nombre']); ?>" readonly>
-                                    <span class="edit-icon">
-                                        <i class="fas fa-edit"></i>
-                                    </span>
+                                    <input type="text" name='nombre' class="form-control" value="<?php echo htmlspecialchars($usuario['nombre']); ?>">
                                 </div>
                             </div>
 
@@ -138,10 +136,7 @@ $totalGeneral = 0; // Inicializa el total general
                                 <div style="display: flex; align-items: center;">
                                     <input type="text" class="form-control" id="apellido_p"
                                         name="apellido_p"
-                                        value="<?php echo htmlspecialchars($persona['apellidos']); ?>" readonly>
-                                    <span class="edit-icon">
-                                        <i class="fas fa-edit"></i>
-                                    </span>
+                                        value="<?php echo htmlspecialchars($persona['apellidos']); ?>">
                                 </div>
                             </div>
 
@@ -149,31 +144,28 @@ $totalGeneral = 0; // Inicializa el total general
                                 <label>Dni:</label>
                                 <div style="display: flex; align-items: center;">
                                     <input type="tel" class="form-control" id="dni" name="dni"
-                                        value="<?php echo htmlspecialchars($persona['dni']); ?>" readonly>
-                                    <span class="edit-icon">
-                                        <i class="fas fa-edit"></i>
-                                    </span>
+                                        value="<?php echo htmlspecialchars($persona['dni']); ?>">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label>Fecha Nacimiento:</label>
                                 <div style="display: flex; align-items: center;">
-                                    <input type="tel" class="form-control" id="telefono" name="telefono"
-                                        value="<?php echo htmlspecialchars($persona['fechaNacimiento']); ?>" readonly>
-                                    <span class="edit-icon">
-                                        <i class="fas fa-edit"></i>
-                                    </span>
+                                    <input type="date" class="form-control" id="telefono" name="telefono"
+                                        value="<?php echo htmlspecialchars($persona['fechaNacimiento']); ?>">   
                                 </div>
                             </div>
+                            <button class="boton2" id="updateButton"><i class="bi bi-pencil-square"></i> Actualizar</button>
 
                         </form>
                     </div>
 
                     <!-- Reclamos -->
+
                     <div id="profile-reclamos" class="tab-content">
                         <h2>Mis reclamos</h2>
-                        <table class="table">
+                        <div class="table-container" style="max-height: 400px; overflow-y: auto; position: relative;"></div>
+                        <table class="table" style="width: 100%; border-collapse: collapse;">
                             <thead>
                                 <tr>
                                     <th>Fecha</th>
@@ -216,86 +208,100 @@ $totalGeneral = 0; // Inicializa el total general
                         </table>
                     </div>
 
-                    <!-- reservas -->
-                     <div id="profile-reservas" class="tab-content">
-                        <h2>Mis reservas</h2>
-                     <div class="table-container" style="max-height: 400px; overflow-y: auto; position: relative;">
-                        
+                    <!--Reservas unicamente-->
+                    <div id="profile-reservas1" class="tab-content">
+                        <h2 class="si">Mis reservas</h2>
+                        <div class="table-container" style="max-height: 400px; overflow-y: auto; position: relative;">
                         <table class="table" style="width: 100%; border-collapse: collapse;">
                             <thead style="position: sticky; top: 0; background-color: #f8f9fa; z-index: 1;">
                                 <tr>
-                                        <th>Numero de mesa</th>
-                                        <th>Cantidad de personas</th>
-                                        <th>Descripcion</th>
-                                        <th>Estado</th>
-                                        <th>Fecha reserva</th>
-                                        <th>Telefono</th>
-                                        <th>Turno</th>
-                                        <th>Hora de reserva</th>
+
+                                    <th>Numero de mesa</th>
+                                    <th>Cantidad de personas</th>
+                                    <th>Descripcion</th>
+                                    <th>Telefono</th>
+                                    <th>Fecha</th>
+                                    <th>Turno</th>
+                                    <th>Hora</th>
+                                    <th>Pago</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($pagos as $pago): ?>
-                                    <tr>
-                                        <td><?php echo htmlspecialchars($pago['numero_mesa']); ?></td>
-                                        <td><?php echo htmlspecialchars($pago['cantidad_personas']); ?></td>
-                                        <td><?php echo htmlspecialchars($pago['descripcion']); ?></td>
+                                <?php foreach ($reservas as $reserva): ?>
+                                    <tr data-id="<?php echo htmlspecialchars($reserva['id']); ?>">
+                                        <td><?php echo htmlspecialchars($reserva['numero_mesa']); ?></td>
+                                        <td><?php echo htmlspecialchars($reserva['cantidad_personas']); ?></td>
+                                        <td><?php echo htmlspecialchars($reserva['descripcion']); ?></td>
+                                        <td><?php echo htmlspecialchars($reserva['telefono']); ?></td>
+                                        <td><?php echo htmlspecialchars(date('Y-m-d', strtotime($reserva['fecha_reserva']))); ?></td>
+                                        <td><?php echo htmlspecialchars($reserva['turno']); ?></td>
+                                        <td><?php echo htmlspecialchars($reserva['hora_reserva']); ?></td>
+                                        <td><?php echo htmlspecialchars($reserva['pago']); ?></td>
                                         <td style="color: 
                                             <?php
-                                            switch (strtolower($pago['estado'])) {
-                                                case 'pendiente':
-                                                    echo 'red';
-                                                    break;
-                                                case 'en proceso':
-                                                    echo 'blue';
-                                                    break;
-                                                case 'resuelto':
-                                                    echo 'green';
-                                                    break;
-                                            }
+                                                switch (strtolower($reserva['estado'])) {
+                                                    case 'pendiente':
+                                                        echo 'red';
+                                                        break;
+                                                    case 'en proceso':
+                                                        echo 'blue';
+                                                        break;
+                                                    case 'resuelto':
+                                                        echo 'green';
+                                                        break;
+                                                    case 'cancelado':
+                                                        echo 'red';
+                                                }
                                             ?>">
-                                            <?php echo htmlspecialchars($pago['estado']); ?>
-                                            <td><?php echo htmlspecialchars($pago['fecha_reserva']); ?></td>
-                                            <td><?php echo htmlspecialchars($pago['telefono']); ?></td>
-                                            <td><?php echo htmlspecialchars($pago['turno']); ?></td>
-                                            <td><?php echo htmlspecialchars($pago['hora_reserva']); ?></td>
-                                    </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                                            <?php echo htmlspecialchars($reserva['estado']); ?>
+                                        </td>
+                                        <td>
+                                        <a href="/restaurante_Cevicheria/edit_reserva.php?id=<?php echo ($reserva['id']); ?>" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Editar</a><br>
+                                        <a href="/restaurante_Cevicheria/controller/cancelar_reserva.php?id=<?php echo ($reserva['id']); ?>" 
+                                        class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash"></i> Cancelar
+                                        </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
                     </div>
-                    </div>
 
-
-
-                    <!-- pago -->
-                    <div id="profile-Pagos" class="tab-content">
-                        <h2>Mis Pagos</h2>
+                    <!-- Pagos -->
+                    <div id="profile-reservas" class="tab-content">
+                        <h2>Pagos</h2>
                         <div class="table-container" style="max-height: 400px; overflow-y: auto; position: relative;">
                             <table class="table" style="width: 100%; border-collapse: collapse;">
                                 <thead style="position: sticky; top: 0; background-color: #f8f9fa; z-index: 1;">
                                     <tr>
+                                        <th><a href="#" class="select-all" style="color:white">Selección</a></th>
                                         <th>Numero de mesa</th>
                                         <th>Cantidad de personas</th>
                                         <th>Descripcion</th>
-                                        <th>Estado</th>
-                                        <th>Fecha</th>
+                                        <th>Fecha reserva</th>
                                         <th>Turno</th>
-                                        <th>Hora de reserva</th>
+                                        <th>Hora</th>
                                         <th>Pago</th>
+                                        <th>Estado</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     <?php foreach ($reservas as $reserva): ?>
                                         <tr>
-
+                                            <td><input type="checkbox" class="select-row" data-pago="<?php echo htmlspecialchars($reserva['pago']); ?>" /></td>
                                             <td><?php echo htmlspecialchars($reserva['numero_mesa']); ?></td>
                                             <td><?php echo htmlspecialchars($reserva['cantidad_personas']); ?></td>
                                             <td><?php echo htmlspecialchars($reserva['descripcion']); ?></td>
+                                            <td><?php echo htmlspecialchars(date('Y-m-d', strtotime($reserva['fecha_reserva']))); ?></td>
+                                            <td><?php echo htmlspecialchars($reserva['turno']); ?></td>
+                                            <td><?php echo htmlspecialchars($reserva['hora_reserva']); ?></td>
+                                            <td><?php echo htmlspecialchars($reserva['pago']); ?></td>
                                             <td style="color: 
-                                        <?php
+                                    <?php
                                         switch (strtolower($reserva['estado'])) {
                                             case 'pendiente':
                                                 echo 'red';
@@ -307,38 +313,31 @@ $totalGeneral = 0; // Inicializa el total general
                                                 echo 'green';
                                                 break;
                                         }
-                                            ?>">
+                                    ?>">
                                                 <?php echo htmlspecialchars($reserva['estado']); ?>
                                             </td>
-                                            <td><?php echo htmlspecialchars($reserva['fecha_reserva']); ?></td>
-                                            <td><?php echo htmlspecialchars($reserva['turno']); ?></td>
-                                            <td><?php echo htmlspecialchars($reserva['hora_reserva']); ?></td>
-                                            <td><?php echo htmlspecialchars($reserva['pago']); ?></td>
                                         </tr>
-                                        <?php
-                                        $subtotal = $reserva['pago'] + $reserva['pago'];
-                                        $totalGeneral += $subtotal;
-                                        ?>
+
                                     <?php endforeach; ?>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="4" class="text-right">Total a pagar:</td>
-                                        <td id="total-general-confirmacion" class="font-weight-bold">S/ <?php echo number_format($totalGeneral, 2); ?> PEN</td>
-                                    </tr>
-                                </tfoot>
                             </table>
+
                         </div>
 
+                        <?php $subtotal = $reserva['pago'];
+                        $totalGeneral += $subtotal; ?>
+                        <tfoot>
+                            <tr>
+                                <td colspan="7" class="text-right">Total a pagar:</td>
+                                <td id="total-general-confirmacion" class="font-weight-bold">S/ <span id="total-pago">0.00</span> PEN</td>
+                            </tr>
+                        </tfoot>
 
-                        
                         <div class="text-center mt-4">
-                            <form id="confirmar-pago-form" action="/restaurante_Cevicheria/controller/confirmar_pago.php" method="POST" style="display: none;">
-                                <div class="form-group">
+                            <form id="confirmar-pago-form" action="/restaurante_Cevicheria/controller/confirmar_pago.php" method="POST" style="display: none;">  
+                            <div class="form-group">
                                     <p>Selecciona un método de pago:</p>
                                     <div class="form-check">
-
-
                                         <label class="form-check-label" for="opcion1">
                                             <br>Yape
                                             <img src="/restaurante_Cevicheria/Images/yape.jpg" alt="Opción 1" class="opcion-imagen" style="display: none;">
@@ -353,47 +352,97 @@ $totalGeneral = 0; // Inicializa el total general
                                             <img src="/restaurante_Cevicheria/Images/yape.jpg" alt="Opción 2" class="opcion-imagen" style="display: none;">
                                         </label>
                                         <input class="form-check-input" type="radio" value="Plin" id="opcion2" name="opcion" required>
-
-
-
                                     </div>
-                                </div>
 
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="opcion1">
+                                            <br>Deposito a cuenta         
+                                        </label>
+                                        <input class="form-check-input" type="radio" value="Cuenta Bancaria" id="opcion3" name="opcion" required><br>
+                                        <p alt="Opción 3" class="opcion-imagen" style="display: none;">N° de cuenta: 53595951438062 <br> Lesly Tatiana Oliva Huaman</p>
+                                    </div> 
+
+                                </div>
                                 <div class="form-group">
                                     <label for="numero_operacion">Número de Operación:</label>
                                     <input type="text" class="form-control" id="numero_operacion" name="numero_operacion" placeholder="Ingrese el número de operación" maxlength="8" required>
                                 </div>
                                 <input type="hidden" name="monto_total" value="<?php echo $totalGeneral; ?>">
-                                <button type="submit" class="btn btn-success" name="confirmar_pago">Confirmar pago</button>
+                                <button type="submit" class="boton2" name="confirmar_pago"><i class="bi bi-check-circle"></i>Confirmar pago</button>
                             </form>
-                            <button id="mostrar-form-pago" class="btn btn-primary">Confirmar pago</button>
+                            <button id="mostrar-form-pago" class="btn btn-primary"><i class="bi bi-check-circle"></i>Confirmar</button>
                         </div>
 
                     </div>
+
+                    <!-- pago -->
+                    <div id="profile-Pagos" class="tab-content">
+                        <h2>Mis Pagos</h2>
+                        <div class="table-container" style="max-height: 400px; overflow-y: auto; position: relative;">
+
+                            <table class="table" style="width: 100%; border-collapse: collapse;">
+                                <thead style="position: sticky; top: 0; background-color: #f8f9fa; z-index: 1;">
+                                    <tr>
+                                        <th>Id pago</th>
+                                        <th>Fecha y hora pago</th>
+                                        <th>Numero de operacion</th>
+                                        <th>Metodo Pago</th>
+                                        <th>Monto total</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($pagos as $pago): ?>
+                                        <tr>
+                                            <td><?php echo htmlspecialchars($pago['id']); ?></td>
+                                            <td><?php echo htmlspecialchars($pago['fecha_pago']); ?></td>
+                                            <td><?php echo htmlspecialchars($pago['n_operacion']); ?></td>
+                                            <td><?php echo htmlspecialchars($pago['metodo_pago']); ?></td>
+                                            <td><?php echo htmlspecialchars($pago['monto_total']); ?></td>
+                                            <td style="color: 
+                                            <?php
+                                            switch (strtolower($pago['estado'])) {
+                                                case 'completado':
+                                                    echo 'green';
+                                                    break;
+                                                case 'pendiente':
+                                                    echo 'red';
+                                                    break;
+                                                case 'fallido':
+                                                    echo 'red';
+                                                    break;
+                                            }
+                                            ?>">
+                                                <?php echo htmlspecialchars($pago['estado']); ?>
+
+
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
                 </div>
             </div>
         </div>
     </div>
+
     <script src="/restaurante_Cevicheria/js/drop.js"></script>
     <script src="/restaurante_Cevicheria/js/profile.js"></script>
-    <style>
-        .mt-5 {
-            padding-top: 5px;
-        }
-
-        .confirmar-tit {
-            padding-top: 10px;
-        }
-
-        .opcion-imagen {
-            display: none;
-            /* Imágenes ocultas por defecto */
-            max-width: 300px;
-            /* Tamaño máximo ajustable según necesidades */
-            margin-top: 5px;
-            /* Espacio entre la imagen y el texto */
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+    <script>
+          document.addEventListener("DOMContentLoaded", function() {
+    var mensaje = document.querySelector(".mensaje");
+    if (mensaje) {
+        setTimeout(function() {
+            mensaje.remove();
+        }, 3000);
+    }
+  });
+    </script>
 </body>
-
 </html>

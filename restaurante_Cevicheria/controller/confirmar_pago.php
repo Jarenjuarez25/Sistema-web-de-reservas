@@ -10,10 +10,12 @@ $correo = $_SESSION['user_correo'];
 $nombre = $_SESSION['user_nombre'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
+    $numero_mesa = $_POST['numero_mesa'];
     $monto_total = $_POST['monto_total']; 
     $metodo_pago = $_POST['opcion'];
     $n_operacion = $_POST['numero_operacion']; 
     $estado = 'pendiente'; 
+
 
     try {
         // Insertar el pago usando el método insertarPago
