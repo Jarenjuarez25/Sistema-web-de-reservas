@@ -611,6 +611,72 @@ public function updateUsuarioNombre($user_id, $nombre) {
     return $stmt->execute();
 }
 
+public function Registrar_Reserva_Grupo($nombre, $telefono, $correo, $cantidad_personas, $fecha_reserva, $hora_reserva, $turno, $descripcion, $estado, $pago) {
+    // Preparar la consulta SQL
+    $sql = "INSERT INTO reservas (
+        nombre, 
+        telefono, 
+        correo,
+        cantidad_personas, 
+        fecha_reserva, 
+        hora_reserva, 
+        turno, 
+        descripcion, 
+        estado, 
+        pago,
+        numero_mesa
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)";
+
+    // Preparar la sentencia
+    $stmt = $this->con->prepare($sql);
+
+    // Verificar si la preparación fue exitosa
+    if ($stmt === false) {
+        // Manejar el error de preparación
+        error_log("Error al preparar la consulta: " . $this->con->error);
+        return false;
+    }
+
+    // Bindear los parámetros
+    // "ssssissssss" representa los tipos: string, string, string, int, string, string, string, string, string, string, null
+    $stmt->bind_param("sssississss", 
+        $nombre, 
+        $telefono, 
+        $correo, 
+        $cantidad_personas, 
+        $fecha_reserva, 
+        $hora_reserva, 
+        $turno, 
+        $descripcion, 
+        $estado, 
+        $pago
+    );
+
+    // Ejecutar la consulta
+    $resultado = $stmt->execute();
+
+    // Verificar si la ejecución fue exitosa
+    if ($resultado === false) {
+        // Manejar el error de ejecución
+        error_log("Error al ejecutar la consulta: " . $stmt->error);
+        $stmt->close();
+        return false;
+    }
+
+    // Obtener el ID de la última inserción (opcional)
+    $id_reserva = $stmt->insert_id;
+
+    // Cerrar la sentencia
+    $stmt->close();
+
+    return $id_reserva;
+}
+
+
+
+
+
+
 
 }
 

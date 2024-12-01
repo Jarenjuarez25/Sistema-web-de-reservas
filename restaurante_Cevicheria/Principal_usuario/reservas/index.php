@@ -171,7 +171,7 @@ $total_mesas = 40;
                         
                         <div class="mb-3">
                             <div class="custom-button" ng-click="do_group_request()">
-                                <a href="/restaurante_Cevicheria/Principal_usuario/reservas/plus-person.php"><span class="ng-binding">Para reservas o eventos de mas de 15 personas, pulse aqui</span></a>
+                                <a href="/restaurante_Cevicheria/Principal_usuario/reservas/Registrar_Reserva_Grupo.php"><span class="ng-binding">Para reservas o eventos de mas de 15 personas, pulse aqui</span></a>
                             </div>
                         </div>
                     </form>
