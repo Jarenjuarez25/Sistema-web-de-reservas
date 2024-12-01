@@ -120,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <option value="personas">17</option>
                                 <option value="personas">18</option>
                                 <option value="personas">19</option>
-                                <option value="personas">20</option>
+                                <option value="personas">20</option>z
 
                             </select>
                             <small class="form-text text-muted">Mínimo 10 personas</small>
