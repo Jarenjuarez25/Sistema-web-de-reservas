@@ -30,6 +30,8 @@ function realizarReserva() {
             modalMensajeBody.textContent = 'Reserva realizada con éxito, ve a mis reservas en Mi Perfil y procede con el pago!';
             mensajeModal.show();
 
+
+            
             // Recargar la página al cerrar el modal
             document.getElementById('mensajeModal').addEventListener('hidden.bs.modal', () => {
                 window.location.reload();
