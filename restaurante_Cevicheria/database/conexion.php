@@ -563,15 +563,14 @@ class Conexion
         return $num_pagos > 0;
     }
 
-    public function insertarPago($usuario_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado)
-    {
-        $fecha_pago = date('Y-m-d H:i:s'); // Fecha y hora actual del pago
+    public function insertarPago($usuario_id, $nombre, $monto_total, $metodo_pago, $n_operacion ,$estado, $imagen,){
+        $fecha_pago = date('Y-m-d H:i:s');
 
-        $query = "INSERT INTO pagos (usuario_id, nombre, monto_total, metodo_pago, n_operacion, fecha_pago, estado)
-                  VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO pagos (usuario_id, nombre, monto_total, metodo_pago, n_operacion, fecha_pago, estado, imagen)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $this->con->prepare($query);
-        $stmt->bind_param("issssss", $usuario_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $estado);
+        $stmt->bind_param("isssssss", $usuario_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $estado, $imagen );
 
         if ($stmt->execute()) {
             return true; // Éxito al insertar en la base de datos
@@ -584,33 +583,36 @@ class Conexion
     public function Mostrar_Pagos()
     {
         $sql = 'SELECT 
-        p.id,
-        u.nombre AS usuario,
-        u.correo AS correo,
-        p.monto_total,
-        p.metodo_pago,
-        p.n_operacion,
-        p.fecha_pago,
-        p.estado
-    FROM pagos p
-    LEFT JOIN tbusuario u ON p.usuario_id = u.id
-    ORDER BY p.fecha_pago DESC';
-
+            p.id,
+            u.nombre AS usuario,
+            u.correo AS correo,
+            p.monto_total,
+            p.metodo_pago,
+            p.n_operacion,
+            p.fecha_pago,
+            p.estado,
+            p.imagen
+        FROM pagos p
+        LEFT JOIN tbusuario u ON p.usuario_id = u.id
+        ORDER BY p.fecha_pago DESC';
+    
+        // Ejecutar consulta
         $resultado = $this->con->query($sql);
-
+    
+        // Verificar si hay errores en la consulta
         if (!$resultado) {
-            // Manejar errores en la consulta
-            echo "Error en la consulta: " . $this->con->error;
-            return array();
+            die("Error en la consulta: " . $this->con->error);
         }
-
+    
+        // Procesar resultados
         $pagos = array();
         while ($row = $resultado->fetch_assoc()) {
             $pagos[] = $row;
         }
-
+    
         return $pagos;
     }
+    
 
     public function Confirmar_pago($id)
     {

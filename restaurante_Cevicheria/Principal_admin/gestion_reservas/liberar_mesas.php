@@ -37,64 +37,75 @@
     <!--Pago-->
 
     <div class="container py-5">
-        <div class="card">
-            <div class="card-header bg-white">
-                <h2 class="text-center mb-0 text-primary">
-                    <i class="fas fa-calendar-check me-2"></i>Verificacion de pagos
-                </h2>
-            </div>
-            <div class="card-body">
-                <div class="table-container">
-                    <table class="table table-hover align-middle mb-0 table-fixed">
-                        <thead>
-                            <tr style="width: 400px">
-                                <th style="width: 45px" class="text-center">ID</th>
-                                <th style="width: 200px" class="text-center">Usuario</th>
-                                <th style="width: 300px" class="text-center">Correo</th>
-                                <th class="text-center" style="width: 170px">Monto Total</th>
-                                <th class="text-center" style="width: 100px">Método de Pago</th>
-                                <th class="text-center" style="width: 100px">N° de operación</th>
-                                <th class="text-center" style="width: 100px">Fecha de pago</th>
-                                <th class="text-center" style="width: 100px">Estado</th>
-                                <th class="text-center" style="width: 150px">Acción</th>
+    <div class="card">
+        <div class="card-header bg-white">
+            <h2 class="text-center mb-0 text-primary">
+                <i class="fas fa-calendar-check me-2"></i> Verificación de pagos
+            </h2>
+        </div>
+        <div class="card-body">
+            <div class="table-container">
+                <table class="table table-hover align-middle mb-0 table-fixed">
+                    <thead>
+                        <tr style="width: 400px">
+                            <th style="width: 45px" class="text-center">ID</th>
+                            <th style="width: 200px" class="text-center">Usuario</th>
+                            <th style="width: 300px" class="text-center">Correo</th>
+                            <th class="text-center" style="width: 170px">Monto Total</th>
+                            <th class="text-center" style="width: 100px">Método de Pago</th>
+                            <th class="text-center" style="width: 100px">N° de operación</th>
+                            <th class="text-center" style="width: 100px">Fecha de pago</th>
+                            <th class="text-center" style="width: 100px">Estado</th>
+                            <th class="text-center" style="width: 150px">Acción</th>
+                            <th class="text-center" style="width: 50px">Ver</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($pagos as $pago) { ?>
+                            <tr>
+                                <td style="width: 45px" class="text-center"><?php echo $pago['id']; ?></td>
+                                <td style="width: 200px" class="text-center"><?php echo htmlspecialchars($pago['usuario']); ?></td>
+                                <td style="width: 300px" class="text-center"><?php echo htmlspecialchars($pago['correo']); ?></td>
+                                <td class="text-center" style="width: 170px"><?php echo $pago['monto_total']; ?></td>
+                                <td class="text-center" style="width: 100px"><?php echo $pago['metodo_pago']; ?></td>
+                                <td class="text-center" style="width: 100px"><?php echo $pago['n_operacion']; ?></td>
+                                <td class="text-center" style="width: 100px"><?php echo $pago['fecha_pago']; ?></td>
+                                <td class="text-center" style="width: 100px; 
+                                    <?php
+                                    if ($pago['estado'] === 'pendiente') {
+                                        echo 'color: red; font-weight: bold;';
+                                    } elseif ($pago['estado'] === 'completado') {
+                                        echo 'color: green; font-weight: bold;';
+                                    }
+                                    ?>">
+                                    <?php echo htmlspecialchars($pago['estado']); ?>
+                                </td>
+                                <td class="text-center" style="width: 150px">
+                                    <?php if ($pago['estado'] === 'pendiente') { ?>
+                                        <a href="/restaurante_Cevicheria/controller/confirmar_pago_Admin.php?id=<?= $pago['id'] ?>" class="btn btn-warning btn-sm"><i class="fa-regular fa-circle-check"></i> Confirmar</a>
+                                    <?php } else { ?>
+                                        <button class="btn btn-success btn-sm" disabled>Confirmado</button>
+                                    <?php } ?>
+                                </td>
+                                <td class="text-center" style="width: 50px">
+                                    <?php if (!empty($pago['imagen'])): ?>
+                                        <a href="/restaurante_Cevicheria/uploads-comprobantes<?php echo htmlspecialchars($pago['imagen']); ?>" target="_blank" class="btn btn-info btn-sm">
+                                            Ver
+                                        </a>
+                                    <?php else: ?>
+                                        <span class="text-muted">No disponible</span>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($pagos as $pago) { ?>
-                                <tr>
-                                    <td style="width: 45px" class="text-center"><?php echo $pago['id']; ?></td>
-                                    <td style="width: 220px" class="text-center"><?php echo $pago['usuario']; ?></td>
-                                    <td style="width: 300px" class="text-center"><?php echo $pago['correo']; ?></td>
-                                    <td class="text-center" style="width: 170px"><?php echo $pago['monto_total']; ?></td>
-                                    <td class="text-center" style="width: 100px"><?php echo $pago['metodo_pago']; ?></td>
-                                    <td class="text-center" style="width: 100px"><?php echo $pago['n_operacion']; ?></td>
-                                    <td class="text-center" style="width: 100px"><?php echo $pago['fecha_pago']; ?></td>
-                                    <td class="text-center" style="width: 100px; 
-                                <?php
-                                if ($pago['estado'] === 'pendiente') {
-                                    echo 'color: red; font-weight: bold;';
-                                } elseif ($pago['estado'] === 'completado') {
-                                    echo 'color: green; font-weight: bold;';
-                                }
-                                ?>">
-                                        <?php echo htmlspecialchars($pago['estado']); ?>
-                                    </td>
-
-                                    <td class="text-center" style="width: 150px">
-                                        <?php if ($pago['estado'] === 'pendiente') { ?>
-                                            <a href="/restaurante_Cevicheria/controller/confirmar_pago_Admin.php?id=<?= $pago['id'] ?>" class="btn btn-warning btn-sm"><i class="fa-regular fa-circle-check"></i> Confirmar</a>
-                                        <?php } else { ?>
-                                            <button class="btn btn-success btn-sm" disabled>Confirmado</button>
-                                        <?php } ?>
-                                    </td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
+                        <?php } ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>
+
+
 
     <div class="container py-5">
         <div class="card">
@@ -179,6 +190,20 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    const buttons = document.querySelectorAll('.btn-ver-imagen');
+    buttons.forEach(button => {
+        button.addEventListener('click', function () {
+            const imageUrl = this.getAttribute('data-imagen');
+            const modalImage = document.getElementById('imagenComprobante');
+            modalImage.src = imageUrl;
+            $('#imagenModal').modal('show');
+        });
+    });
+});
+
+    </script>
     <script src="script.js"></script>
     <script src="/restaurante_Cevicheria/js/loader.js"></script>
 </body>

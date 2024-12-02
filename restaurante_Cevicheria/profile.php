@@ -127,7 +127,7 @@ $totalGeneral = 0; // Inicializa el total general
                             <div class="form-group">
                                 <label>Nombres:</label>
                                 <div style="display: flex; align-items: center;">
-                                    <input type="text" name='nombre' id="nombre" class="form-control" value="<?php echo htmlspecialchars($usuario['nombre']); ?>">
+                                    <input type="text" name='nombre' id="nombre" class="form-control" value="<?php echo htmlspecialchars($usuario['nombre']); ?>" readonly>
                                 </div>
                             </div>
 
@@ -332,7 +332,7 @@ $totalGeneral = 0; // Inicializa el total general
                         </tfoot>
 
                         <div class="text-center mt-4">
-                            <form id="confirmar-pago-form" action="/restaurante_Cevicheria/controller/confirmar_pago.php" method="POST" style="display: none;">
+                            <form id="confirmar-pago-form" action="/restaurante_Cevicheria/controller/confirmar_pago.php" method="POST" style="display: none;" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <p>Selecciona un método de pago:</p>
                                     <div class="form-check">
@@ -365,9 +365,9 @@ $totalGeneral = 0; // Inicializa el total general
                                 </div>
                                 <!--cap de pago-->
                                 <div class="form-group">
-                                    <label for="edit-imagen">Imagen:</label>
-                                    <input type="file" id="edit-imagen" name="imagen" class="form-control-file" accept="image/*">
-                                </div>
+                                <label for="imagen">Subir imagen de comprobante:</label>
+                                <input type="file" id="imagen" name="imagen" class="form-control-file" accept="image/*">
+                            </div>
 
                                 <input type="hidden" name="monto_total" value="<?php echo $totalGeneral; ?>">
                                 <button type="submit" class="boton2" name="confirmar_pago"><i class="bi bi-check-circle"></i>Confirmar pago</button>

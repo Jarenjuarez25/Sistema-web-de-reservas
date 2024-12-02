@@ -15,36 +15,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
     $metodo_pago = $_POST['opcion'];
     $n_operacion = $_POST['numero_operacion']; 
     $estado = 'pendiente'; 
-
+    $imagen = ''; 
 
     try {
-        // Insertar el pago usando el método insertarPago
-        if ($con->insertarPago($user_id, $nombre,$monto_total, $metodo_pago, $n_operacion, $estado)) {
-            // Enviar correo de confirmación
-            enviarCorreoPago($correo, $nombre ,$monto_total, $metodo_pago, $n_operacion, $estado);
+        // Manejar la subida de la imagen
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === 0) {
+            $uploadDir = __DIR__ . '../../uploads-comprobantes/';
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true); 
+            }
+            $fileExtension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+            $fileName = uniqid() . '.' . $fileExtension; 
+            $uploadFile = $uploadDir . $fileName;
 
-          
-            // Limpiar mensaje de sesión y redireccionar
+            if (move_uploaded_file($_FILES['imagen']['tmp_name'], $uploadFile)) {
+                $imagen = $fileName;
+            }
+        }
+
+        if ($con->insertarPago($user_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado, $imagen)) {
+            enviarCorreoPago($correo, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado);
+
             $_SESSION['mensaje'] = 'Pago exitoso. Verifique su correo o en Mis Pagos para más información.';
             $_SESSION['tipo_mensaje'] = 'exito';
             header("Location: /restaurante_Cevicheria/profile.php");
             exit();
         } else {
-            // Error al insertar en la base de datos
             $_SESSION['mensaje'] = 'Error al confirmar el pago. Inténtalo nuevamente.';
             $_SESSION['tipo_mensaje'] = 'error';
             header("Location: /restaurante_Cevicheria/profile.php");
             exit();
         }
     } catch (Exception $e) {
-        // Error al generar PDF u otro error
         $_SESSION['mensaje'] = 'Error al confirmar el pago: ' . $e->getMessage();
         $_SESSION['tipo_mensaje'] = 'error';
         header("Location: /restaurante_Cevicheria/profile.php");
         exit();
     }
 } else {
-    // Si el formulario no se envió correctamente, redireccionar o manejar el error según tu aplicación
     $_SESSION['mensaje'] = 'Error: El formulario no se envió correctamente.';
     $_SESSION['tipo_mensaje'] = 'error';
     header("Location: /restaurante_Cevicheria/profile.php");
