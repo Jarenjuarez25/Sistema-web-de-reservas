@@ -8,6 +8,7 @@ $usuarios = $conexion->getUsuariosData();
 $reclamos = $conexion->getReclamosData();
 $reservas = $conexion->getReservas();
 $distribucion = $conexion -> getdistribucionData();
+$perdidas = $conexion -> getperdidasData();
 
 ?>
 <!DOCTYPE html>
@@ -45,10 +46,10 @@ $distribucion = $conexion -> getdistribucionData();
         <div class="filter-section">
     <label>Desde:</label>
     <input type="date" id="fechaInicio">
-    <label>Hasta:</label>
+    <label style="margin-left: 20px;">Hasta:</label>
     <input type="date" id="fechaFin">
     <button id="applyFilterBtn">Aplicar filtro</button>
-    <button id="deleteFiltros1">Borrar filtros</button>
+    <button id="deleteFiltros1"style="margin-left: -20px;" >Borrar filtros</button>
 </div>
             
             <button id="printTablesPdfBtn"><i class="fas fa-file-pdf"></i> Imprimir Tablas</button>
@@ -61,8 +62,13 @@ $distribucion = $conexion -> getdistribucionData();
             </div>
 
             <div class="chart-container" id="distribucionChartContainer">
-                <h2>Distribución de usuarios por género</h2>
+                <h2>Registro de ganancias</h2>
                 <canvas id="distribucionChart"></canvas>
+            </div>
+
+            <div class="chart-container" id="perdidasChartContainer">
+                <h2>Registro de perdidas</h2>
+                <canvas id="perdidasChart"></canvas>
             </div>
 
 
@@ -83,6 +89,7 @@ $distribucion = $conexion -> getdistribucionData();
         const usuariosData = <?php echo json_encode($usuarios); ?>;
         const reclamosData = <?php echo json_encode($reclamos); ?>;
         const reservasData = <?php echo json_encode($reservas); ?>;
+        const perdidasData = <?php echo json_encode($perdidas); ?>;
         const distribucionData = <?php echo json_encode($distribucion); ?>;
     </script>
 

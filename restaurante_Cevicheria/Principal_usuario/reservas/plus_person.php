@@ -1,46 +1,9 @@
-<!DOCTYPE html>
 <?php
 session_start();
 require_once '../../database/conexion.php';
-header('Content-Type: application/json');
 
 $con = new Conexion();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : null;
-    $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : null;
-    $email = isset($_POST['email']) ? $_POST['email'] : null;
-    $cantidad_personas = isset($_POST['cantidad_personas']) ? $_POST['cantidad_personas'] : null;
-    $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : null;
-    $hora = isset($_POST['hora']) ? $_POST['hora'] : null;
-    $turno = isset($_POST['turno']) ? $_POST['turno'] : null;
-    $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
-
-    // Validar que los campos requeridos no estén vacíos
-    if (!$nombre || !$telefono || !$cantidad_personas || !$fecha || !$hora || !$turno) {
-        echo json_encode(['success' => false, 'message' => 'Todos los campos son obligatorios.']);
-        exit;
-    }
-
-    try {
-        // Insertar en la base de datos
-        $sql = "INSERT INTO reservas (usuario_id, cantidad_personas, descripcion, estado, telefono, turno, hora_reserva) 
-                VALUES (?, ?, ?, 'Pendiente', ?, ?, ?)";
-        
-        $stmt = $con->getConexion()->prepare($sql);
-        $stmt->bind_param("iissss", $_SESSION['user_id'], $cantidad_personas, $descripcion, $telefono, $turno, $hora);
-
-        if ($stmt->execute()) {
-            echo json_encode(['success' => true, 'message' => 'Reserva registrada exitosamente.']);
-        } else {
-            throw new Exception('Error al registrar la reserva.');
-        }
-    } catch (Exception $e) {
-        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-    }
-} else {
-    echo json_encode(['success' => false, 'message' => 'Método no permitido.']);
-}
 ?>
 
 <!DOCTYPE html>
@@ -98,17 +61,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label for="cantidad_personas">Número de Personas</label>
                             <select type="number" class="form-control" id="cantidad_personas" name="cantidad_personas" min="10" required>
                                 <option value="">Seleccione una cantidad</option>
-                                <option value="personas">10</option>
-                                <option value="personas">11</option>
-                                <option value="personas">12</option>
-                                <option value="personas">13</option>
-                                <option value="personas">14</option>
-                                <option value="personas">15</option>
-                                <option value="personas">16</option>
-                                <option value="personas">17</option>
-                                <option value="personas">18</option>
-                                <option value="personas">19</option>
-                                <option value="personas">20</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
 
                             </select>
                             <small class="form-text text-muted">Mínimo 10 personas</small>

@@ -141,6 +141,10 @@ $total_mesas = 40;
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                                 <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
                             </select>
                         </div>
                         
@@ -169,10 +173,9 @@ $total_mesas = 40;
                             <input type="time" class="form-control hora" id="hora" name="hora" min="10:00" max="23:00" required>
                         </div>
 
-                        
                         <div class="mb-3">
                             <div class="custom-button" ng-click="do_group_request()">
-                                <a href="/restaurante_Cevicheria/Principal_usuario/reservas/Registrar_Reserva_Grupo.php"><span class="ng-binding">Para reservas o eventos de mas de 15 personas, pulse aqui</span></a>
+                                <a href="/restaurante_Cevicheria/Principal_usuario/reservas/plus_person.php"><span class="ng-binding">Para reservas o eventos de mas de 15 personas, pulse aqui</span></a>
                             </div>
                         </div>
                     </form>

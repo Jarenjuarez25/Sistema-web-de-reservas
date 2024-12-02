@@ -9,6 +9,8 @@ $usuarios = $conexion->getUsuariosData();
 $reclamos = $conexion->getReclamosData();
 $reservas = $conexion->getReservas();
 $distribucion = $conexion -> getdistribucionData();
+$perdidas = $conexion -> getperdidasData();
+
 
 // Crear nuevo documento PDF
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);

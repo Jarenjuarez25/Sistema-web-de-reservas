@@ -320,7 +320,7 @@ class Conexion {
         return $consultas;
     }
     public function getReservasByUserId($user_id) {
-        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? ORDER BY fecha_reserva DESC");
+        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? AND estado != 'Cancelado' ORDER BY fecha_reserva DESC");
         if ($stmt === false) {
             return false;
         }
@@ -366,7 +366,7 @@ class Conexion {
 
     // Obtener datos de usuarios
     public function getUsuariosData() {
-        $sql = "SELECT DATE_FORMAT(fechaNacimiento, '%Y-%m-%d') as fecha, COUNT(*) as cantidad 
+        $sql = "SELECT DATE_FORMAT(fecha_creacion, '%Y-%m-%d') as fecha, COUNT(*) as cantidad 
                 FROM tbusuario 
                 GROUP BY fecha 
                 ORDER BY cantidad DESC";
@@ -392,13 +392,13 @@ class Conexion {
 
         if (!$result) {
             die("Query failed: " . $this->con->error);
-}
+            }
 
-$reservas = [];
-while ($row = $result->fetch_assoc()) {
-    $reservas[] = $row;
-}
-return $reservas;
+            $reservas = [];
+            while ($row = $result->fetch_assoc()) {
+                $reservas[] = $row;
+            }
+            return $reservas;
     }
 
     // Obtener datos de reclamos: reclamos por tipo
@@ -420,28 +420,47 @@ return $reservas;
         return $reclamos;
     }
 
-
-    public function getdistribucionData() {
-        $sql = "SELECT 
-                    genero, 
-                    COUNT(*) as cantidad
-                FROM tbusuario
-                GROUP BY genero
-                ORDER BY cantidad DESC";
-        
+    public function getDistribucionData() {
+        $sql = "SELECT DATE_FORMAT(fecha_pago, '%Y-%m-%d') as fecha, SUM(monto_total) as total 
+                FROM pagos 
+                WHERE estado != 'fallido'
+                GROUP BY fecha 
+                ORDER BY total DESC";
         $result = $this->con->query($sql);
+    
         if (!$result) {
             die("Query failed: " . $this->con->error);
         }
-        
-        $usuarios = [];
+    
+        $reservas = [];
         while ($row = $result->fetch_assoc()) {
-            $usuarios[] = $row;
+            $reservas[] = $row;
         }
-        
-        return $usuarios;
+        return $reservas;
     }
     
+    public function getPerdidasData() {
+        $sql = "SELECT DATE_FORMAT(fecha_reserva, '%Y-%m-%d') as fecha, SUM(pago) as total 
+                FROM reservas 
+                WHERE estado = 'Cancelado'
+                GROUP BY fecha 
+                ORDER BY fecha ASC";
+        $result = $this->con->query($sql);
+    
+        if (!$result) {
+            die("Query failed: " . $this->con->error);
+        }
+    
+        $perdidas = [];
+        while ($row = $result->fetch_assoc()) {
+            $perdidas[] = $row;
+        }
+        return $perdidas;
+    }
+    
+
+
+
     public function insertarReserva($usuario_id, $numeroMesa, $cantidadPersonas, $descripcion, $telefono, $turno, $horaReserva) {
         $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, fecha_reserva, estado, telefono, turno, hora_reserva, pago)
                 VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, 'Pendiente', ?, ?, ?, '10')";
@@ -542,7 +561,7 @@ return $reservas;
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
        
         $stmt = $this->con->prepare($query);
-        $stmt->bind_param("isssssss", $usuario_id, $nombre , $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $estado,);
+        $stmt->bind_param("isssssss", $usuario_id, $nombre , $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $estado, $imagen);
         
 
         if ($stmt->execute()) {

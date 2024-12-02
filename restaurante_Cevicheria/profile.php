@@ -42,8 +42,6 @@ $totalGeneral = 0; // Inicializa el total general
 </head>
 
 <body>
-
-
     <div class="navbar-container">
         <a
             style="    padding-left: 20px;"
@@ -330,7 +328,7 @@ $totalGeneral = 0; // Inicializa el total general
                                                 echo 'green';
                                                 break;
                                         }
-                                        ?>">
+                        ?>">
                                                 <?php echo htmlspecialchars($reserva['estado']); ?>
                                             </td>
                                         </tr>
@@ -370,7 +368,7 @@ $totalGeneral = 0; // Inicializa el total general
                                             <br>Deposito a cuenta
                                         </label>
                                         <input class="form-check-input" type="radio" value="Cuenta Bancaria" id="opcion3" name="opcion" required><br>
-                                        <p alt="Opción 3" class="opcion-imagen" style="display: none;">N° de cuenta: 53595951438062 <br> Lesly Tatiana Oliva Huaman</p>
+                                        <p alt="Opción 3" class="opcion-imagen" style="display: none;">Bcp:<br> N° de cuenta: 53595951438062 <br> Lesly Tatiana Oliva Huaman</p>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -383,7 +381,7 @@ $totalGeneral = 0; // Inicializa el total general
                                     <label for="imagen">Subir imagen de comprobante:</label>
                                     <input type="file" id="imagen" name="imagen" class="form-control-file" accept="image/*">
                                 </div>
-                                
+
                                 <input type="hidden" name="monto_total" value="<?php echo number_format($totalGeneral, 2); ?>">
                                 <button type="submit" class="boton2" name="confirmar_pago"><i class="bi bi-check-circle"></i>Confirmar pago</button>
                             </form>
@@ -469,13 +467,17 @@ $totalGeneral = 0; // Inicializa el total general
                     const reservationId = reservationRow.getAttribute('data-id');
                     const url = this.getAttribute('href');
 
-                    fetch(url, {
-                            method: 'POST'
+                    const cancelUrl = url + "?id=" + reservationId;
+
+                    fetch(cancelUrl, {
+                            method: 'GET'
                         })
                         .then(response => response.json())
                         .then(data => {
                             if (data.status === 'success') {
                                 reservationRow.remove();
+                                alert('Reserva cancelada exitosamente');
+                                location.reload();
                             } else {
                                 alert('No se pudo cancelar la reserva');
                             }

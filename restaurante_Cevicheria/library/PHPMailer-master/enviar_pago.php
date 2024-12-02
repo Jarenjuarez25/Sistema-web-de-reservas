@@ -27,7 +27,7 @@ function enviarCorreoPago($correo, $nombre ,$monto_total, $metodo_pago, $n_opera
         $mail->isHTML(true);
         $mail->Subject = 'Confirmacion de pago';
         $mail->Body = "Hola $nombre,<br><br>
-                      Hemos registrado tu pago correctamente, puedes verificar el estado de aceptacion en Mis pagos!.<br>
+                      Hemos registrado tu pago de tu reserva correctamente, puedes verificar el estado de aceptacion en Mis pagos!.<br>
                       Detalles del pago:<br>
                       Método de pago: $metodo_pago<br>
                       N° de operación: $n_operacion<br>

@@ -46,12 +46,12 @@ body::-webkit-scrollbar-thumb {
   }
   
     .menu_logo{
-    
+
     font-size: 1.17em;
     font-weight: bold;
     margin-block-start: 1em;
     margin-block-end: 1em;
-    margin-left: -3px;
+    margin-left: -96px;
     }
 
      /*loader*/

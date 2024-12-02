@@ -6,6 +6,13 @@ body {
   padding: 0;
 }
 
+.menu_logo {
+  font-size: 1.17em;
+  font-weight: bold;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-left: -97px;
+}
 
 /*tipo de scrollbar*/
 body::-webkit-scrollbar {
@@ -50,15 +57,6 @@ body::-webkit-scrollbar {
               border-color: #fff;
               transform: scale(1.05);
           }
-      
-      .menu_logo{
-      
-      font-size: 1.17em;
-      font-weight: bold;
-      margin-block-start: 1em;
-      margin-block-end: 1em;
-      margin-left: -3px;
-      }
   
       /*loader*/
 .body-loading {
