@@ -11,21 +11,21 @@ $nombre = $_SESSION['user_nombre'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
     $numero_mesa = $_POST['numero_mesa'];
-    $monto_total = $_POST['monto_total']; 
+    $monto_total = $_POST['monto_total'];
     $metodo_pago = $_POST['opcion'];
-    $n_operacion = $_POST['numero_operacion']; 
-    $estado = 'pendiente'; 
-    $imagen = ''; 
+    $n_operacion = $_POST['numero_operacion'];
+    $estado = 'pendiente';
+    $imagen = '';
 
     try {
         // Manejar la subida de la imagen
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === 0) {
             $uploadDir = __DIR__ . '../../uploads-comprobantes/';
             if (!file_exists($uploadDir)) {
-                mkdir($uploadDir, 0777, true); 
+                mkdir($uploadDir, 0777, true);
             }
             $fileExtension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
-            $fileName = uniqid() . '.' . $fileExtension; 
+            $fileName = uniqid() . '.' . $fileExtension;
             $uploadFile = $uploadDir . $fileName;
 
             if (move_uploaded_file($_FILES['imagen']['tmp_name'], $uploadFile)) {
@@ -58,4 +58,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
     header("Location: /restaurante_Cevicheria/profile.php");
     exit();
 }
-?>

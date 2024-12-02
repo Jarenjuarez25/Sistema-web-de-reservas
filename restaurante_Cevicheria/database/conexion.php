@@ -535,14 +535,14 @@ return $reservas;
     }
 
 
-    public function insertarPago($usuario_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado) {
+    public function insertarPago($usuario_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado, $imagen) {
         $fecha_pago = date('Y-m-d H:i:s'); // Fecha y hora actual del pago
 
-        $query = "INSERT INTO pagos (usuario_id, nombre, monto_total, metodo_pago, n_operacion, fecha_pago, estado)
-                  VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO pagos (usuario_id, nombre, monto_total, metodo_pago, n_operacion, fecha_pago, estado, imagen)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
        
         $stmt = $this->con->prepare($query);
-        $stmt->bind_param("issssss", $usuario_id, $nombre , $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $estado);
+        $stmt->bind_param("isssssss", $usuario_id, $nombre , $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $estado,);
         
 
         if ($stmt->execute()) {
@@ -556,7 +556,8 @@ return $reservas;
 
 
     public function Mostrar_Pagos() {
-        $sql = 'SELECT p.id,
+        $sql = 'SELECT 
+        p.id,
         u.nombre AS usuario,
         u.correo AS correo,
         p.monto_total,
@@ -564,10 +565,9 @@ return $reservas;
         p.n_operacion,
         p.fecha_pago,
         p.estado,
-        r.numero_mesa
+        p.imagen
         FROM pagos p
         LEFT JOIN tbusuario u ON p.usuario_id = u.id
-        LEFT JOIN reservas r ON r.usuario_id = u.id
         ORDER BY p.fecha_pago DESC';
     
         $resultado = $this->con->query($sql);
@@ -588,6 +588,11 @@ return $reservas;
 
     public function Confirmar_pago($id){
         $sql = "UPDATE pagos SET estado = 'completado' WHERE id = $id";
+        $this->con->query($sql);
+    }
+
+    public function Denegar_Pago($id){
+        $sql = "UPDATE pagos SET estado = 'fallido' WHERE id = $id";
         $this->con->query($sql);
     }
 

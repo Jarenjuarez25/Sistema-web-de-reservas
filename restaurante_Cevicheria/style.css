@@ -829,15 +829,29 @@ footer {
     text-align: center;
     z-index: 1000;
     animation: slideInFromRight 0.5s forwards;
-    background-color: #1a237e;
+    background-color: rgba(26, 35, 126, 0.85); /* Slightly transparent */
     color: white;
-    z-index: 1000;
     box-shadow: 0 4px 6px rgba(95, 187, 76, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mensaje i {
+    margin-right: 10px;
+    font-size: 20px;
 }
 
 .mensaje.error {
-    background-color: #fc2b1f; /* Fondo rojo para mensajes de error */
+    background-color: rgb(255 14 0 / 85%);
+    font-family: 'Trade Gothic LT', sans-serif;
     color: white;
+    width: 17%;
+    margin-left: -2%;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @keyframes slideInFromRight {
