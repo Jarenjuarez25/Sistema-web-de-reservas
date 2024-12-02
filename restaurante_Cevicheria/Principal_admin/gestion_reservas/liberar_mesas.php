@@ -101,17 +101,14 @@ $pagos = $con->Mostrar_Pagos();
                                             <?php } elseif ($pago['estado'] === 'fallido' || $pago['estado'] === 'completado') { ?>
                                                 <span class="text-muted">No disponible</span>
                                             <?php } ?>
-                                    </td>
-
-                                    <td class="text-center" style="width: 50px">
-                                        <?php if (!empty($pago['imagen']) && $pago['estado'] !== 'rechazado'): ?>
-                                            <a href="/restaurante_Cevicheria/uploads-comprobantes<?php echo htmlspecialchars($pago['imagen']); 
-                                            ?>"target="_blank" class="btn btn-info btn-sm" style="background: #031b34; color: white; border: none;">
-                                                Ver
-                                            </a>
+                                            </td>
+                                            <td class="text-center" style="width: 50px">
+                                                <?php if (!empty($pago['imagen']) && $pago['estado'] !== 'rechazado'): ?>
+                                                    <a href="/restaurante_Cevicheria/uploads-comprobantes/<?php echo htmlspecialchars($pago['imagen']); ?>" target="_blank" class="btn btn-info btn-sm" style="background: #031b34; color: white; border: none;">
+                                                        Ver
+                                                </a>
                                         <?php endif; ?>
                                     </td>
-
                                 </tr>
                             <?php } ?>
                         </tbody>

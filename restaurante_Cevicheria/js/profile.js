@@ -54,33 +54,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-//validaciones para cambiar datos usuarios
-function validarFormularioRegister() {
-    const nombre = document.getElementById('nombre').value;
-    const apellido = document.getElementById('apellidos').value;
-    const dni = document.getElementById('dni').value;
-    const contraseña = document.getElementById('contraseña').value;
-    const confirmarContraseña = document.getElementById('confirmarContraseña').value;
-    const correo = document.getElementById('correo').value;
-  
-    const regexNombre = /^[a-zA-ZÀ-ÿ\s]+$/;
-    if (!regexNombre.test(nombre)){
-        alert("El nombre solo debe contener letras");
-        return false;
-    }
-  
-    const regexApellido = /^[a-zA-ZÀ-ÿ\s]+$/;
-    if (!regexApellido.test(apellido)){
-        alert("El Apellido solo debe contener letras");
-        return false;
-    }
-  
-  
-    const regexDni = /^\d{8}$/;
-    if (!regexDni.test(dni)) {
-        alert("El DNI no debe contener letras o caracteres especiales");
-        return false;
-    }
-  
-  }
