@@ -18,6 +18,16 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Hubo un error al actualizar el estado de la reserva');
         }
     }
+    
+    // Agregar evento para el botón de denegar
+document.querySelectorAll('.btn-denegar').forEach(button => {
+    button.addEventListener('click', function() {
+        const reservaId = this.getAttribute('data-reserva-id');
+        if (confirm('¿Está seguro que desea denegar esta reserva?')) {
+            window.location.href = `/restaurante_Cevicheria/controller/denegar_reserva.php?id=${reservaId}`;
+        }
+    });
+});
 
     // Función para actualizar la interfaz de una reserva
     function actualizarInterfazReserva(reservaId, nuevoEstado) {

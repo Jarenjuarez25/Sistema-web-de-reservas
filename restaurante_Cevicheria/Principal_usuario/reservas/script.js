@@ -1,5 +1,12 @@
 function abrirModalReserva(numero_mesa) {
-    // Establecer el número de mesa en el formulario
+    const mesaCard = document.querySelector(`.mesa-card[onclick="abrirModalReserva(${numero_mesa})"]`);
+    const estadoMesa = mesaCard.querySelector('.card-text').textContent;
+    // Validar si la mesa está ocupada
+    if (estadoMesa === 'Ocupada') {
+        alert('Esta mesa ya está reservada. Seleccione otra disponible.');
+        return; // Salir de la función si la mesa está ocupada
+    }
+
     document.getElementById('numeroMesa').value = numero_mesa;
     const reservaModal = new bootstrap.Modal(document.getElementById('reservaModal'));
     reservaModal.show();
@@ -29,8 +36,7 @@ function realizarReserva() {
         if (data.success) {
             modalMensajeBody.textContent = 'Reserva realizada con éxito, ve a mis reservas en Mi Perfil y procede con el pago!';
             mensajeModal.show();
-
-            // Recargar la página al cerrar el modal
+            
             document.getElementById('mensajeModal').addEventListener('hidden.bs.modal', () => {
                 window.location.reload();
             });

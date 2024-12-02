@@ -80,13 +80,21 @@ $pagos = $con->Mostrar_Pagos();
     <?php echo htmlspecialchars($pago['estado']); ?>
 </td>
                                 
-                                    <td class="text-center" style="width: 150px">
-                                    <?php if ($pago['estado'] === 'pendiente') { ?>
-                                        <a href="/restaurante_Cevicheria/controller/confirmar_pago_Admin.php?id=<?= $pago['id'] ?>" class="btn btn-warning btn-sm"><i class="fa-regular fa-circle-check"></i> Confirmar</a>
-                                    <?php } else { ?>
-                                        <button class="btn btn-success btn-sm" disabled>Confirmado</button>
-                                    <?php } ?>
-                                </td>
+<td class="text-center" style="width: 150px">
+    <?php if ($pago['estado'] === 'pendiente') { ?>
+        <div class="btn-group" role="group">
+            <a href="/restaurante_Cevicheria/controller/confirmar_pago_Admin.php?id=<?= $pago['id'] ?>" class="btn btn-warning btn-sm me-1">
+                <i class="fa-regular fa-circle-check"></i> Confirmar
+            </a>
+            <a href="/restaurante_Cevicheria/controller/denegar_pago_Admin.php?id=<?= $pago['id'] ?>" class="btn btn-danger btn-sm">
+                <i class="fa-regular fa-circle-xmark"></i> Denegar
+            </a>
+        </div>
+    <?php } else { ?>
+        <button class="btn btn-success btn-sm" disabled>Confirmado</button>
+    <?php } ?>
+</td>
+
                             </tr>
                         <?php } ?>
                     </tbody>

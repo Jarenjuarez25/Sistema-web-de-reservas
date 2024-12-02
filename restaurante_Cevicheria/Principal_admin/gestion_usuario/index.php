@@ -69,6 +69,7 @@ $cliente = $con->Mostrar_Usuarios(2);
                     <td style="width: 100px">
                         <a href="actualizar.php?id=<?php echo ($row['id']); ?>" class="btn btn-primary">Editar</a>
                     </td>
+                    
                 </tr>
             <?php
             }
