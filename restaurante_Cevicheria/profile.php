@@ -444,5 +444,45 @@ $totalGeneral = 0; // Inicializa el total general
     }
   });
     </script>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Existing message removal code
+    var mensaje = document.querySelector(".mensaje");
+    if (mensaje) {
+        setTimeout(function() {
+            mensaje.remove();
+        }, 3000);
+    }
+
+    // Add event listener to cancel reservation links
+    document.querySelectorAll('.btn-danger').forEach(function(cancelButton) {
+        cancelButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+            
+            const reservationRow = this.closest('tr');
+            const reservationId = reservationRow.getAttribute('data-id');
+            const url = this.getAttribute('href');
+
+            fetch(url, {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Remove the row from the table
+                    reservationRow.remove();
+                } else {
+                    // Handle error case
+                    alert('No se pudo cancelar la reserva');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al cancelar la reserva');
+            });
+        });
+    });
+});
+</script>
 </body>
 </html>

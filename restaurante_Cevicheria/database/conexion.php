@@ -611,6 +611,22 @@ public function updateUsuarioNombre($user_id, $nombre) {
     return $stmt->execute();
 }
 
+public function cancelReservation($reservationId) {
+    $sql = "UPDATE reservas SET estado = 'cancelado' WHERE id = ?";
+    $stmt = $this->con->prepare($sql);
+    
+    try {
+        $stmt->bind_param('i', $reservationId);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    } catch (Exception $e) {
+        // Log error if needed
+        return false;
+    }
+}
+
+
 public function Registrar_Reserva_Grupo($nombre, $telefono, $correo, $cantidad_personas, $fecha_reserva, $hora_reserva, $turno, $descripcion, $estado, $pago) {
     // Preparar la consulta SQL
     $sql = "INSERT INTO reservas (
