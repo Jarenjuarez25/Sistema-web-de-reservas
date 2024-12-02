@@ -24,4 +24,20 @@ if (isset($_GET['id'])) {
     </script>";
     exit;
 }
+
+if (isset($_GET['id'])) {
+    $reservationId = $_GET['id'];
+    
+    // Perform cancellation logic
+    $result = $con->cancelReservation($reservationId);
+    
+    if ($result) {
+        echo json_encode(['status' => 'success']);
+    } else {
+        echo json_encode(['status' => 'error']);
+    }
+    exit();
+}
+
+
 ?>

@@ -166,8 +166,88 @@ $total_mesas = 40;
 
                         <div class="mb-3">
                             <label for="hora" class="form-label hora">Hora de reserva</label>
-                            <input type="time" class="form-control hora" id="hora" name="hora" required>
+                            <input type="time" class="form-control hora" id="hora" name="hora" min="10:00" max="23:00" required>
                         </div>
+
+                        <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+    const turnoSelect = document.getElementById('turno');
+    const horaInput = document.getElementById('hora');
+
+    // Define time ranges for each turn
+    const turnRanges = {
+        'Mañana': { min: '10:00', max: '11:59' },
+        'Tarde': { min: '12:00', max: '18:00' },
+        'Noche': { min: '18:01', max: '23:00' }
+    };
+
+    // Function to validate and set time input constraints
+    function actualizarRangoHora() {
+        const turnoSeleccionado = turnoSelect.value;
+        
+        if (turnoSeleccionado && turnRanges[turnoSeleccionado]) {
+            const { min, max } = turnRanges[turnoSeleccionado];
+            
+            // Set min and max attributes
+            horaInput.min = min;
+            horaInput.max = max;
+
+            // Clear previous input if it's outside the new range
+            const horaActual = horaInput.value;
+            if (horaActual) {
+                const [horas, minutos] = horaActual.split(':').map(Number);
+                const horaSeleccionada = horas * 60 + minutos;
+                const [minHoras, minMinutos] = min.split(':').map(Number);
+                const [maxHoras, maxMinutos] = max.split(':').map(Number);
+                const minTime = minHoras * 60 + minMinutos;
+                const maxTime = maxHoras * 60 + maxMinutos;
+
+                if (horaSeleccionada < minTime || horaSeleccionada > maxTime) {
+                    horaInput.value = ''; // Clear input if outside range
+                }
+            }
+        } else {
+            // Reset min and max if no turn is selected
+            horaInput.min = '10:00';
+            horaInput.max = '23:00';
+        }
+    }
+
+    // Add event listener to turno select
+    turnoSelect.addEventListener('change', actualizarRangoHora);
+
+    // Initial validation on page load
+    actualizarRangoHora();
+
+    // Validation on hora input
+    horaInput.addEventListener('input', function() {
+        const turnoSeleccionado = turnoSelect.value;
+        
+        if (turnoSeleccionado && turnRanges[turnoSeleccionado]) {
+            const { min, max } = turnRanges[turnoSeleccionado];
+            const horaSeleccionada = this.value;
+            
+            // Check if selected time is within the turn's range
+            if (horaSeleccionada < min || horaSeleccionada > max) {
+                this.value = ''; // Clear input
+                mostrarMensajeError(`La hora debe estar entre ${min} y ${max} para el turno de ${turnoSeleccionado}`);
+            }
+        }
+    });
+
+    // Function to show error message (assumes the existing modal is available)
+    function mostrarMensajeError(mensaje) {
+        const mensajeModal = document.getElementById('mensajeModal');
+        const modalMensajeBody = document.getElementById('modalMensajeBody');
+        
+        modalMensajeBody.textContent = mensaje;
+        
+        // Use Bootstrap to show the modal
+        var modal = new bootstrap.Modal(mensajeModal);
+        modal.show();
+    }
+});
+                        </script>
                         
                         <div class="mb-3">
                             <div class="custom-button" ng-click="do_group_request()">

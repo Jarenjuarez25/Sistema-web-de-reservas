@@ -1,54 +1,48 @@
 <!DOCTYPE html>
 <?php
+session_start();
 require_once '../../database/conexion.php';
+header('Content-Type: application/json');
 
-// Check if form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $con = new Conexion();
-    
-    // Collect form data
-    $nombre = $_POST['nombre'];
-    $telefono = $_POST['telefono'];
-    $email = $_POST['email'];
-    $cantidad_personas = $_POST['cantidad_personas'];
-    $fecha_reserva = $_POST['fecha_reserva'];
-    $hora_reserva = $_POST['hora_reserva'];
-    $turno = $_POST['turno'];
-    $descripcion = $_POST['descripcion'];
-    
-    // Validate group size
-    if ($cantidad_personas > 15) {
-        // Additional logic for large group reservations
-        $estado = 'Pendiente'; // Pending admin review
-        $pago = 'Pendiente';
-        
-        // Assuming you have a method to handle group reservations
-        $resultado = $con->Registrar_Reserva_Grupo(
-            $nombre, 
-            $telefono, 
-            $email, 
-            $cantidad_personas, 
-            $fecha_reserva, 
-            $hora_reserva, 
-            $turno, 
-            $descripcion, 
-            $estado, 
-            $pago
-        );
-        
-        if ($resultado) {
-            $mensaje = "Reserva para grupo grande enviada con éxito. Pronto nos contactaremos para confirmar los detalles.";
-            $mensaje_tipo = "success";
-        } else {
-            $mensaje = "Hubo un error al procesar su reserva. Por favor, intente nuevamente.";
-            $mensaje_tipo = "danger";
-        }
-    } else {
-        $mensaje = "Para grupos mayores a 15 personas, use este formulario especial.";
-        $mensaje_tipo = "warning";
+$con = new Conexion();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : null;
+    $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : null;
+    $email = isset($_POST['email']) ? $_POST['email'] : null;
+    $cantidad_personas = isset($_POST['cantidad_personas']) ? $_POST['cantidad_personas'] : null;
+    $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : null;
+    $hora = isset($_POST['hora']) ? $_POST['hora'] : null;
+    $turno = isset($_POST['turno']) ? $_POST['turno'] : null;
+    $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
+
+    // Validar que los campos requeridos no estén vacíos
+    if (!$nombre || !$telefono || !$cantidad_personas || !$fecha || !$hora || !$turno) {
+        echo json_encode(['success' => false, 'message' => 'Todos los campos son obligatorios.']);
+        exit;
     }
+
+    try {
+        // Insertar en la base de datos
+        $sql = "INSERT INTO reservas (usuario_id, cantidad_personas, descripcion, estado, telefono, turno, hora_reserva) 
+                VALUES (?, ?, ?, 'Pendiente', ?, ?, ?)";
+        
+        $stmt = $con->getConexion()->prepare($sql);
+        $stmt->bind_param("iissss", $_SESSION['user_id'], $cantidad_personas, $descripcion, $telefono, $turno, $hora);
+
+        if ($stmt->execute()) {
+            echo json_encode(['success' => true, 'message' => 'Reserva registrada exitosamente.']);
+        } else {
+            throw new Exception('Error al registrar la reserva.');
+        }
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
+} else {
+    echo json_encode(['success' => false, 'message' => 'Método no permitido.']);
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -99,12 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="tel" class="form-control" id="telefono" name="telefono" required>
                         </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                    
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label for="cantidad_personas">Número de Personas</label>
@@ -120,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <option value="personas">17</option>
                                 <option value="personas">18</option>
                                 <option value="personas">19</option>
-                                <option value="personas">20</option>z
+                                <option value="personas">20</option>
 
                             </select>
                             <small class="form-text text-muted">Mínimo 10 personas</small>

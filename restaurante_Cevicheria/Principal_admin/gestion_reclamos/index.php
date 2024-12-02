@@ -8,9 +8,10 @@ $reclamo = $con->Mostrar_Reclamaciones();
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reclamaciones</title>
+<meta charset="UTF-8">
+   <meta name="viewport" content="width = device-width, initial-scale=1.0">
+   <title>Reclamos</title>
+   <link rel="icon" href="/restaurante_Cevicheria/Images/Logo.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -42,9 +43,9 @@ $reclamo = $con->Mostrar_Reclamaciones();
                             <th style="width: 247px">Correo</th>
                             <th style="width: 100px">Teléfono</th>
                             <th style="width: 180px">Asunto</th>
-                            <th style="width: 170px">Mensaje</th>
-                            <th style="width: 180px">Respuesta</th>
-                            <th style="width: 100px">Estado</th>
+                            <th style="width: 200px">Mensaje</th>
+                            <th style="width: 200px">Respuesta</th>
+                            <th style="width: 90px">Estado</th>
                             <th style="width: 180px">Fecha de Reclamación</th>
                             <th style="width: 190px">Acción</th>
                             <th></th>
@@ -58,8 +59,8 @@ $reclamo = $con->Mostrar_Reclamaciones();
                             <td style="width: 247px"><?php echo $reclamos['correo']; ?></td>
                             <td style="width: 100px"><?php echo $reclamos['telefono']; ?></td>
                             <td style="width: 180px"><?php echo $reclamos['asunto']; ?></td>
-                            <td style="width: 170px"><?php echo $reclamos['descripcion']; ?></td>
-                            <td style="width: 170px"><?php echo $reclamos['respuesta']; ?></td>
+                            <td style="width: 200px"><?php echo $reclamos['descripcion']; ?></td>
+                            <td style="width: 200px"><?php echo $reclamos['respuesta']; ?></td>
                             <td style= "width: 90px; color: 
                                             <?php 
                                                 switch (strtolower($reclamos['estado'])) {
@@ -81,18 +82,15 @@ $reclamo = $con->Mostrar_Reclamaciones();
                             <?php if ($reclamos['estado'] === 'Resuelto') { ?>
                             <td style="width: 100px"><button class="btn btn-success btn-sm" disabled>Resuelto</button>
                             <td>
-
+                            <!--amarillo-->
                                 <?php } elseif ($reclamos['respuesta'] === null && $reclamos['estado'] == 'Pendiente') { ?>
                             <td><a href="/restaurante_Cevicheria/Principal_admin/gestion_reclamos/vistas/responder-reclamo.php?id=<?= $reclamos['id'] ?>"
-                                    class="btn btn-warning"><i class="fas fa-edit"></i>Responder</a></td>
-                           
-                                    
+                                    class="btn btn-warning"><i class="fas fa-edit"></i></a></td>
+                                  <!--verde-->  
                                     <td><a href="/restaurante_Cevicheria/controller/leer_reclamo.php?id=<?=$reclamos['id']?>"
-                                    class="btn btn-success"><i class="fa fa-eye-slash"></i>Aceptar</a></td>
+                                    class="btn btn-success"><i class="fa fa-eye-slash"></i></a></td>
+                            
                             <?php } elseif ($reclamos['estado'] === 'En proceso') { ?>
-                           
-                             <td><a href="/restaurante_Cevicheria/Principal_admin/gestion_reclamos/vistas/responder-reclamo.php?id=<?= $reclamos['id'] ?>"
-                                    class="btn btn-warning"><i class="fas fa-edit"></i>Responder</a></td>
                             <?php } else { ?>
                             <td>No disponible
                             <td>
