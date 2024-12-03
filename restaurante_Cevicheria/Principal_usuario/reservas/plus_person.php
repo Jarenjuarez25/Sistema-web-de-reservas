@@ -9,7 +9,7 @@ $con = new Conexion();
 if (isset($_SESSION['user_id'])) {
     $nombre = $con->getNombreByUserId($_SESSION['user_id']);
 }
-
+var_dump('numeroMesa')
 ?>
 
 <!DOCTYPE html>
@@ -177,6 +177,6 @@ if (isset($_SESSION['user_id'])) {
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+    <script src="/restaurante_Cevicheria/Principal_usuario/reservas/script.js"></script>
 </body>
 </html>

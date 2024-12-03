@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode([
                 'success' => true,
                 'message' => 'Reserva creada exitosamente',
-                'estado' => $cantidad_personas > $limite_grupo_grande ? 'Pendiente Aprobación' : 'Reservado'
+                'estado' => $cantidad_personas > $limite_grupo_grande ? 'Pendiente' : 'Reservado'
             ]);
         } else {
             throw new Exception('Error al insertar la reserva');

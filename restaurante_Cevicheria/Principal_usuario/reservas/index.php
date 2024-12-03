@@ -116,6 +116,25 @@ $total_mesas = 40;
             </div>
             <?php } ?>
         </div>
+        
+
+        <?php for($i = 1; $i <= $total_mesas; $i++) { 
+              $estado = isset($mesas[$i]) ? $mesas[$i] : 'Disponible';    
+            ?>
+                
+            <div class="col-md-3">
+                <div class="card mesa-card" onclick="abrirModalReserva(<?php echo $i; ?>)">
+                    <img src="/restaurante_Cevicheria/Images/mesa.png" class="card-img-top mesa-imagen" alt="Mesa <?php echo $i; ?>">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Mesa <?php echo $i; ?></h5>
+                        <p class="card-text"><?php echo $estado == 'ocupada' ? 'Ocupada' : 'Disponible'; ?></p>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+        </div>
+
+
 
     </div>
 
