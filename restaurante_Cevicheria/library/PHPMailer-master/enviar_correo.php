@@ -32,10 +32,7 @@ function enviarCorreoVerificacion($email, $nombreUsuario, $token) {
 
         // Enviar correo
         $mail->send();
-        echo "<script>
-        alert('El correo de verificación ha sido enviado correctamente a $email')
-        window.location = '/restaurante_Cevicheria/Principal_usuario/Login/index.php';
-      </script>";
+        echo "El correo de verificación ha sido enviado correctamente a $email";
           exit();    
     } catch (Exception $e) {
         echo 'Hubo un error al enviar el correo: ' . $mail->ErrorInfo;

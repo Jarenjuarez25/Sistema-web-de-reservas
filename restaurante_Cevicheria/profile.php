@@ -5,6 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 ?>
+
 <?php
 
 require('database/conexion.php');
@@ -13,11 +14,13 @@ $con = new Conexion();
 
 if (!isset($_SESSION['user_id'])) {
     $nombre = $con->getNombreByUserId($_SESSION['user_id']);
+    exit();
 }
 
 $user_id = $_SESSION['user_id'];
 $user_email = $_SESSION['user_email'];
 
+$correo = $con->getUserDetails($user_id);
 $persona = $con->getPersonaByUserId($user_id);
 $usuario = $con->getNombreByUserId($user_id);
 $reclamos = $con->getReclamosByUserId($user_id);
@@ -39,6 +42,7 @@ $totalGeneral = 0; // Inicializa el total general
     <link rel="stylesheet" href="/restaurante_Cevicheria/css/style.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -109,7 +113,6 @@ $totalGeneral = 0; // Inicializa el total general
 
     ?>
     <div class="container">
-
         <div class="profile-card">
             <div class="row" style="display: flex;">
                 <div class="sidebar" style="flex: 0 0 250px;">
@@ -119,24 +122,25 @@ $totalGeneral = 0; // Inicializa el total general
                     </a>
 
                     <a href="#" class="nav-link" data-target="profile-config">
-                        <i class="fas fa-clipboard-list mr-2"></i> Configuraciones
+                        <i class="fas fa-cogs mr-2"></i> Configuraciones
                     </a>
 
                     <a href="#" class="nav-link" data-target="profile-reclamos">
-                        <i class="fas fa-clipboard-list mr-2"></i> Mis reclamos
+                        <i class="fas fa-exclamation-circle mr-2"></i> Mis reclamos
                     </a>
 
                     <a href="#" class="nav-link" data-target="profile-reservas1">
-                        <i class="fas fa-clipboard-list mr-2"></i> Mis reservas
+                        <i class="fas fa-calendar-alt mr-2"></i> Mis reservas
                     </a>
 
                     <a href="#" class="nav-link" data-target="profile-reservas">
-                        <i class="fas fa-clipboard-list mr-2"></i> Pagos
+                        <i class="fas fa-credit-card mr-2"></i> Pagos
                     </a>
 
                     <a href="#" class="nav-link" data-target="profile-Pagos">
-                        <i class="fas fa-clipboard-list mr-2"></i> Mis Pagos
+                        <i class="fas fa-wallet mr-2"></i> Mis Pagos
                     </a>
+
 
                 </div>
 
@@ -175,35 +179,77 @@ $totalGeneral = 0; // Inicializa el total general
                                         value="<?php echo htmlspecialchars($persona['fechaNacimiento']); ?>">
                                 </div>
                             </div>
-                            <button class="boton2" id="updateButton"><i class="bi bi-pencil-square"></i> Actualizar</button>
+                            <button class="boton2" id="updateButton1"><i class="bi bi-pencil-square"></i> Actualizar</button>
 
                         </form>
                     </div>
 
                     <!--Config-->
                     <div id="profile-config" class="tab-content">
-                        <h2>Datos personales</h2>
-                        <form method="post" action="/restaurante_Cevicheria/controller/edit-profile.php">
+                        <h2>Configuración de cuenta</h2>
+                        <form method="POST" action="/restaurante_Cevicheria/controller/edit-email-config.php">
                             <div class="form-group">
-                                <label>Correo:</label>
+                                <label for="correo">Correo:</label>
                                 <div style="display: flex; align-items: center;">
-                                    <input type="text" name='nombre' id="nombre" class="form-control" value="<?php echo htmlspecialchars($usuario['nombre']); ?>" readonly>
+                                    <input type="email" name='correo' id="correo" class="form-control" 
+                                    value="<?php echo htmlspecialchars($correo['correo']); ?>" readonly>
+                                    <span class="edit-icon" data-target="correo"><i class="fas fa-edit"></i></span>
+                                </div>
+                            </div>
+                            <button type="submit" class="boton2" id="updateConfEmailButton" disable> <i class="bi bi-pencil-square"></i>Actualizar</button>
+                        </form>
+
+                        <form method="POST" action="/restaurante_Cevicheria/controller/edit-pass-config.php">
+                            <div class="form-group">
+                                <label for="password">Contraseña:</label>
+                                <div class="d-flex align-items-center">
+                                    <input type="password" class="form-control" value="******************" id="password"
+                                        readonly>
+                                    <span class="edit-icon" data-target="password"><i class="fas fa-edit"></i></span>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label>Contraseña:</label>
-                                <div style="display: flex; align-items: center;">
-                                    <input type="text" class="form-control" id="apellido_p"
-                                        name="apellido_p"
-                                        value="<?php echo htmlspecialchars($persona['apellidos']); ?>">
+                            <div id="password-fields" style="display:none;">
+                                <div class="form-group">
+                                    <label for="current_password">Contraseña Actual:</label>
+                                    <div class="password-input-container">
+                                        <input type="password" class="form-control" id="current_password"
+                                            name="current_password" required>
+                                        <span class="password-toggle" id="current_password-toggle"
+                                            onclick="togglePasswordVisibility('current_password')">
+                                            <i id="current_password-toggle-icon" class="fa fa-eye-slash"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="new_password">Nueva Contraseña:</label>
+                                    <div class="password-input-container">
+                                        <input type="password" class="form-control" id="new_password"
+                                            name="new_password" required>
+                                        <span class="password-toggle" id="new_password-toggle"
+                                            onclick="togglePasswordVisibility('new_password')">
+                                            <i id="new_password-toggle-icon" class="fa fa-eye-slash"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm_password">Confirmar Nueva Contraseña:</label>
+                                    <div class="password-input-container">
+                                        <input type="password" class="form-control" id="confirm_password"
+                                            name="confirm_password" required>
+                                        <span class="password-toggle" id="confirm_password-toggle"
+                                            onclick="togglePasswordVisibility('confirm_password')">
+                                            <i id="confirm_password-toggle-icon" class="fa fa-eye-slash"></i>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-
-                            <button class="boton2" id="updateButton"><i class="bi bi-pencil-square"></i> Actualizar</button>
-
+                            <button type="submit" class="boton2" id="updateConfPassButton"
+                                disable><i class="bi bi-pencil-square"></i>Actualizar</button>
                         </form>
                     </div>
+
                     <!-- Reclamos -->
 
                     <div id="profile-reclamos" class="tab-content">
@@ -409,7 +455,7 @@ $totalGeneral = 0; // Inicializa el total general
                                 <div>
                                     <!--cap de pago-->
                                     <label for="imagen">Subir imagen de comprobante:</label>
-                                    <input type="file" id="imagen" name="imagen" class="form-control-file" accept="image/*">
+                                    <input type="file" id="imagen" name="imagen" class="form-control-file" accept="image/*" required>
                                 </div>
 
                                 <input type="hidden" name="monto_total" value="<?php echo number_format($totalGeneral, 2); ?>">
@@ -472,54 +518,38 @@ $totalGeneral = 0; // Inicializa el total general
             </div>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="/restaurante_Cevicheria/js/drop.js"></script>
     <script src="/restaurante_Cevicheria/js/profile.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+
     <script>
-        //para el tiempo de la alerta
         document.addEventListener("DOMContentLoaded", function() {
-            var mensaje = document.querySelector(".mensaje");
-            if (mensaje) {
-                setTimeout(function() {
-                    mensaje.remove();
-                }, 3000);
+            // Selecciona la tabla de reservas en la sección de pagos
+            const paymentTable = document.querySelector("#profile-reservas .table tbody");
+            const mostrarFormPagoButton = document.getElementById("mostrar-form-pago");
+
+            function updatePaymentButtonVisibility() {
+                const tableRows = paymentTable.querySelectorAll("tr");
+
+                if (tableRows.length === 0) {
+                    // Oculta el botón de confirmación si no hay filas
+                    mostrarFormPagoButton.style.display = "none";
+                } else {
+                    // Muestra el botón de confirmación
+                    mostrarFormPagoButton.style.display = "block";
+                }
             }
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll('.btn-danger').forEach(function(cancelButton) {
-                cancelButton.addEventListener('click', function(event) {
-                    event.preventDefault();
 
-                    const reservationRow = this.closest('tr');
-                    const reservationId = reservationRow.getAttribute('data-id');
-                    const url = this.getAttribute('href');
+            // Verifica la visibilidad del botón cuando se carga la página
+            updatePaymentButtonVisibility();
 
-                    const cancelUrl = url + "?id=" + reservationId;
-
-                    fetch(cancelUrl, {
-                            method: 'GET'
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'success') {
-                                reservationRow.remove();
-                                alert('Reserva cancelada exitosamente');
-                                location.reload();
-                            } else {
-                                alert('No se pudo cancelar la reserva');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Ocurrió un error al cancelar la reserva');
-                        });
-                });
+            // Observa cambios en la tabla (por si se eliminan reservas dinámicamente)
+            const observer = new MutationObserver(updatePaymentButtonVisibility);
+            observer.observe(paymentTable, {
+                childList: true
             });
         });
-
     </script>
 </body>
 

@@ -157,7 +157,32 @@ $total_mesas = 40;
                             <label for="telefono" class="form-label">Telefono</label>
                             <input type="text" class="form-control" id="telefono" name="telefono" maxlength="9" required>
                         </div>
+                        
+                        <div class="col-md-6 form-group">
+                            <label form="fecha_reserva" class="fecha">Fecha de Reserva</label>
+                            <input type="date" class="form-control" id="fecha_reserva" name="fecha_reserva" required>
+                        </div>
+                        <style>
+                            abel.fecha_reserva.fecha {
+                            position: absolute;
+                            top: 67%;
+                            left: 51%;
+                            }
 
+                            label.form-label.hora {
+                            position: absolute;
+                            top: 58%;
+                            left: 51%;
+                            }
+
+                            input#hora {
+                            width: 46%;
+                            position: absolute;
+                            top: 63%;
+                            left: 50%;
+                            height: 36px;
+                            }
+                        </style>
                         <div class="mb-3">
                             <label for="turno" class="form-label">Turno</label>
                             <select class="form-select turno" id="turno" name="turno" required>

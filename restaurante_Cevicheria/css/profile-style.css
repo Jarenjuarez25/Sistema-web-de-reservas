@@ -158,3 +158,42 @@ label {
     cursor: pointer;
     color: #666;
 }
+
+.edit-icon{
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #1a237e;
+    padding: 0;
+    margin-left: 10px;
+}
+.edit-icon:hover {
+    color: #0056b3;
+}
+
+.is-invalid {
+    border-color: red;
+}
+
+
+
+.password-input-container {
+    display: flex; /* Usamos flexbox para alinear los elementos */
+    align-items: center; /* Centra verticalmente */
+    position: relative; /* Permite posicionar el ícono con respecto al contenedor */
+}
+
+.password-input-container input {
+    padding-right: 40px; /* Deja espacio para el ícono al final */
+}
+
+.password-toggle {
+    position: absolute; /* Posiciona el ícono dentro del contenedor */
+    right: 555px; /* Ajusta la posición del ícono a la derecha */
+    cursor: pointer; /* Cambia el cursor a "mano" para indicar que es clickeable */
+    color: #888; /* Color del ícono */
+}
+
+.password-toggle:hover {
+    color: #000; /* Cambia el color del ícono al pasar el cursor */
+}

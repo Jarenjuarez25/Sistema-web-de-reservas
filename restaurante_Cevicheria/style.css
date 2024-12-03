@@ -588,7 +588,8 @@ footer {
 .form-group input[type="email"],
 .form-group input[type="file"],
 .form-group input[type="tel"],
-.form-group input[type="date"]{
+.form-group input[type="date"],
+.form-group input[type="password"]{
     width: calc(51% - 22px);
     padding: 10px;
     font-size: 16px;

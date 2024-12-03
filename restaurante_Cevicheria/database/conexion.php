@@ -230,9 +230,9 @@ class Conexion {
         return $verificado == 1;
     }
 
-    public function loginUser($email, $contraseña)
+    public function loginUser($correo, $contraseña)
     {
-        $sql = "SELECT * FROM tbusuario WHERE correo = '$email'";
+        $sql = "SELECT * FROM tbusuario WHERE correo = '$correo'";
         $result = $this->con->query($sql);
 
         if ($result->num_rows == 1) {
@@ -272,12 +272,20 @@ class Conexion {
         $stmt->bind_param('sis', $token, $timestamp, $email);
         return $stmt->execute();
     }
-    public function updateEmail($user_id, $email) {
+    public function updateEmail($user_id, $correo) {
         $query = "UPDATE tbusuario SET correo = ? WHERE id = ?";
         $stmt = $this->con->prepare($query);
-        $stmt->bind_param('si', $email, $user_id);
-        return $stmt->execute();
+        if ($stmt === false) {
+            die("Error al preparar la consulta: " . $this->con->error);
+        }
+        $stmt->bind_param('si', $correo, $user_id);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            die("Error al ejecutar la consulta: " . $stmt->error);
+        }
     }
+    
     public function updateVerifiedEmail($user_id) {
         $query = "UPDATE tbusuario SET verificado = NULL WHERE id = ?";
         $stmt = $this->con->prepare($query);
@@ -285,10 +293,12 @@ class Conexion {
         return $stmt->execute();
     }
     public function updateUserPasswordById($usuario_id, $newPassword) {
+        // Actualiza la contraseña en texto plano
         $stmt = $this->con->prepare("UPDATE tbusuario SET contrasenia = ? WHERE id = ?");
         $stmt->bind_param('si', $newPassword, $usuario_id);
         return $stmt->execute();
     }
+    
 
     //restablecer contrasena
     public function updateUserPassword($email, $newPassword) {
