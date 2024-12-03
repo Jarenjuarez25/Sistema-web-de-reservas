@@ -10,79 +10,76 @@ $correo = $_SESSION['user_correo'];
 $nombre = $_SESSION['user_nombre'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
+    $numero_mesa = intval($_POST['numero_mesa']); // Capturar numero_mesa
     $monto_total = $_POST['monto_total'];
     $metodo_pago = $_POST['opcion'];
     $n_operacion = $_POST['numero_operacion'];
-    $estado = 'pendiente';
+    $nuevo_estado = "Pendiente.";
+    $numero_mesa = $_POST['numero_mesa']; // Asegúrate de que este dato se envíe desde el formulario
+    $estado = 'Pendiente';
     $imagen = '';
 
     try {
-        //subida de la imagen
+        // Subida de la imagen
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === 0) {
-            // Validar tipo de archivo (solo imágenes)
             $allowedExtensions = ['jpg', 'jpeg', 'png'];
             $fileExtension = strtolower(pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION));
-        
+
             if (!in_array($fileExtension, $allowedExtensions)) {
-                $_SESSION['mensaje'] = 'Error: Solo se permiten imágenes de formato (JPG, JPEG, PNG).';
-                $_SESSION['tipo_mensaje'] = 'error';
-                header("Location: /restaurante_Cevicheria/profile.php");
-                exit();
+                throw new Exception('Solo se permiten imágenes de formato (JPG, JPEG, PNG).');
             }
-        
-            // Validar tamaño del archivo
+
             $maxFileSize = 10 * 1024 * 1024;
             if ($_FILES['imagen']['size'] > $maxFileSize) {
-                $_SESSION['mensaje'] = 'Error: El tamaño del archivo es demasiado grande. (Máximo 10MB)';
-                $_SESSION['tipo_mensaje'] = 'error';
-                header("Location: /restaurante_Cevicheria/profile.php");
-                exit();
+                throw new Exception('El tamaño del archivo es demasiado grande. (Máximo 10MB)');
             }
-        
-            // Directorio donde se guardarán las imágenes
+
             $uploadDir = __DIR__ . '../../uploads-comprobantes/';
             if (!file_exists($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
-        
-            // nombre único para la imagen
+
             $fileName = uniqid('comprobante_', true) . '.' . $fileExtension;
             $uploadFile = $uploadDir . $fileName;
-        
-            // Mover el archivo al directorio de destino
-            if (move_uploaded_file($_FILES['imagen']['tmp_name'], $uploadFile)) {
-                $imagen = $fileName;
-            } else {
-                $_SESSION['mensaje'] = 'Error al subir el comprobante de pago.';
-                $_SESSION['tipo_mensaje'] = 'error';
-                header("Location: /restaurante_Cevicheria/profile.php");
-                exit();
+
+            if (!move_uploaded_file($_FILES['imagen']['tmp_name'], $uploadFile)) {
+                throw new Exception('Error al subir el comprobante de pago.');
             }
-        }
-        
 
-        if ($con->insertarPago($user_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado, $imagen)) {
-            enviarCorreoPago($correo, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado);
-
-            $_SESSION['mensaje'] = 'Pago exitoso. Verifique su correo o en Mis Pagos para más información.';
-            $_SESSION['tipo_mensaje'] = 'exito';
-            header("Location: /restaurante_Cevicheria/profile.php");
-            exit();
-        } else {
-            $_SESSION['mensaje'] = 'Error al confirmar el pago. Inténtalo nuevamente.';
-            $_SESSION['tipo_mensaje'] = 'error';
-            header("Location: /restaurante_Cevicheria/profile.php");
-            exit();
+            $imagen = $fileName;
         }
-    } catch (Exception $e) {
-        $_SESSION['mensaje'] = 'Error al confirmar el pago: ' . $e->getMessage();
+
+        // Insertar el pago
+        if (!$con->insertarPago($user_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado, $imagen)) {
+            throw new Exception('Error al registrar el pago.');
+        }
+
+
+        if (!$con->actualizarEstadoReserva1($user_id, $numero_mesa, $nuevo_estado)) {
+            throw new Exception('No se encontró ninguna reserva para actualizar.');
+        }
+
+        // Enviar correo
+        enviarCorreoPago($correo, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado);
+
+        $_SESSION['mensaje'] = 'Pago exitoso. Verifique su correo o en Mis Pagos para más información!.';
+        $_SESSION['tipo_mensaje'] = 'exito';
+        header("Location: /restaurante_Cevicheria/profile.php");
+        exit();
+
+        } catch (Exception $e) {
+        $_SESSION['mensaje'] = 'Error: ';
         $_SESSION['tipo_mensaje'] = 'error';
         header("Location: /restaurante_Cevicheria/profile.php");
         exit();
-    }
-} else {
-    $_SESSION['mensaje'] = 'Error: El formulario no se envió correctamente.';
-    $_SESSION['tipo_mensaje'] = 'error';
-    header("Location: /restaurante_Cevicheria/profile.php");
-    exit();
-}
+        }
+        } else {
+            $_SESSION['mensaje'] = 'Error: El formulario no se envió correctamente.';
+            $_SESSION['tipo_mensaje'] = 'error';
+            header("Location: /restaurante_Cevicheria/profile.php");
+            exit();
+            
+        }
+
+
+?>

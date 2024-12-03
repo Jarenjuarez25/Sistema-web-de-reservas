@@ -34,7 +34,7 @@ function realizarReserva() {
         const modalMensajeBody = document.getElementById('modalMensajeBody');
 
         if (data.success) {
-            modalMensajeBody.textContent = 'Reserva realizada con éxito, ve a mis reservas en Mi Perfil y procede con el pago!';
+            modalMensajeBody.textContent = 'Reserva realizada con éxito, Se cobrara un adicional de 10so, ve a mis reservas en Mi Perfil y procede con el pago!';
             mensajeModal.show();
             
             document.getElementById('mensajeModal').addEventListener('hidden.bs.modal', () => {

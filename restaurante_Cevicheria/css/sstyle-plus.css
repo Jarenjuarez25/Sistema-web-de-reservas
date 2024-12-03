@@ -1,0 +1,21 @@
+@media (min-width: 768px) {
+    .col-md-8 {
+        flex: 0 0 auto;
+        width: 76.666667%;
+    }
+}
+
+    button.btn.btn-primary {
+        background-color: #1a237e;
+        border: none;
+    }
+
+    button.btn.btn-primary:hover {
+        background-color: #575ea1;
+    }
+
+    .text-primary {
+        --bs-text-opacity: 1;
+        color: rgb(23 24 24) !important;
+    }
+

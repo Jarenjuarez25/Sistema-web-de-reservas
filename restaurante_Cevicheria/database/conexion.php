@@ -1,9 +1,11 @@
 <?php
 date_default_timezone_set('America/Lima'); // Establece la zona horaria a Perú Lima
-class Conexion {
+class Conexion
+{
     private $con;
 
-    public function __construct() {
+    public function __construct()
+    {
         $host = "localhost";
         $user = "root";
         $pass = "";
@@ -17,17 +19,20 @@ class Conexion {
         }
     }
 
-    public function getConexion() {
+    public function getConexion()
+    {
         return $this->con;
     }
 
-    public function cerrarConexion() {
+    public function cerrarConexion()
+    {
         return $this->con->close();
     }
 
-        //reclamos
-        public function Mostrar_Reclamaciones(){
-            $sql='SELECT
+    //reclamos
+    public function Mostrar_Reclamaciones()
+    {
+        $sql = 'SELECT
             r.id,
             u.correo,
             r.telefono,
@@ -39,42 +44,45 @@ class Conexion {
             FROM tbreclamos r JOIN tbusuario u 
             ON r.usuario_id = u.id 
             ORDER BY r.estado ASC';
-            $resultado =$this->con->query($sql);
-            $reclamo = array();
-            while($row = $resultado->fetch_assoc()){
-                $reclamo[]=$row;
-            }
-            return $reclamo;
+        $resultado = $this->con->query($sql);
+        $reclamo = array();
+        while ($row = $resultado->fetch_assoc()) {
+            $reclamo[] = $row;
         }
-    
-        public function insertReclamaciones($usuario_id, $telefono, $asunto, $descripcion)
-        {
-            $sql = "INSERT INTO tbreclamos (usuario_id, telefono, asunto, descripcion, fecha_reclamo, estado) VALUES (?, ?, ?, ?, current_timestamp(), 'Pendiente')";
-            $stmt = $this->con->prepare($sql);
-    
-            if ($stmt === false) {
-                die('Prepare failed: ' . htmlspecialchars($this->con->error));
-            }
+        return $reclamo;
+    }
 
-            $stmt->bind_param('isss', $usuario_id, $telefono, $asunto, $descripcion);
-            if ($stmt->execute() === false) {
-                die('Execute failed: ' . htmlspecialchars($stmt->error));
-            }
-    
-            $stmt->close();
-        }
-    
-        public function leer_reclamo($id){
-            $sql = "UPDATE tbreclamos SET estado = 'En proceso' WHERE id='$id'";
-            $this->con->query($sql);
-        }
-        public function edit_reclamo($id,$respuesta,$estado){
-            $sql = "UPDATE tbreclamos SET respuesta='$respuesta', estado ='$estado' WHERE id='$id'";
-            $this->con->query($sql);
+    public function insertReclamaciones($usuario_id, $telefono, $asunto, $descripcion)
+    {
+        $sql = "INSERT INTO tbreclamos (usuario_id, telefono, asunto, descripcion, fecha_reclamo, estado) VALUES (?, ?, ?, ?, current_timestamp(), 'Pendiente')";
+        $stmt = $this->con->prepare($sql);
+
+        if ($stmt === false) {
+            die('Prepare failed: ' . htmlspecialchars($this->con->error));
         }
 
-        public function ReclamosCod($id){
-            $sql="SELECT
+        $stmt->bind_param('isss', $usuario_id, $telefono, $asunto, $descripcion);
+        if ($stmt->execute() === false) {
+            die('Execute failed: ' . htmlspecialchars($stmt->error));
+        }
+
+        $stmt->close();
+    }
+
+    public function leer_reclamo($id)
+    {
+        $sql = "UPDATE tbreclamos SET estado = 'En proceso' WHERE id='$id'";
+        $this->con->query($sql);
+    }
+    public function edit_reclamo($id, $respuesta, $estado)
+    {
+        $sql = "UPDATE tbreclamos SET respuesta='$respuesta', estado ='$estado' WHERE id='$id'";
+        $this->con->query($sql);
+    }
+
+    public function ReclamosCod($id)
+    {
+        $sql = "SELECT
             r.id,
             u.correo,
             r.telefono,
@@ -86,30 +94,32 @@ class Conexion {
             FROM tbreclamos r LEFT JOIN tbusuario u 
             ON r.usuario_id = u.id 
             WHERE r.id='$id' ORDER BY r.estado ASC";
-            $result = $this->con->query($sql);
-            $reclamo = array();
-    
-            while($row = $result->fetch_assoc()){
-                $reclamo[] = $row;
-            }
-            
-            return $reclamo;
+        $result = $this->con->query($sql);
+        $reclamo = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $reclamo[] = $row;
         }
 
-        //gestion usuarios
-    public function Mostrar_Usuarios($rol_id){
-        $sql="SELECT * FROM tbusuario WHERE cargo_id = $rol_id";
-        $resultado =$this->con->query($sql);
+        return $reclamo;
+    }
+
+    //gestion usuarios
+    public function Mostrar_Usuarios($rol_id)
+    {
+        $sql = "SELECT * FROM tbusuario WHERE cargo_id = $rol_id";
+        $resultado = $this->con->query($sql);
         $usuarios = array();
-        while($row = $resultado->fetch_assoc()){
-            $usuarios[]=$row;
+        while ($row = $resultado->fetch_assoc()) {
+            $usuarios[] = $row;
         }
-    return $usuarios;
+        return $usuarios;
     }
 
     // Usuarios (Activar y Desactivar)
 
-    public function Cambiar_Rol($id, $rol_id){
+    public function Cambiar_Rol($id, $rol_id)
+    {
         $sql = "UPDATE tbusuario SET cargo_id = $rol_id WHERE id = $id";
         $this->con->query($sql);
     }
@@ -118,7 +128,7 @@ class Conexion {
     public function insertUser($nombre, $apellidos, $dni, $correo, $contrasenia, $genero, $fechaNacimiento)
     {
         $sql = "INSERT INTO tbusuario (nombre, apellidos, dni, correo, contrasenia, cargo_id, genero, fechaNacimiento) VALUES (?, ?, ?, ?, ?, 2, ?, ?)";
-        
+
         $stmt = $this->con->prepare($sql);
         if ($stmt === false) {
             die("Error en la preparación de la consulta: " . $this->con->error);
@@ -134,7 +144,8 @@ class Conexion {
         }
     }
     // Verificar el email y te se actualiza a 1 la activacion
-    public function verifyToken($token) {
+    public function verifyToken($token)
+    {
         $sql = "SELECT id, token_verificacion_expira FROM tbusuario WHERE token_verificacion = ?";
         $stmt = $this->con->prepare($sql);
         $stmt->bind_param("s", $token);
@@ -146,22 +157,25 @@ class Conexion {
         }
         return false;
     }
-    
 
-    public function verifyEmail($usuario_id) {
+
+    public function verifyEmail($usuario_id)
+    {
         $sql = "UPDATE tbusuario SET verificado = 1, token_verificacion = NULL, token_verificacion_expira = NULL WHERE id = ?";
         $stmt = $this->con->prepare($sql);
         $stmt->bind_param("i", $usuario_id);
         return $stmt->execute();
     }
 
-    public function isEmailRegistered($correo) {
+    public function isEmailRegistered($correo)
+    {
         $sql_check = "SELECT * FROM tbusuario WHERE correo = '$correo'";
         $result = $this->con->query($sql_check);
         return $result->num_rows > 0;
     }
-    
-    public function saveVerificationToken($usuario_id, $token, $expira) {
+
+    public function saveVerificationToken($usuario_id, $token, $expira)
+    {
         $sql = "UPDATE tbusuario SET token_verificacion = ?, token_verificacion_expira = ? WHERE id = ?";
         $stmt = $this->con->prepare($sql);
         $stmt->bind_param("ssi", $token, $expira, $usuario_id);
@@ -169,36 +183,39 @@ class Conexion {
     }
 
 
-        //traer ids de usuarios 
-        public function getPersonaByUserId($user_id) {
-            $sql = "SELECT nombre, apellidos, dni, correo, genero, fechaNacimiento FROM tbusuario WHERE id = ?";
-            $stmt = $this->con->prepare($sql);
-            $stmt->bind_param("i", $user_id);
-            $stmt->execute();
-            $result = $stmt->get_result();
+    //traer ids de usuarios 
+    public function getPersonaByUserId($user_id)
+    {
+        $sql = "SELECT nombre, apellidos, dni, correo, genero, fechaNacimiento FROM tbusuario WHERE id = ?";
+        $stmt = $this->con->prepare($sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
+    public function getUserDetails($user_id)
+    {
+        $sql = "SELECT * FROM tbusuario WHERE id = ?";
+        $stmt = $this->con->prepare($sql);
+
+        if ($stmt === false) {
+            throw new Exception("Error al preparar la consulta: " . $this->con->error);
+        }
+
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows == 1) {
             return $result->fetch_assoc();
+        } else {
+            return null;
         }
+    }
 
-        public function getUserDetails($user_id) {
-            $sql = "SELECT * FROM tbusuario WHERE id = ?";
-            $stmt = $this->con->prepare($sql);
-        
-            if ($stmt === false) {
-                throw new Exception("Error al preparar la consulta: " . $this->con->error);
-            }
-        
-            $stmt->bind_param('i', $user_id);
-            $stmt->execute();
-            $result = $stmt->get_result();
-        
-            if ($result->num_rows == 1) {
-                return $result->fetch_assoc();
-            } else {
-                return null;
-            }
-        }
-
-    public function getUserRole($email) {
+    public function getUserRole($email)
+    {
         $query = "SELECT rol_id FROM usuarios WHERE email = ?";
         $stmt = $this->con->prepare($query);
         $stmt->bind_param('s', $email);
@@ -209,7 +226,8 @@ class Conexion {
     }
 
 
-    public function getLastInsertedUserId($email) {
+    public function getLastInsertedUserId($email)
+    {
         $sql = "SELECT id FROM usuarios WHERE email = ?";
         $stmt = $this->con->prepare($sql);
         $stmt->bind_param("s", $email);
@@ -219,7 +237,8 @@ class Conexion {
         return $id;
     }
 
-    public function isEmailVerified($email) {
+    public function isEmailVerified($email)
+    {
         $sql = "SELECT verificado FROM tbusuario WHERE correo = ?";
         $stmt = $this->con->prepare($sql);
         $stmt->bind_param('s', $email);
@@ -248,7 +267,8 @@ class Conexion {
         return false;
     }
 
-    public function validateResetToken($email, $token) {
+    public function validateResetToken($email, $token)
+    {
         $current_time = time();
         $stmt = $this->con->prepare("SELECT * FROM tbreset_tokens WHERE correo = ? AND token = ? AND timestamp >= ?");
         $stmt->bind_param('ssi', $email, $token, $current_time);
@@ -256,62 +276,82 @@ class Conexion {
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
-    
+
     //eliminar el token cuando se actualize
-    public function deletePasswordResetToken($email) {
+    public function deletePasswordResetToken($email)
+    {
         $stmt = $this->con->prepare("DELETE FROM tbreset_tokens  WHERE correo = ?");
         $stmt->bind_param('s', $email);
         return $stmt->execute();
     }
 
-    public function savePasswordResetToken($email, $token) {
+    public function savePasswordResetToken($email, $token)
+    {
         $this->deletePasswordResetToken($email);
 
-        $timestamp = time() + 45 * 60; 
+        $timestamp = time() + 45 * 60;
         $stmt = $this->con->prepare("INSERT INTO tbreset_tokens (token, timestamp, correo) VALUES (?, ?, ?)");
         $stmt->bind_param('sis', $token, $timestamp, $email);
         return $stmt->execute();
     }
-    public function updateEmail($user_id, $correo) {
-        $query = "UPDATE tbusuario SET correo = ? WHERE id = ?";
-        $stmt = $this->con->prepare($query);
-        if ($stmt === false) {
-            die("Error al preparar la consulta: " . $this->con->error);
+    public function updateEmail($user_id, $new_email)
+    {
+        if (empty($new_email)) {
+            return false;  // Si el correo está vacío, no lo actualices
         }
-        $stmt->bind_param('si', $correo, $user_id);
+    
+        $sql = "UPDATE tbusuario SET correo = ? WHERE id = ?";
+        $stmt = $this->con->prepare($sql);
+    
+        if ($stmt === false) {
+            throw new Exception("Error al preparar la consulta: " . $this->con->error);
+        }
+    
+        $stmt->bind_param('si', $new_email, $user_id); // Asegúrate de que este parámetro esté bien
         if ($stmt->execute()) {
-            return true;
+            return true;  // Si se ejecuta correctamente, se actualiza el correo
         } else {
-            die("Error al ejecutar la consulta: " . $stmt->error);
+            // Agrega esta línea para obtener el error de la consulta
+            error_log("Error al ejecutar la consulta de actualización: " . $stmt->error);
+            return false;
         }
     }
     
-    public function updateVerifiedEmail($user_id) {
+    
+
+    public function updateVerifiedEmail($user_id)
+    {
         $query = "UPDATE tbusuario SET verificado = NULL WHERE id = ?";
         $stmt = $this->con->prepare($query);
         $stmt->bind_param('i', $user_id);
         return $stmt->execute();
     }
-    public function updateUserPasswordById($usuario_id, $newPassword) {
+    public function updateUserPasswordById($usuario_id, $newPassword)
+    {
         // Actualiza la contraseña en texto plano
         $stmt = $this->con->prepare("UPDATE tbusuario SET contrasenia = ? WHERE id = ?");
         $stmt->bind_param('si', $newPassword, $usuario_id);
         return $stmt->execute();
     }
-    
+    public function getLastError()
+    {
+        return $this->con->error; // Devuelve el último error de la base de datos
+    }
 
     //restablecer contrasena
-    public function updateUserPassword($email, $newPassword) {
+    public function updateUserPassword($email, $newPassword)
+    {
         $stmt = $this->con->prepare("UPDATE tbusuario SET contrasenia = ? WHERE correo = ?");
         if ($stmt === false) {
             die("Prepare failed: " . $this->con->error);
-        }    
+        }
         $stmt->bind_param('ss', $newPassword, $email);
         return $stmt->execute();
     }
-    
+
     //extraer el nombre para mostrarlo
-    public function getNombreByUserId($user_id) {
+    public function getNombreByUserId($user_id)
+    {
         $sql = "SELECT nombre FROM tbusuario WHERE id = ?";
         $stmt = $this->con->prepare($sql);
         $stmt->bind_param("i", $user_id);
@@ -320,7 +360,8 @@ class Conexion {
         return $result->fetch_assoc();
     }
 
-    public function getReclamosByUserId($user_id) {
+    public function getReclamosByUserId($user_id)
+    {
         $stmt = $this->con->prepare("SELECT * FROM tbreclamos WHERE usuario_id = ? ORDER BY fecha_reclamo DESC");
         $stmt->bind_param('i', $user_id);
         $stmt->execute();
@@ -329,71 +370,92 @@ class Conexion {
         $stmt->close();
         return $consultas;
     }
-    public function getReservasByUserId($user_id) {
+    public function getReservasByUserId($user_id)
+    {
         $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? AND estado != 'Cancelado' ORDER BY fecha_reserva DESC");
         if ($stmt === false) {
             return false;
         }
-    
+
         if (!$stmt->bind_param('i', $user_id)) {
             $stmt->close();
             return false;
         }
-    
+
         if (!$stmt->execute()) {
             $stmt->close();
             return false;
         }
-    
+
         $result = $stmt->get_result();
         $consultas = $result->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
         return $consultas;
     }
 
-    public function getPagosByUserId($user_id) {
+    public function getMisPagosByUserId($user_id)
+    {
+        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? AND estado = 'Pendiente' ORDER BY fecha_reserva DESC");
+        if ($stmt === false) {
+            return false;
+        }
+        if (!$stmt->bind_param('i', $user_id)) {
+            $stmt->close();
+            return false;
+        }
+        if (!$stmt->execute()) {
+            $stmt->close();
+            return false;
+        }
+        $result = $stmt->get_result();
+        $consultas = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $consultas;
+    }
+
+    public function getPagosByUserId($user_id)
+    {
         $stmt = $this->con->prepare("SELECT * FROM pagos WHERE usuario_id = ? ORDER BY fecha_pago DESC");
         if ($stmt === false) {
             return false;
         }
-    
         if (!$stmt->bind_param('i', $user_id)) {
             $stmt->close();
             return false;
         }
-    
         if (!$stmt->execute()) {
             $stmt->close();
             return false;
         }
-    
         $result = $stmt->get_result();
         $consultas = $result->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
         return $consultas;
     }
-    
+
 
     // Obtener datos de usuarios
-    public function getUsuariosData() {
+    public function getUsuariosData()
+    {
         $sql = "SELECT DATE_FORMAT(fecha_creacion, '%Y-%m-%d') as fecha, COUNT(*) as cantidad 
                 FROM tbusuario 
                 GROUP BY fecha 
                 ORDER BY cantidad DESC";
         $result = $this->con->query($sql);
-    
+
         if (!$result) {
-            die("Query failed: " . $this->con->error); 
+            die("Query failed: " . $this->con->error);
         }
-    
+
         $usuarios = [];
         while ($row = $result->fetch_assoc()) {
             $usuarios[] = $row;
         }
         return $usuarios;
     }
-    
-    public function getReservas(){
+
+    public function getReservas()
+    {
         $sql = "SELECT DATE_FORMAT(fecha_reserva, '%Y-%m-%d') as fecha, COUNT(*) as cantidad 
         FROM reservas 
         GROUP BY fecha 
@@ -402,17 +464,18 @@ class Conexion {
 
         if (!$result) {
             die("Query failed: " . $this->con->error);
-            }
+        }
 
-            $reservas = [];
-            while ($row = $result->fetch_assoc()) {
-                $reservas[] = $row;
-            }
-            return $reservas;
+        $reservas = [];
+        while ($row = $result->fetch_assoc()) {
+            $reservas[] = $row;
+        }
+        return $reservas;
     }
 
     // Obtener datos de reclamos: reclamos por tipo
-    public function getReclamosData() {
+    public function getReclamosData()
+    {
         $sql = "SELECT asunto as tipo, COUNT(*) as cantidad 
                 FROM tbreclamos 
                 GROUP BY tipo 
@@ -421,7 +484,7 @@ class Conexion {
         if (!$result) {
             die("Query failed: " . $this->con->error);
         }
-    
+
         $reclamos = [];
         while ($row = $result->fetch_assoc()) {
             $reclamos[] = $row;
@@ -430,48 +493,51 @@ class Conexion {
         return $reclamos;
     }
 
-    public function getDistribucionData() {
+    public function getDistribucionData()
+    {
         $sql = "SELECT DATE_FORMAT(fecha_pago, '%Y-%m-%d') as fecha, SUM(monto_total) as total 
                 FROM pagos 
                 WHERE estado != 'fallido'
                 GROUP BY fecha 
                 ORDER BY total DESC";
         $result = $this->con->query($sql);
-    
+
         if (!$result) {
             die("Query failed: " . $this->con->error);
         }
-    
+
         $reservas = [];
         while ($row = $result->fetch_assoc()) {
             $reservas[] = $row;
         }
         return $reservas;
     }
-    
-    public function getPerdidasData() {
+
+    public function getPerdidasData()
+    {
         $sql = "SELECT DATE_FORMAT(fecha_reserva, '%Y-%m-%d') as fecha, SUM(pago) as total 
                 FROM reservas 
                 WHERE estado = 'Cancelado'
                 GROUP BY fecha 
                 ORDER BY fecha ASC";
         $result = $this->con->query($sql);
-    
+
         if (!$result) {
             die("Query failed: " . $this->con->error);
         }
-    
+
         $perdidas = [];
         while ($row = $result->fetch_assoc()) {
             $perdidas[] = $row;
         }
         return $perdidas;
     }
-    
 
 
 
-    public function insertarReserva($usuario_id, $numeroMesa, $cantidadPersonas, $descripcion, $telefono, $turno, $horaReserva) {
+
+    public function insertarReserva($usuario_id, $numeroMesa, $cantidadPersonas, $descripcion, $telefono, $turno, $horaReserva)
+    {
         $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, fecha_reserva, estado, telefono, turno, hora_reserva, pago)
                 VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, 'Pendiente', ?, ?, ?, '10')";
         $stmt = $this->con->prepare($sql);
@@ -479,7 +545,8 @@ class Conexion {
         return $stmt->execute();
     }
 
-    public function Mostrar_Reservas() {
+    public function Mostrar_Reservas()
+    {
         $sql = "SELECT 
             r.id, 
             r.numero_mesa, 
@@ -503,76 +570,67 @@ class Conexion {
         return $reservas;
     }
 
-    
-    
-    public function actualizarEstadoReserva($id, $estado) {
+
+
+    public function actualizarEstadoReserva($id, $estado)
+    {
         $sql = "UPDATE reservas SET estado = ? WHERE id = ?";
         $stmt = $this->con->prepare($sql);
-        
+
         if ($stmt === false) {
             die("Error en la preparación de la consulta: " . $this->con->error);
         }
-        
+
         $stmt->bind_param("si", $estado, $id);
         $success = $stmt->execute();
         $stmt->close();
-        
+
         return $success;
     }
 
-    public function verificarSiExiste($idUsuario) {
+    public function verificarSiExiste($idUsuario)
+    {
         $sql = "SELECT * FROM reservas WHERE usuario_id = ? AND (estado = 'Pendiente' OR estado = 'En proceso')";
         $stmt = $this->con->prepare($sql);
-    
+
         if ($stmt === false) {
             return ['error' => true, 'message' => $this->con->error];
         }
-    
+
         $stmt->bind_param("i", $idUsuario);
         $stmt->execute();
         $resultado = $stmt->get_result();
-    
+
         $tieneReservas = $resultado->num_rows > 0;
         $stmt->close();
-    
+
         return ['error' => false, 'tieneReservas' => $tieneReservas];
     }
-    
-    public function Desactivar_Usuario($id) {
+
+    public function Desactivar_Usuario($id)
+    {
         $sql = "UPDATE tbusuario SET verificado = 0 WHERE id = $id";
         $this->con->query($sql);
     }
 
-    public function Activar_Usuario($id) {
+    public function Activar_Usuario($id)
+    {
         $sql = "UPDATE tbusuario SET verificado = 1 WHERE id = $id";
         $this->con->query($sql);
     }
 
     //pago
 
-    public function tienePagosPendientes($usuario_id) {
-        $query = "SELECT COUNT(*) AS num_pagos FROM pagos WHERE usuario_id = ? AND estado = 'pendiente'";
-        $stmt = $this->con->prepare($query);
-        $stmt->bind_param("i", $usuario_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-        $num_pagos = $row['num_pagos'];
-        $stmt->close();
-        
-        return $num_pagos > 0;
-    }
-
-
-    public function insertarPago($usuario_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado, $imagen) {
+    public function insertarPago($usuario_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado, $imagen)
+    {
         $fecha_pago = date('Y-m-d H:i:s'); // Fecha y hora actual del pago
 
         $query = "INSERT INTO pagos (usuario_id, nombre, monto_total, metodo_pago, n_operacion, fecha_pago, estado, imagen)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-       
+
         $stmt = $this->con->prepare($query);
-        $stmt->bind_param("isssssss", $usuario_id, $nombre , $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $estado, $imagen);
-        
+        $stmt->bind_param("isssssss", $usuario_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $estado, $imagen);
+
 
         if ($stmt->execute()) {
             return true; // Éxito al insertar en la base de datos
@@ -581,10 +639,33 @@ class Conexion {
         }
     }
 
+
+    public function actualizarEstadoReserva1($usuario_id, $numero_mesa, $nuevo_estado)
+    {
+        // Consulta SQL para actualizar el estado de la reserva
+        $query = "UPDATE reservas SET estado = ? WHERE usuario_id = ? AND numero_mesa = ?";
+
+        $stmt = $this->con->prepare($query);
+        if (!$stmt) {
+            throw new Exception("Error al preparar la consulta: " . $this->con->error);
+        }
+
+        $stmt->bind_param("sis", $nuevo_estado, $usuario_id, $numero_mesa);
+
+        if (!$stmt->execute()) {
+            throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
+        }
+
+        return $stmt->affected_rows > 0; // Retorna true si alguna fila fue modificada
+    }
+
+
+
     //pagos
 
 
-    public function Mostrar_Pagos() {
+    public function Mostrar_Pagos()
+    {
         $sql = 'SELECT 
         p.id,
         u.nombre AS usuario,
@@ -598,34 +679,37 @@ class Conexion {
         FROM pagos p
         LEFT JOIN tbusuario u ON p.usuario_id = u.id
         ORDER BY p.fecha_pago DESC';
-    
+
         $resultado = $this->con->query($sql);
-    
+
 
         if (!$resultado) {
             die("Error en la consulta: " . $this->con->error);
-    }
-    
+        }
+
         $pagos = array();
         while ($row = $resultado->fetch_assoc()) {
             $pagos[] = $row;
         }
-    
+
         return $pagos;
     }
-    
 
-    public function Confirmar_pago($id){
+
+    public function Confirmar_pago($id)
+    {
         $sql = "UPDATE pagos SET estado = 'completado' WHERE id = $id";
         $this->con->query($sql);
     }
 
-    public function Denegar_Pago($id){
+    public function Denegar_Pago($id)
+    {
         $sql = "UPDATE pagos SET estado = 'fallido' WHERE id = $id";
         $this->con->query($sql);
     }
 
-    public function obtenerDetallePago($id) {
+    public function obtenerDetallePago($id)
+    {
         $query = "SELECT * FROM pagos WHERE id = ?";
         $stmt = $this->con->prepare($query);
         $stmt->bind_param("i", $id);
@@ -634,40 +718,44 @@ class Conexion {
         return $resultado->fetch_assoc();
     }
 
-//actu persona
-public function updatePersona($user_id, $nombre, $apellido_p, $dni, $fecha_nacimiento) {
-    $sql = "UPDATE tbusuario SET nombre = ?, apellidos = ?, dni = ?, fechaNacimiento = ? WHERE id = ?";
-    $stmt = $this->con->prepare($sql);
-    $stmt->bind_param("ssssi", $nombre, $apellido_p, $dni, $fecha_nacimiento, $user_id);
-    return $stmt->execute();
-}
-
-public function updateUsuarioNombre($user_id, $nombre) {
-    $sql = "UPDATE tbusuario SET nombre = ? WHERE id = ?";
-    $stmt = $this->con->prepare($sql);
-    $stmt->bind_param("si", $nombre, $user_id);
-    return $stmt->execute();
-}
-
-public function cancelReservation($reservationId) {
-    $sql = "UPDATE reservas SET estado = 'cancelado' WHERE id = ?";
-    $stmt = $this->con->prepare($sql);
-    
-    try {
-        $stmt->bind_param('i', $reservationId);
-        $result = $stmt->execute();
-        $stmt->close();
-        return $result;
-    } catch (Exception $e) {
-        // Log error if needed
-        return false;
+    //actu persona
+    public function updatePersona($user_id, $nombre, $apellido_p, $dni, $fecha_nacimiento)
+    {
+        $sql = "UPDATE tbusuario SET nombre = ?, apellidos = ?, dni = ?, fechaNacimiento = ? WHERE id = ?";
+        $stmt = $this->con->prepare($sql);
+        $stmt->bind_param("ssssi", $nombre, $apellido_p, $dni, $fecha_nacimiento, $user_id);
+        return $stmt->execute();
     }
-}
+
+    public function updateUsuarioNombre($user_id, $nombre)
+    {
+        $sql = "UPDATE tbusuario SET nombre = ? WHERE id = ?";
+        $stmt = $this->con->prepare($sql);
+        $stmt->bind_param("si", $nombre, $user_id);
+        return $stmt->execute();
+    }
+
+    public function cancelReservation($reservationId)
+    {
+        $sql = "UPDATE reservas SET estado = 'cancelado' WHERE id = ?";
+        $stmt = $this->con->prepare($sql);
+
+        try {
+            $stmt->bind_param('i', $reservationId);
+            $result = $stmt->execute();
+            $stmt->close();
+            return $result;
+        } catch (Exception $e) {
+            // Log error if needed
+            return false;
+        }
+    }
 
 
-public function Registrar_Reserva_Grupo($nombre, $telefono, $correo, $cantidad_personas, $fecha_reserva, $hora_reserva, $turno, $descripcion, $estado, $pago) {
-    // Preparar la consulta SQL
-    $sql = "INSERT INTO reservas (
+    public function Registrar_Reserva_Grupo($nombre, $telefono, $correo, $cantidad_personas, $fecha_reserva, $hora_reserva, $turno, $descripcion, $estado, $pago)
+    {
+        // Preparar la consulta SQL
+        $sql = "INSERT INTO reservas (
         nombre, 
         telefono, 
         correo,
@@ -681,57 +769,49 @@ public function Registrar_Reserva_Grupo($nombre, $telefono, $correo, $cantidad_p
         numero_mesa
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)";
 
-    // Preparar la sentencia
-    $stmt = $this->con->prepare($sql);
+        // Preparar la sentencia
+        $stmt = $this->con->prepare($sql);
 
-    // Verificar si la preparación fue exitosa
-    if ($stmt === false) {
-        // Manejar el error de preparación
-        error_log("Error al preparar la consulta: " . $this->con->error);
-        return false;
-    }
+        // Verificar si la preparación fue exitosa
+        if ($stmt === false) {
+            // Manejar el error de preparación
+            error_log("Error al preparar la consulta: " . $this->con->error);
+            return false;
+        }
 
-    // Bindear los parámetros
-    // "ssssissssss" representa los tipos: string, string, string, int, string, string, string, string, string, string, null
-    $stmt->bind_param("sssississss", 
-        $nombre, 
-        $telefono, 
-        $correo, 
-        $cantidad_personas, 
-        $fecha_reserva, 
-        $hora_reserva, 
-        $turno, 
-        $descripcion, 
-        $estado, 
-        $pago
-    );
+        // Bindear los parámetros
+        // "ssssissssss" representa los tipos: string, string, string, int, string, string, string, string, string, string, null
+        $stmt->bind_param(
+            "sssississss",
+            $nombre,
+            $telefono,
+            $correo,
+            $cantidad_personas,
+            $fecha_reserva,
+            $hora_reserva,
+            $turno,
+            $descripcion,
+            $estado,
+            $pago
+        );
 
-    // Ejecutar la consulta
-    $resultado = $stmt->execute();
+        // Ejecutar la consulta
+        $resultado = $stmt->execute();
 
-    // Verificar si la ejecución fue exitosa
-    if ($resultado === false) {
-        // Manejar el error de ejecución
-        error_log("Error al ejecutar la consulta: " . $stmt->error);
+        // Verificar si la ejecución fue exitosa
+        if ($resultado === false) {
+            // Manejar el error de ejecución
+            error_log("Error al ejecutar la consulta: " . $stmt->error);
+            $stmt->close();
+            return false;
+        }
+
+        // Obtener el ID de la última inserción (opcional)
+        $id_reserva = $stmt->insert_id;
+
+        // Cerrar la sentencia
         $stmt->close();
-        return false;
+
+        return $id_reserva;
     }
-
-    // Obtener el ID de la última inserción (opcional)
-    $id_reserva = $stmt->insert_id;
-
-    // Cerrar la sentencia
-    $stmt->close();
-
-    return $id_reserva;
 }
-
-
-
-
-
-
-
-}
-
-?>

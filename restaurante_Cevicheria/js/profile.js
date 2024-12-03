@@ -1,16 +1,16 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const navLinks = document.querySelectorAll('.nav-link');
     const tabContents = document.querySelectorAll('.tab-content');
 
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             navLinks.forEach(l => l.classList.remove('active'));
             tabContents.forEach(t => t.classList.remove('active'));
-            
+
             link.classList.add('active');
-            
+
             const targetId = link.getAttribute('data-target');
             document.getElementById(targetId).classList.add('active');
         });
@@ -18,21 +18,21 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const mostrarFormPagoBtn = document.getElementById('mostrar-form-pago');
     const confirmarPagoForm = document.getElementById('confirmar-pago-form');
     const numeroOperacionInput = document.getElementById('numero_operacion');
 
-    mostrarFormPagoBtn.addEventListener('click', function() {
+    mostrarFormPagoBtn.addEventListener('click', function () {
         confirmarPagoForm.style.display = 'block';
         mostrarFormPagoBtn.style.display = 'none';
     });
 
     const opcionesRadios = document.querySelectorAll('input[type="radio"]');
-    opcionesRadios.forEach(function(radio) {
-        radio.addEventListener('change', function() {
+    opcionesRadios.forEach(function (radio) {
+        radio.addEventListener('change', function () {
             const imagenesOpciones = document.querySelectorAll('.opcion-imagen');
-            imagenesOpciones.forEach(function(imagen) {
+            imagenesOpciones.forEach(function (imagen) {
                 imagen.style.display = 'none';
             });
 
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 numeroOperacionInput.placeholder = 'Ingrese el número de operación de Yape';
             } if (this.value === 'Plin') {
                 numeroOperacionInput.placeholder = 'Ingrese el número de operación de Plin';
-            }else if (this.value === 'Cuenta') {
+            } else if (this.value === 'Cuenta') {
                 numeroOperacionInput.placeholder = 'Ingrese el número de operación';
             }
         });
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //para el ojito osea ver la contra
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var current_password = document.getElementById('current_password');
     var new_password = document.getElementById('new_password');
     var confirm_password = document.getElementById('confirm_password');
@@ -61,13 +61,13 @@ document.addEventListener('DOMContentLoaded', function() {
     var confirm_passwordToggle = document.getElementById('confirm_password-toggle');
 
 
-    current_password.addEventListener('input', function() {
+    current_password.addEventListener('input', function () {
         togglePasswordIconVisibility(current_password.value, current_passwordToggle);
     });
-    new_password.addEventListener('input', function() {
+    new_password.addEventListener('input', function () {
         togglePasswordIconVisibility(new_password.value, new_passwordToggle);
     });
-    confirm_password.addEventListener('input', function() {
+    confirm_password.addEventListener('input', function () {
         togglePasswordIconVisibility(confirm_password.value, confirm_passwordToggle);
     });
 
@@ -90,7 +90,7 @@ function togglePasswordIconVisibility(value, icon) {
 function togglePasswordVisibility(fieldId) {
     var field = document.getElementById(fieldId);
     var icon = document.getElementById(fieldId + '-toggle-icon');
-    
+
     if (field && icon) {
         if (field.type === "password") {
             field.type = "text";
@@ -104,12 +104,12 @@ function togglePasswordVisibility(fieldId) {
     }
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     var originalEmail = $('#correo').val();
     var originalValues = {};
     $('#updateConfPassButton,#updateConfEmailButton,#updateButton,#cancelButton').prop('disabled', true);
     // Función para activar la edición al hacer clic en el icono
-    $('.edit-icon,#ciudad,#fecha_nacimiento').click(function() {
+    $('.edit-icon,#ciudad,#fecha_nacimiento').click(function () {
         var targetId = $(this).data('target');
         var $targetInput = $('#' + targetId);
 
@@ -121,14 +121,14 @@ $(document).ready(function() {
         $('#updateButton,#cancelButton').prop('disabled', false);
     });
 
-    $('.edit-icon[data-target="password"]').click(function() {
+    $('.edit-icon[data-target="password"]').click(function () {
         $('#password').prop('readonly', true);
         $('#correo').prop('readonly', true);
         $('#password-fields').show();
         passwordFieldsVisible = true;
         $('#updateConfPassButton, #cancelButton').prop('disabled', false);
     });
-    $('.edit-icon[data-target="correo"]').click(function() {
+    $('.edit-icon[data-target="correo"]').click(function () {
         $('#password').prop('readonly', true);
         $('#correo').prop('readonly', false);
         $('#password-fields').hide();
@@ -137,7 +137,7 @@ $(document).ready(function() {
     });
 
     // Evitar envío del formulario al presionar Enter en campos editables
-    $('.editable').keypress(function(event) {
+    $('.editable').keypress(function (event) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if (keycode == '13') { // Tecla Enter
             event.preventDefault();
@@ -145,7 +145,7 @@ $(document).ready(function() {
     });
 
 
-    $('#cancelButton').click(function() {
+    $('#cancelButton').click(function () {
         if (passwordFieldsVisible) {
             $('#password-fields').hide();
             passwordFieldsVisible = false;
@@ -155,18 +155,18 @@ $(document).ready(function() {
 });
 
 //para el tiempo de la alerta
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     var mensaje = document.querySelector(".mensaje");
     if (mensaje) {
-        setTimeout(function() {
+        setTimeout(function () {
             mensaje.remove();
         }, 3000);
     }
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll('.btn-danger').forEach(function(cancelButton) {
-        cancelButton.addEventListener('click', function(event) {
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.btn-danger').forEach(function (cancelButton) {
+        cancelButton.addEventListener('click', function (event) {
             event.preventDefault();
 
             const reservationRow = this.closest('tr');
@@ -176,8 +176,8 @@ document.addEventListener("DOMContentLoaded", function() {
             const cancelUrl = url + "?id=" + reservationId;
 
             fetch(cancelUrl, {
-                    method: 'GET'
-                })
+                method: 'GET'
+            })
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {

@@ -116,6 +116,7 @@ $total_mesas = 40;
             </div>
             <?php } ?>
         </div>
+
     </div>
 
     <div class="modal fade" id="reservaModal" tabindex="-1">
@@ -158,7 +159,22 @@ $total_mesas = 40;
                             <input type="text" class="form-control" id="telefono" name="telefono" maxlength="9" required>
                         </div>
                         
-                        <div class="col-md-6 form-group">
+                        <div class="mb-3">
+                            <label for="turno" class="form-label">Turno</label>
+                            <select class="form-select turno" id="turno" name="turno" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="Mañana">Mañana/10:00-11:59</option>
+                                <option value="Tarde">Tarde/12:00-18:00</option>
+                                <option value="Noche">Noche/18:01-22:00</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="hora" class="form-label hora">Hora de reserva</label>
+                            <input type="time" class="form-control hora" id="hora" name="hora" min="10:00" max="23:00" required>
+                        </div>
+                        
+                        <div class="mb-3">
                             <label form="fecha_reserva" class="fecha">Fecha de Reserva</label>
                             <input type="date" class="form-control" id="fecha_reserva" name="fecha_reserva" required>
                         </div>
@@ -183,20 +199,6 @@ $total_mesas = 40;
                             height: 36px;
                             }
                         </style>
-                        <div class="mb-3">
-                            <label for="turno" class="form-label">Turno</label>
-                            <select class="form-select turno" id="turno" name="turno" required>
-                                <option value="" disabled selected>Selecciona una opción</option>
-                                <option value="Mañana">Mañana/10:00-11:59</option>
-                                <option value="Tarde">Tarde/12:00-18:00</option>
-                                <option value="Noche">Noche/18:01-22:00</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="hora" class="form-label hora">Hora de reserva</label>
-                            <input type="time" class="form-control hora" id="hora" name="hora" min="10:00" max="23:00" required>
-                        </div>
 
                         <div class="mb-3">
                             <div class="custom-button" ng-click="do_group_request()">
@@ -213,6 +215,10 @@ $total_mesas = 40;
             </div>
         </div>
     </div>
+
+
+    <!--modal-->
+
     
     <!-- Modal para mensajes -->
     <div id="mensajeModal" class="modal fade" tabindex="-1" aria-labelledby="mensajeModalLabel" aria-hidden="true">

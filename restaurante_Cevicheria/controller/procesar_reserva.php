@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($cantidad_personas > $limite_grupo_grande) {
             // Lógica para grupos grandes (e.g., marcar como pendiente de aprobación)
             $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, estado, telefono, turno, hora_reserva, pago) 
-                    VALUES (?, ?, ?, ?, 'Pendiente Aprobación', ?, ?, ?, '20')";
+                    VALUES (?, ?, ?, ?, 'Pendiente', ?, ?, ?, '20')";
         } else {
             // Lógica para reservas normales
             $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, estado, telefono, turno, hora_reserva, pago) 

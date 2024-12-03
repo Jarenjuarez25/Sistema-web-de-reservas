@@ -1,8 +1,14 @@
 <?php
-session_start();
-require_once '../../database/conexion.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
+require_once '../../database/conexion.php';
 $con = new Conexion();
+
+if (isset($_SESSION['user_id'])) {
+    $nombre = $con->getNombreByUserId($_SESSION['user_id']);
+}
 
 ?>
 
@@ -15,6 +21,7 @@ $con = new Conexion();
     <link rel="icon" href="/restaurante_Cevicheria/Images/Logo.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/restaurante_Cevicheria/css/sstyle-plus.css" />
     <style>
         body {
             background-color: #f4f6f9;
@@ -45,21 +52,20 @@ $con = new Conexion();
                     </div>
                 <?php endif; ?>
                 
-                <form method="POST" action="">
+                <form id="reservaForm">
+                    <input type="hidden" id="numeroMesa" name="numeroMesa">
+                    
                     <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label for="nombre">Nombre Completo</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre">
-                        </div>
                         <label for="telefono">Teléfono</label>
                         <div class="col-md-6 form-group">
-                            <input type="tel" class="form-control" id="telefono" name="telefono">
+                            <input type="text" class="form-control" id="telefono" name="telefono" maxlength="9" required>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <label for="cantidad_personas">Número de Personas</label>
-                            <select type="number" class="form-control" id="cantidad_personas" name="cantidad_personas" min="20">
+                            <label for="cantidadPersonas">Número de Personas</label>
+                            <select class="form-control" id="cantidadPersonas" name="cantidadPersonas" required>
                                 <option value="">Seleccione una cantidad</option>
                                 <option value="11">11</option>
                                 <option value="12">12</option>
@@ -71,61 +77,106 @@ $con = new Conexion();
                                 <option value="18">18</option>
                                 <option value="19">19</option>
                                 <option value="20">20</option>
-
                             </select>
-                            <small class="form-text text-muted" min="20">Mínimo 20 personas </small>
+                            <small class="form-text text-muted" min="20">Mínimo 20 personas</small>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="fecha_reserva">Fecha de Reserva</label>
-                            <input type="date" class="form-control" id="fecha_reserva" name="fecha_reserva">
+                            <input type="date" class="form-control" id="fecha_reserva" name="fecha_reserva" required>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <label for="hora_reserva">Hora de Reserva</label>
-                            <input type="time" class="form-control" id="hora_reserva" name="hora_reserva">
-                        </div>
-                        <div class="col-md-6 form-group">
                             <label for="turno">Turno</label>
-                            <select class="form-control" id="turno" name="turno">
-                                <option value="">Seleccione un turno</option>
-                                <option value="Mañana">Mañana</option>
-                                <option value="Tarde">Tarde</option>
-                                <option value="Noche">Noche</option>
+                            <select class="form-select" id="turno" name="turno" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="Mañana">Mañana/10:00-11:59</option>
+                                <option value="Tarde">Tarde/12:00-18:00</option>
+                                <option value="Noche">Noche/18:01-22:00</option>
                             </select>
                         </div>
                     </div>
-                    
+
+                    <div class="col-md-6 form-group">
+                        <label for="hora_reserva">Hora de Reserva</label>
+                        <input type="time" class="form-control" id="hora" name="hora" min="10:00" max="23:00" required>
+                    </div>
+
                     <div class="form-group">
-                        <label for="descripcion">Descripción Adicional</label>
+                        <label for="descripcion">Descripción</label>
                         <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Información adicional sobre su grupo o reserva (opcional)"></textarea>
                     </div>
-                    
+
+
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            <i class="fas fa-calendar-check me-2"></i>Solicitar Reserva
-                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="window.location.href='/restaurante_Cevicheria/Principal_usuario/reservas/index.php';">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="realizarReserva()">Confirmar Reserva</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Modal para mensajes -->
+    <div id="mensajeModal" class="modal fade" tabindex="-1" aria-labelledby="mensajeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content"  style="margin-left: 10%; margin-top: -25%; background-color: #f6f6f6;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mensajeModalLabel">Mensaje</h5>
+                </div>
+                <div class="modal-body" id="modalMensajeBody">
+                    <!-- El mensaje dinámico -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-        // Optional: Add client-side validation
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form');
-            const personasInput = document.getElementById('cantidad_personas');
-            
-            form.addEventListener('submit', function(event) {
-                if (personasInput.value < 16) {
-                    event.preventDefault();
-                    alert('Para grupos mayores a 15 personas, use este formulario especial.');
+        function realizarReserva() {
+            const formulario = document.getElementById('reservaForm');
+            if (!formulario.checkValidity()) {
+                alert('Por favor, completa todos los campos correctamente.');
+                return;
+            }
+
+            // Aquí puedes agregar la lógica para enviar el formulario
+            formulario.submit(); // O usar AJAX si prefieres no recargar la página
+        }
+
+        function actualizarEstadoMesas() {
+    console.log('Actualizando estado de las mesas...');
+    fetch('/restaurante_Cevicheria/controller/obtener_estado_mesas.php')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(mesa => {
+                const elementoMesa = document.querySelector(`.mesa-card[onclick="abrirModalReserva(${mesa.numero_mesa})"]`);
+                if (elementoMesa) {
+                    const estadoTexto = elementoMesa.querySelector('.card-text');
+                    estadoTexto.textContent = (mesa.estado === 'Pendiente' || mesa.estado === 'En proceso') ? 'Ocupada' : 'Disponible';
+
+                    // Cambiar las clases según el estado
+                    if (mesa.estado === 'Pendiente' || mesa.estado === 'En proceso') {
+                        elementoMesa.classList.add('ocupada');
+                        elementoMesa.classList.remove('disponible');
+                    } else {
+                        elementoMesa.classList.add('disponible');
+                        elementoMesa.classList.remove('ocupada');
+                    }
                 }
             });
-        });
+        })
+        .catch(error => console.error('Error al obtener el estado de las mesas:', error));
+}
+
+    actualizarEstadoMesas();
+
+    setInterval(actualizarEstadoMesas, 5000);
+
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
