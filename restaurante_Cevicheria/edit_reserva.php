@@ -69,7 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         
                         <div class="mb-3">
                             <label for="cantidad_personas" class="form-label">Cantidad de personas:</label>
-                            <input type="number" class="form-control" id="cantidad_personas" name="cantidad_personas" value="<?php echo $row['cantidad_personas']; ?>">
+                            <input type="number" class="form-control" id="cantidad_personas" name="cantidad_personas" min="1" max="20" value="<?php echo $row['cantidad_personas']; ?>">
+                            <small class="form-text text-muted">Mínimo 20 personas </small>
                         </div>
 
                         <div class="mb-3">

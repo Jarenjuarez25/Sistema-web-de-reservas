@@ -18,7 +18,7 @@ $fechaNacimiento = $_POST['fechaNacimiento'];
 
 if ($con->isEmailRegistered($correo)) {
     echo "<script>
-        alert('El correo ya está registrado');
+        alert('El correo ya está registrado, registrese con uno diferente!');
         window.location.href = '/restaurante_Cevicheria/Principal_usuario/Login/index.php?openModal=registro';
     </script>";
     exit();

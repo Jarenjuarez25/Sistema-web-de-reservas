@@ -113,9 +113,15 @@ $totalGeneral = 0; // Inicializa el total general
         <div class="profile-card">
             <div class="row" style="display: flex;">
                 <div class="sidebar" style="flex: 0 0 250px;">
+
                     <a href="#" class="nav-link active" data-target="profile-personal">
                         <i class="fas fa-user-circle mr-2"></i> Mi perfil
                     </a>
+
+                    <a href="#" class="nav-link" data-target="profile-config">
+                        <i class="fas fa-clipboard-list mr-2"></i> Configuraciones
+                    </a>
+
                     <a href="#" class="nav-link" data-target="profile-reclamos">
                         <i class="fas fa-clipboard-list mr-2"></i> Mis reclamos
                     </a>
@@ -174,6 +180,30 @@ $totalGeneral = 0; // Inicializa el total general
                         </form>
                     </div>
 
+                    <!--Config-->
+                    <div id="profile-config" class="tab-content">
+                        <h2>Datos personales</h2>
+                        <form method="post" action="/restaurante_Cevicheria/controller/edit-profile.php">
+                            <div class="form-group">
+                                <label>Correo:</label>
+                                <div style="display: flex; align-items: center;">
+                                    <input type="text" name='nombre' id="nombre" class="form-control" value="<?php echo htmlspecialchars($usuario['nombre']); ?>" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Contraseña:</label>
+                                <div style="display: flex; align-items: center;">
+                                    <input type="text" class="form-control" id="apellido_p"
+                                        name="apellido_p"
+                                        value="<?php echo htmlspecialchars($persona['apellidos']); ?>">
+                                </div>
+                            </div>
+
+                            <button class="boton2" id="updateButton"><i class="bi bi-pencil-square"></i> Actualizar</button>
+
+                        </form>
+                    </div>
                     <!-- Reclamos -->
 
                     <div id="profile-reclamos" class="tab-content">
@@ -489,6 +519,7 @@ $totalGeneral = 0; // Inicializa el total general
                 });
             });
         });
+
     </script>
 </body>
 

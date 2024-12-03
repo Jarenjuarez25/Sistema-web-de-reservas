@@ -31,7 +31,7 @@ if (isset($_POST['telefono'], $_POST['asunto'], $_POST['descripcion'])) {
 
         echo "<script>
             alert('¡Reclamación enviada exitosamente! Mira tu reclamo en tu correo o en Mis Reclamos');
-            window.location.href = '/restaurante_Cevicheria/index.php';
+            window.location.href = '/restaurante_Cevicheria/Principal_usuario/reclamos/index.php';
         </script>";
         exit();
     } catch (Exception $e) {

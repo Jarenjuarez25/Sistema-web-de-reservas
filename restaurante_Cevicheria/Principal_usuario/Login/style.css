@@ -357,35 +357,53 @@ body {
     top: 13px;
     left: 647px;
 }
+/*mensaje*/
 .mensaje {
-    position: fixed;
-    top: -39px;
-    margin-left: 27px;
-    transform: translateX(-50%);
-    padding: 25px 10px;
-    border-radius: 10px;
-    font-family: 'Trade Gothic LT', sans-serif;
+    position: absolute;
+    top: 10%;
+    width: 226px;
+    padding: 20px;
+    border-radius: 16px;
     font-size: 14px;
     font-weight: 300;
+    text-align: center;
     z-index: 1000;
-    animation: slideIn 0.5s forwards;
+    animation: slideInFromRight 0.5s forwards;
+    background-color: rgba(26, 35, 126, 0.85); /* Slightly transparent */
+    color: white;
+    box-shadow: 0 4px 6px rgba(95, 187, 76, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mensaje i {
+    margin-right: 10px;
+    font-size: 20px;
 }
 
 .mensaje.error {
-    background-color: #fc2b1f;
+    background-color: rgb(255 14 0 / 85%);
+    font-family: 'Trade Gothic LT', sans-serif;
     color: white;
+    width: 41%;
+    margin-top: -19%;
+    margin-left: 73%;
+    border-radius: 22px;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Define the animation */
-@keyframes slideIn {
-    from {
-        left: -100%; /* Start off-screen to the left */
+@keyframes slideInFromRight {
+    0% {
+        left: 100%;
     }
-    to {
-        left: -81%;
+    100% {
+        left: 82%; /* Ajusta la posición final según tu diseño */
     }
 }
- 
 
 /*Boton*/
 

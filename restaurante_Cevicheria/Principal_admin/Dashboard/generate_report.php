@@ -46,7 +46,7 @@ $pdf->AddPage();
 
 // Título del documento
 $pdf->SetFont('helvetica', 'B', 20);
-$pdf->Cell(0, 15, 'Reporte Tablas', 0, 1, 'C', 0, '', 0, false, 'M', 'M');
+$pdf->Cell(0, 15, 'Reporte', 0, 1, 'C', 0, '', 0, false, 'M', 'M');
 
 // Función para generar una tabla en el PDF
 function generarTabla($pdf, $titulo, $datos, $columnas) {
@@ -76,12 +76,14 @@ generarTabla($pdf, 'Usuarios registrados por Día', $usuarios, ['Fecha', 'Cantid
 generarTabla($pdf, 'Reservas por dia', $reservas, ['Fecha', 'Cantidad']);
 
 // Datos de reclamos
-generarTabla($pdf, 'Distribucion de usuarios por genero', $distribucion, ['Genero', 'Cantidad']);
+generarTabla($pdf, 'Registro de ganancias de reservas', $distribucion, ['Fecha', 'Cantidad']);
+
+generarTabla($pdf, 'Pedidas por cancelacion', $perdidas, ['Fecha', 'Cantidad']);
 
 // Datos de productos
 generarTabla($pdf, 'Reclamos por dia', $reclamos, ['Tipo', 'Cantidad']);
 
-$pdf ->Output('InformeTablas.pdf', 'D');
+$pdf ->Output('Reporte.pdf', 'D');
 
 // Cerrar la conexión
 $conexion = null;

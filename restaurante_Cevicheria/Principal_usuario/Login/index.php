@@ -15,6 +15,7 @@ $con = new Conexion();
   <title>Login</title>
   <link rel="icon" href="/restaurante_Cevicheria/Images/Logo.ico" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 
 <body>

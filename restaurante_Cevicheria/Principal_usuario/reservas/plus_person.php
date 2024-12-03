@@ -49,17 +49,17 @@ $con = new Conexion();
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label for="nombre">Nombre Completo</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            <input type="text" class="form-control" id="nombre" name="nombre">
                         </div>
                         <label for="telefono">Teléfono</label>
                         <div class="col-md-6 form-group">
-                            <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                            <input type="tel" class="form-control" id="telefono" name="telefono">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label for="cantidad_personas">Número de Personas</label>
-                            <select type="number" class="form-control" id="cantidad_personas" name="cantidad_personas" min="10" required>
+                            <select type="number" class="form-control" id="cantidad_personas" name="cantidad_personas" min="20">
                                 <option value="">Seleccione una cantidad</option>
                                 <option value="11">11</option>
                                 <option value="12">12</option>
@@ -73,22 +73,22 @@ $con = new Conexion();
                                 <option value="20">20</option>
 
                             </select>
-                            <small class="form-text text-muted">Mínimo 10 personas</small>
+                            <small class="form-text text-muted" min="20">Mínimo 20 personas </small>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="fecha_reserva">Fecha de Reserva</label>
-                            <input type="date" class="form-control" id="fecha_reserva" name="fecha_reserva" required>
+                            <input type="date" class="form-control" id="fecha_reserva" name="fecha_reserva">
                         </div>
                     </div>
                     
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label for="hora_reserva">Hora de Reserva</label>
-                            <input type="time" class="form-control" id="hora_reserva" name="hora_reserva" required>
+                            <input type="time" class="form-control" id="hora_reserva" name="hora_reserva">
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="turno">Turno</label>
-                            <select class="form-control" id="turno" name="turno" required>
+                            <select class="form-control" id="turno" name="turno">
                                 <option value="">Seleccione un turno</option>
                                 <option value="Mañana">Mañana</option>
                                 <option value="Tarde">Tarde</option>

@@ -78,11 +78,31 @@ function validarFormularioRegister() {
   }
 
 
-  const regexContraseña = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,}$/;
-  if (!regexContraseña.test(contraseña)) {
-    alert('La contraseña debe incluir al menos 9 digitos, una letra mayúscula, un número y un carácter especial.');
-    return false;
+  const regexLongitud = /^.{9,}$/; // Al menos 9 caracteres
+  const regexMayuscula = /[A-Z]/; // Al menos una letra mayúscula
+  const regexNumero = /\d/;       // Al menos un número
+  const regexEspecial = /[@$!%*?&]/; // Al menos un carácter especial
+  
+  if (!regexLongitud.test(contraseña)) {
+      alert('La contraseña debe tener al menos 9 caracteres.');
+      return false;
   }
+  
+  if (!regexMayuscula.test(contraseña)) {
+      alert('La contraseña debe incluir al menos una letra mayúscula');
+      return false;
+  }
+  
+  if (!regexNumero.test(contraseña)) {
+      alert('La contraseña debe incluir al menos un número');
+      return false;
+  }
+  
+  if (!regexEspecial.test(contraseña)) {
+      alert('La contraseña debe incluir al menos un carácter especial');
+      return false;
+  }
+
 
   if (contraseña !== confirmarContraseña) {
       alert('Las contraseñas no coinciden');
