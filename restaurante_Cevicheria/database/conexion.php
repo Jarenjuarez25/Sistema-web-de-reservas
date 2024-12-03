@@ -458,6 +458,7 @@ class Conexion
     {
         $sql = "SELECT DATE_FORMAT(fecha_reserva, '%Y-%m-%d') as fecha, COUNT(*) as cantidad 
         FROM reservas 
+        WHERE estado != 'Cancelado'
         GROUP BY fecha 
         ORDER BY cantidad DESC";
         $result = $this->con->query($sql);
@@ -553,11 +554,10 @@ class Conexion
             r.cantidad_personas, 
             r.descripcion, 
             r.estado,
-            r.fecha_reserva,
+            r.fecha_reservacion,
             r.telefono,
             r.turno,
             r.hora_reserva,
-            r.pago,
             u.nombre
             FROM reservas r 
             JOIN tbusuario u ON r.usuario_id = u.id 
@@ -621,15 +621,15 @@ class Conexion
 
     //pago
 
-    public function insertarPago($usuario_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado, $imagen)
+    public function insertarPago($usuario_id, $numero_mesa, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado, $imagen)
     {
         $fecha_pago = date('Y-m-d H:i:s'); // Fecha y hora actual del pago
 
-        $query = "INSERT INTO pagos (usuario_id, nombre, monto_total, metodo_pago, n_operacion, fecha_pago, estado, imagen)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO pagos (usuario_id, numero_mesa, nombre, monto_total, metodo_pago, n_operacion, fecha_pago, estado, imagen)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $this->con->prepare($query);
-        $stmt->bind_param("isssssss", $usuario_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $estado, $imagen);
+        $stmt->bind_param("issssssss", $usuario_id, $numero_mesa, $nombre, $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $estado, $imagen);
 
 
         if ($stmt->execute()) {
@@ -668,6 +668,7 @@ class Conexion
     {
         $sql = 'SELECT 
         p.id,
+        p.numero_mesa,
         u.nombre AS usuario,
         u.correo AS correo,
         p.monto_total,

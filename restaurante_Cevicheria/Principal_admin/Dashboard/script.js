@@ -80,8 +80,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 datasets: [{
                     label: 'Reclamos por tipo',
                     data: reclamosData.map(entry => entry.cantidad),
-                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgb(3,27,52)',
+                    borderColor: 'rgb(3,27,52)',
                     borderWidth: 1
                 }]
             },
@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
+        //para las ganacias
         distribucionChart = new Chart(document.getElementById('distribucionChart').getContext('2d'), {
             type: 'bar',
             data: {

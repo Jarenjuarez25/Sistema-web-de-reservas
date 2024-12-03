@@ -81,7 +81,7 @@ function validarFormularioRegister() {
   const regexLongitud = /^.{9,}$/; // Al menos 9 caracteres
   const regexMayuscula = /[A-Z]/; // Al menos una letra mayúscula
   const regexNumero = /\d/;       // Al menos un número
-  const regexEspecial = /[@$!%*?&]/; // Al menos un carácter especial
+  const regexEspecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~]/; // Al menos un carácter especial
   
   if (!regexLongitud.test(contraseña)) {
       alert('La contraseña debe tener al menos 9 caracteres.');

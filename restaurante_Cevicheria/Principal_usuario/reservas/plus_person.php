@@ -6,10 +6,13 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once '../../database/conexion.php';
 $con = new Conexion();
 
+$numeroMesa = isset($_GET['numeroMesa']) && !empty($_GET['numeroMesa']) ? $_GET['numeroMesa'] : null;
+
+//var_dump($numeroMesa);
+
 if (isset($_SESSION['user_id'])) {
     $nombre = $con->getNombreByUserId($_SESSION['user_id']);
 }
-var_dump('numeroMesa')
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +56,7 @@ var_dump('numeroMesa')
                 <?php endif; ?>
                 
                 <form id="reservaForm">
-                    <input type="hidden" id="numeroMesa" name="numeroMesa">
+                <input type="hidden" id="numeroMesa" name="numeroMesa" value="<?php echo htmlspecialchars($numeroMesa); ?>">
                     
                     <div class="row">
                         <label for="telefono">Teléfono</label>
@@ -128,7 +131,7 @@ var_dump('numeroMesa')
                     <!-- El mensaje dinámico -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
                 </div>
             </div>
         </div>
@@ -145,7 +148,7 @@ var_dump('numeroMesa')
             formulario.submit(); // O usar AJAX si prefieres no recargar la página
         }
 
-        function actualizarEstadoMesas() {
+    function actualizarEstadoMesas() {
     console.log('Actualizando estado de las mesas...');
     fetch('/restaurante_Cevicheria/controller/obtener_estado_mesas.php')
         .then(response => response.json())

@@ -10,12 +10,11 @@ $correo = $_SESSION['user_correo'];
 $nombre = $_SESSION['user_nombre'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
-    $numero_mesa = intval($_POST['numero_mesa']); // Capturar numero_mesa
+    $numero_mesa = intval($_POST['numero_mesa']);
     $monto_total = $_POST['monto_total'];
     $metodo_pago = $_POST['opcion'];
     $n_operacion = $_POST['numero_operacion'];
     $nuevo_estado = "Pendiente.";
-    $numero_mesa = $_POST['numero_mesa']; // Asegúrate de que este dato se envíe desde el formulario
     $estado = 'Pendiente';
     $imagen = '';
 
@@ -50,11 +49,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
         }
 
         // Insertar el pago
-        if (!$con->insertarPago($user_id, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado, $imagen)) {
+        if (!$con->insertarPago($user_id, $numero_mesa,$nombre, $monto_total, $metodo_pago, $n_operacion, $estado, $imagen)) {
             throw new Exception('Error al registrar el pago.');
         }
 
-
+        // Actualizar estado de la reserva
         if (!$con->actualizarEstadoReserva1($user_id, $numero_mesa, $nuevo_estado)) {
             throw new Exception('No se encontró ninguna reserva para actualizar.');
         }
@@ -67,19 +66,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
         header("Location: /restaurante_Cevicheria/profile.php");
         exit();
 
-        } catch (Exception $e) {
-        $_SESSION['mensaje'] = 'Error: ';
+    } catch (Exception $e) {
+        $_SESSION['mensaje'] = 'Error: ' . $e->getMessage();
         $_SESSION['tipo_mensaje'] = 'error';
         header("Location: /restaurante_Cevicheria/profile.php");
         exit();
-        }
-        } else {
-            $_SESSION['mensaje'] = 'Error: El formulario no se envió correctamente.';
-            $_SESSION['tipo_mensaje'] = 'error';
-            header("Location: /restaurante_Cevicheria/profile.php");
-            exit();
-            
-        }
+    }
+} else {
+    $_SESSION['mensaje'] = 'Error: El formulario no se envió correctamente.';
+    $_SESSION['tipo_mensaje'] = 'error';
+    header("Location: /restaurante_Cevicheria/profile.php");
+    exit();
+}
 
 
 ?>

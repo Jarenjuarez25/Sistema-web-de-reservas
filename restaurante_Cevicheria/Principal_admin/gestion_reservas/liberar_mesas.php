@@ -50,15 +50,16 @@ $pagos = $con->Mostrar_Pagos();
                     <table class="table table-hover align-middle mb-0 table-fixed">
                         <thead>
                             <tr style="width: 400px">
-                                <th style="width: 45px" class="text-center">ID</th>
+                                <th style="width: 45px" class="text-center">Id</th>
                                 <th style="width: 150px" class="text-center">Usuario</th>
+                                <th style="width: 80px" class="text-center">Mesa N°</th>
                                 <th style="width: 310px" class="text-center">Correo</th>
                                 <th class="text-center" style="width: 155px">Monto Total</th>
-                                <th class="text-center" style="width: 110px">Método de Pago</th>
+                                <th class="text-center" style="width: 120px">Método de Pago</th>
                                 <th class="text-center" style="width: 110px">N° de operación</th>
                                 <th class="text-center" style="width: 114px">Fecha de pago</th>
                                 <th class="text-center" style="width: 100px">Estado</th>
-                                <th class="text-center" style="width: 150px">Acción</th>
+                                <th class="text-center" style="width: 160px">Acción</th>
                                 <th class="text-center" style="width: 80px">Comprobante</th>
                             </tr>
                         </thead>
@@ -66,10 +67,11 @@ $pagos = $con->Mostrar_Pagos();
                             <?php foreach ($pagos as $pago) { ?>
                                 <tr>
                                     <td style="width: 45px" class="text-center"><?php echo $pago['id']; ?></td>
-                                    <td style="width: 150px" class="text-center"><?php echo htmlspecialchars($pago['usuario']); ?></td>
-                                    <td style="width: 310px" class="text-center"><?php echo htmlspecialchars($pago['correo']); ?></td>
+                                    <td style="width: 150px" class="text-center"><?php echo ($pago['usuario']); ?></td>
+                                    <td style="width: 80px" class="text-center"><?php echo $pago['numero_mesa']; ?></td>
+                                    <td style="width: 310px" class="text-center"><?php echo ($pago['correo']); ?></td>
                                     <td class="text-center" style="width: 150px"><?php echo $pago['monto_total']; ?></td>
-                                    <td class="text-center" style="width: 110px"><?php echo $pago['metodo_pago']; ?></td>
+                                    <td class="text-center" style="width: 120px"><?php echo $pago['metodo_pago']; ?></td>
                                     <td class="text-center" style="width: 110px"><?php echo $pago['n_operacion']; ?></td>
                                     <td class="text-center" style="width: 114px"><?php echo $pago['fecha_pago']; ?></td>
                                     <td class="text-center" style="width: 120px; 
@@ -84,7 +86,7 @@ $pagos = $con->Mostrar_Pagos();
                                         ?>">
                                         <?php echo htmlspecialchars($pago['estado']); ?>
                                     </td>
-                                    <td class="text-center" style="width: 120px">
+                                    <td class="text-center" style="width: 160px">
                                         <?php if ($pago['estado'] === 'pendiente') { ?>
                                             <!-- Botón para confirmar -->
                                             <a href="/restaurante_Cevicheria/controller/confirmar_pago_Admin.php?id=<?= $pago['id'] 
@@ -130,17 +132,16 @@ $pagos = $con->Mostrar_Pagos();
                     <table class="table table-hover align-middle mb-0 table-fixed">
                         <thead>
                             <tr style="width: 400px">
-                                <th style="width: 45px" class="text-center">ID</th>
+                                <th style="width: 45px" class="text-center">Id</th>
                                 <th style="width: 150px" class="text-center">Cliente</th>
                                 <th style="width: 80px" class="text-center">Mesa N°</th>
                                 <th class="text-center" style="width: 100px"></i>Personas</th>
-                                <th class="text-center" style="width: 160px">Descripción</th>
-                                <th class="text-center" style="width: 100px">telefono</th>
-                                <th class="text-center" style="width: 70px">turno</th>
-                                <th class="text-center" style="width: 70px">Hora</th>
-                                <th class="text-center" style="width: 190px">Fecha</th>
+                                <th class="text-center" style="width: 190px">Descripción</th>
+                                <th class="text-center" style="width: 130px">Telefono</th>
+                                <th class="text-center" style="width: 100px">Turno</th>
+                                <th class="text-center" style="width: 170px">Hora reserva</th>
+                                <th class="text-center" style="width: 180px">Fecha Reserva</th>
                                 <th class="text-center" style="width: 100px">Estado</th>
-                                <th class="text-center" style="width: 70px">Pago</th>
                                 <th class="text-center" style="width: 150px">Acciones</th>
                             </tr>
                         </thead>
@@ -149,17 +150,17 @@ $pagos = $con->Mostrar_Pagos();
                                     <tr id="reserva-<?php echo $reserva['id']; ?>">
                                         <td style="width: 45px" class="text-center"><?php echo $reserva['id']; ?></td>
                                         <td style="width: 150px" class="text-center"><?php echo $reserva['nombre']; ?></td>
-                                        <td style="width: 70px" class="text-center"><?php echo $reserva['numero_mesa']; ?></td>
+                                        <td style="width: 80px" class="text-center"><?php echo $reserva['numero_mesa']; ?></td>
                                         <td class="text-center" style="width: 100px"><?php echo $reserva['cantidad_personas']; ?></td>
-                                        <td style="width: 160px" class="text-center"><?php echo $reserva['descripcion']; ?></td>
-                                        <td style="width: 100px" class="text-center"><?php echo $reserva['telefono']; ?></td>
-                                        <td style="width: 80px" class="text-center"><?php echo $reserva['turno']; ?></td>
-                                        <td style="width: 80px" class="text-center"><?php echo $reserva['hora_reserva']; ?></td>
-                                        <td class="text-center" style="width: 180px"><?php echo $reserva['fecha_reserva']; ?></td>
+                                        <td style="width: 190px" class="text-center"><?php echo $reserva['descripcion']; ?></td>
+                                        <td style="width: 130px" class="text-center"><?php echo $reserva['telefono']; ?></td>
+                                        <td style="width: 100px" class="text-center"><?php echo $reserva['turno']; ?></td>
+                                        <td style="width: 170px" class="text-center"><?php echo $reserva['hora_reserva']; ?></td>
+                                        <td class="text-center" style="width: 180px"><?php echo $reserva['fecha_reservacion']; ?></td>
                                         <td class="text-center estado-reserva" style="width: 100px; color:
                                             <?php
                                             switch (strtolower($reserva['estado'])) {
-                                                case 'pendiente':
+                                                case 'pendiente.':
                                                     echo 'red';
                                                     break;
                                                 case 'en proceso':
@@ -176,10 +177,8 @@ $pagos = $con->Mostrar_Pagos();
                                             <?php echo htmlspecialchars($reserva['estado']); ?>
                                         </td>
 
-                                        <td style="width: 70px" class="text-center"><?php echo $reserva['pago']; ?></td>
-
                                         <td class="text-center acciones-reserva" style="width: 150px">
-                                            <?php if ($reserva['estado'] === 'Pendiente'): ?>
+                                            <?php if ($reserva['estado'] === 'Pendiente.'): ?>
                                                 <!-- Botón para aceptar -->
                                                 <button class="btn btn-primary btn-sm btn-aceptar" 
                                                     data-reserva-id="<?php echo $reserva['id']; ?>">

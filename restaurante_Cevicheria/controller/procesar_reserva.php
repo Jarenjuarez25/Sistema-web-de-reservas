@@ -20,24 +20,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $telefono = $_POST['telefono'];
     $turno = $_POST['turno'];
     $hora = $_POST['hora'];
+    $fecha_reservacion = $_POST['fecha_reserva'];
     
     // Definir límite de personas para grupos grandes
-    $limite_grupo_grande = 6;
+    $limite_grupo_grande = 10;
     
     try {
         // Verificar si la cantidad de personas excede el límite
         if ($cantidad_personas > $limite_grupo_grande) {
             // Lógica para grupos grandes (e.g., marcar como pendiente de aprobación)
-            $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, estado, telefono, turno, hora_reserva, pago) 
-                    VALUES (?, ?, ?, ?, 'Pendiente', ?, ?, ?, '20')";
+            $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, estado, telefono, fecha_reservacion, turno, hora_reserva, pago) 
+                    VALUES (?, ?, ?, ?, 'Pendiente', ?, ?, ?, ?, '20')";
         } else {
             // Lógica para reservas normales
-            $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, estado, telefono, turno, hora_reserva, pago) 
-                    VALUES (?, ?, ?, ?, 'Pendiente', ?, ?, ?, '10')";
+            $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, estado, telefono, fecha_reservacion, turno, hora_reserva, pago) 
+                    VALUES (?, ?, ?, ?, 'Pendiente', ?, ?, ?, ?, '10')";
         }
         
         $stmt = $con->getConexion()->prepare($sql);
-        $stmt->bind_param("iiissss", $user_id, $numero_mesa, $cantidad_personas, $descripcion, $telefono, $turno, $hora);
+        $stmt->bind_param("iiisssss", $user_id, $numero_mesa, $cantidad_personas, $descripcion, $telefono, $fecha_reservacion, $turno, $hora);
         
         if ($stmt->execute()) {
             echo json_encode([

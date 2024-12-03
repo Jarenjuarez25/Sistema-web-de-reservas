@@ -100,42 +100,30 @@ $total_mesas = 40;
         <h2 class="titel">Reserva tu Mesa</h2>
         
         <div class="row g-4">
-
-            <?php for($i = 1; $i <= $total_mesas; $i++) { 
-              $estado = isset($mesas[$i]) ? $mesas[$i] : 'Disponible';    
-            ?>
-                
-            <div class="col-md-3">
-                <div class="card mesa-card" onclick="abrirModalReserva(<?php echo $i; ?>)">
-                    <img src="/restaurante_Cevicheria/Images/mesa.png" class="card-img-top mesa-imagen" alt="Mesa <?php echo $i; ?>">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Mesa <?php echo $i; ?></h5>
-                        <p class="card-text"><?php echo $estado == 'ocupada' ? 'Ocupada' : 'Disponible'; ?></p>
-                    </div>
-                </div>
+    <?php for($i = 1; $i <= $total_mesas; $i++) { 
+        $estado = isset($mesas[$i]) ? $mesas[$i] : 'Disponible';    
+    ?>
+    <div class="col-md-3">
+        <div class="card mesa-card" 
+             data-numero-mesa="<?php echo $i; ?>" 
+             onclick="abrirModalReserva(<?php echo $i; ?>); seleccionarMesaParaReservasGrandes(<?php echo $i; ?>);">
+            <img src="/restaurante_Cevicheria/Images/mesa.png" 
+                 class="card-img-top mesa-imagen" 
+                 alt="Mesa <?php echo $i; ?>">
+            <div class="card-body text-center">
+                <h5 class="card-title">Mesa <?php echo $i; ?></h5>
+                <p class="card-text">
+                    <?php echo $estado == 'ocupada' ? 'Ocupada' : 'Disponible'; ?>
+                </p>
             </div>
-            <?php } ?>
         </div>
+    </div>
+    <?php } ?>
+</div>
+
+
+
         
-
-        <?php for($i = 1; $i <= $total_mesas; $i++) { 
-              $estado = isset($mesas[$i]) ? $mesas[$i] : 'Disponible';    
-            ?>
-                
-            <div class="col-md-3">
-                <div class="card mesa-card" onclick="abrirModalReserva(<?php echo $i; ?>)">
-                    <img src="/restaurante_Cevicheria/Images/mesa.png" class="card-img-top mesa-imagen" alt="Mesa <?php echo $i; ?>">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Mesa <?php echo $i; ?></h5>
-                        <p class="card-text"><?php echo $estado == 'ocupada' ? 'Ocupada' : 'Disponible'; ?></p>
-                    </div>
-                </div>
-            </div>
-            <?php } ?>
-        </div>
-
-
-
     </div>
 
     <div class="modal fade" id="reservaModal" tabindex="-1">
@@ -219,11 +207,25 @@ $total_mesas = 40;
                             }
                         </style>
 
-                        <div class="mb-3">
-                            <div class="custom-button" ng-click="do_group_request()">
-                                <a href="/restaurante_Cevicheria/Principal_usuario/reservas/plus_person.php"><span class="ng-binding">Para reservas o eventos de mas de 15 personas, pulse aqui</span></a>
-                            </div>
-                        </div>
+<div class="mb-3">
+    <div class="custom-button">
+        <a id="botonReservasGrandes">
+            <span>Para reservas o eventos de más de 15 personas, pulse aquí</span>
+        </a>
+    </div>
+</div>
+
+
+<script>
+function seleccionarMesaParaReservasGrandes(numeroMesa) {
+    const boton = document.getElementById('botonReservasGrandes');
+    if (boton) {
+        boton.href = `/restaurante_Cevicheria/Principal_usuario/reservas/plus_person.php?numeroMesa=${numeroMesa}`;
+    }
+}
+
+</script>
+
                     </form>
                 </div>
 
@@ -274,24 +276,27 @@ $total_mesas = 40;
         .then(response => response.json())
         .then(data => {
             data.forEach(mesa => {
-                const elementoMesa = document.querySelector(`.mesa-card[onclick="abrirModalReserva(${mesa.numero_mesa})"]`);
+                const elementoMesa = document.querySelector(`.mesa-card[data-numero-mesa="${mesa.numero_mesa}"]`);
                 if (elementoMesa) {
                     const estadoTexto = elementoMesa.querySelector('.card-text');
-                    estadoTexto.textContent = (mesa.estado === 'Pendiente' || mesa.estado === 'En proceso') ? 'Ocupada' : 'Disponible';
+                    estadoTexto.textContent = (mesa.estado === 'Pendiente' || mesa.estado === 'En proceso' || mesa.estado === 'Pendiente.') ? 'Ocupada' : 'Disponible';
 
                     // Cambiar las clases según el estado
-                    if (mesa.estado === 'Pendiente' || mesa.estado === 'En proceso') {
+                    if (mesa.estado === 'Pendiente' || mesa.estado === 'En proceso' || mesa.estado === 'Pendiente.') {
                         elementoMesa.classList.add('ocupada');
                         elementoMesa.classList.remove('disponible');
+                        elementoMesa.style.pointerEvents = 'none'; // Deshabilitar el clic en mesas ocupadas
                     } else {
                         elementoMesa.classList.add('disponible');
                         elementoMesa.classList.remove('ocupada');
+                        elementoMesa.style.pointerEvents = 'auto'; // Habilitar el clic en mesas disponibles
                     }
                 }
             });
         })
         .catch(error => console.error('Error al obtener el estado de las mesas:', error));
 }
+
 
     actualizarEstadoMesas();
 

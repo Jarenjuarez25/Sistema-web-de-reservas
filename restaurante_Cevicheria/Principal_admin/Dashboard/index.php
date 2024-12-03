@@ -67,7 +67,7 @@ $perdidas = $conexion -> getperdidasData();
             </div>
 
             <div class="chart-container" id="perdidasChartContainer">
-                <h2>Registro de perdidas</h2>
+                <h2>Registro de reservas canceladas</h2>
                 <canvas id="perdidasChart"></canvas>
             </div>
 
