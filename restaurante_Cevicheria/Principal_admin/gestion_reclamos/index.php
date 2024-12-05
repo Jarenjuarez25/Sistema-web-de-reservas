@@ -43,8 +43,8 @@ $reclamo = $con->Mostrar_Reclamaciones();
                             <th style="width: 247px">Correo</th>
                             <th style="width: 100px">Teléfono</th>
                             <th style="width: 180px">Asunto</th>
-                            <th style="width: 200px">Mensaje</th>
-                            <th style="width: 200px">Respuesta</th>
+                            <th style="width: 150px">Mensaje</th>
+                            <th style="width: 180px">Respuesta</th>
                             <th style="width: 90px">Estado</th>
                             <th style="width: 180px">Fecha de Reclamación</th>
                             <th style="width: 190px">Acción</th>
@@ -58,48 +58,42 @@ $reclamo = $con->Mostrar_Reclamaciones();
                             <td style="width: 50px"><?php echo $reclamos['id']; ?></td>
                             <td style="width: 247px"><?php echo $reclamos['correo']; ?></td>
                             <td style="width: 100px"><?php echo $reclamos['telefono']; ?></td>
-                            <td style="width: 180px"><?php echo $reclamos['asunto']; ?></td>
+                            <td style="width: 150px"><?php echo $reclamos['asunto']; ?></td>
                             <td style="width: 200px"><?php echo $reclamos['descripcion']; ?></td>
-                            <td style="width: 200px"><?php echo $reclamos['respuesta']; ?></td>
-                            <td style= "width: 90px; color: 
-                                            <?php 
-                                                switch (strtolower($reclamos['estado'])) {
-                                                    case 'pendiente':
-                                                        echo 'red';
-                                                        break;
-                                                    case 'en proceso':
-                                                        echo 'blue';
-                                                        break;
-                                                    case 'resuelto':
-                                                        echo 'green';
-                                                        break;
-                                                    default:
-                                                        echo 'black';
-                                                }
-                                            ?>">
+                            <td style="width: 180px"><?php echo $reclamos['respuesta']; ?></td>
+                            <td style="width: 100px; color: 
+                                <?php 
+                                    switch (strtolower($reclamos['estado'])) {
+                                        case 'pendiente':
+                                            echo 'red';
+                                            break;
+                                        case 'en proceso':
+                                            echo 'blue';
+                                            break;
+                                        case 'resuelto':
+                                            echo 'green';
+                                            break;
+                                        default:
+                                            echo 'black';
+                                    }
+                                ?>">
                                 <?php echo htmlspecialchars($reclamos['estado']); ?>
-                            <td style="width: 180px"><?php echo $reclamos['fecha_reclamo']; ?></td>
+                            </td>
+                            <td><?php echo $reclamos['fecha_reclamo']; ?></td>
                             <?php if ($reclamos['estado'] === 'Resuelto') { ?>
-                            <td style="width: 100px"><button class="btn btn-success btn-sm" disabled>Resuelto</button>
+                            <td><button class="btn btn-success btn-sm" disabled>Resuelto</button></td>
+                            <?php } elseif ($reclamos['respuesta'] === null && $reclamos['estado'] == 'Pendiente') { ?>
                             <td>
-                            <!--amarillo-->
-                                <?php } elseif ($reclamos['respuesta'] === null && $reclamos['estado'] == 'Pendiente') { ?>
-                            <td><a href="/restaurante_Cevicheria/Principal_admin/gestion_reclamos/vistas/responder-reclamo.php?id=<?= $reclamos['id'] ?>"
-                                    class="btn btn-warning"><i class="fas fa-edit"></i></a></td>
-                                  <!--verde-->  
-                                    <td><a href="/restaurante_Cevicheria/controller/leer_reclamo.php?id=<?=$reclamos['id']?>"
-                                    class="btn btn-success"><i class="fa fa-eye-slash"></i></a></td>
-                            
-                            <?php } elseif ($reclamos['estado'] === 'En proceso') { ?>
+                                <a href="/restaurante_Cevicheria/Principal_admin/gestion_reclamos/vistas/responder-reclamo.php?id=<?= $reclamos['id'] ?>"
+                                    class="btn btn-warning">Responder</a>
+                                <a href="/restaurante_Cevicheria/controller/leer_reclamo.php?id=<?=$reclamos['id']?>"
+                                    class="btn btn-success">Aceptar</a>
+                            </td>
                             <?php } else { ?>
-                            <td>No disponible
-                            <td>
-                                <?php } ?>
+                            <td>No disponible</td>
+                            <?php } ?>
                         </tr>
                         <?php } ?>
-
-
-
                     </tbody>
                 </table>
             </div>

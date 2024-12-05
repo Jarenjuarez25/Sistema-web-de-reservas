@@ -69,6 +69,23 @@ class Conexion
         $stmt->close();
     }
 
+    //contactanos
+    public function insertContacto($nombre_completo, $apellido_completo, $telefono, $correo ,$asunto, $descripcion)
+    {
+        $sql = "INSERT INTO contactanos (nombre, apellidos, telefono, correo, asunto, mensaje, fecha_contatanos, estado) VALUES (?, ?, ?, ?, ?, ?, current_timestamp(), 'Pendiente')";
+        $stmt = $this->con->prepare($sql);
+
+        if ($stmt === false) {
+            die('Prepare failed: ' . htmlspecialchars($this->con->error));
+        }
+
+        $stmt->bind_param('ssssss', $nombre_completo,$apellido_completo, $telefono,$correo, $asunto, $descripcion);
+        if ($stmt->execute() === false) {
+            die('Execute failed: ' . htmlspecialchars($stmt->error));
+        }
+
+        $stmt->close();
+    }
     public function leer_reclamo($id)
     {
         $sql = "UPDATE tbreclamos SET estado = 'En proceso' WHERE id='$id'";
@@ -555,6 +572,7 @@ class Conexion
             r.descripcion, 
             r.estado,
             r.fecha_reservacion,
+            r.fecha_reserva,
             r.telefono,
             r.turno,
             r.hora_reserva,

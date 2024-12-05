@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $con->updateVerifiedEmail($user_id);
         $con->saveVerificationToken($user_id, $token_verificacion, $token_verificacion_expira);
-        enviarCorreoVerificacion($correo, $nombreUsuario, $token_verificacion);
+        
 
         // Actualizar el correo electrónico del usuario
         if ($con->updateEmail($user_id, $correo)) {
@@ -56,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['tipo_mensaje'] = "exito";
             session_unset();
             session_destroy();
+            enviarCorreoVerificacion($correo, $nombreUsuario, $token_verificacion);
             header("Location: /restaurante_Cevicheria/Principal_usuario/Login/index.php?openModal=login");
             exit();
         } else {
