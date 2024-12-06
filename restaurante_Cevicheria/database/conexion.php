@@ -481,14 +481,7 @@ class Conexion
 
     public function getMisPagosByUserId($user_id)
     {
-        $stmt = $this->con->prepare("
-            SELECT * 
-            FROM reservas 
-            WHERE usuario_id = ? 
-            AND estado NOT IN ('Pendiente', 'Pendiente.') 
-            ORDER BY fecha_reserva DESC
-        ");
-        
+        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? AND estado = 'pendiente' ORDER BY fecha_reserva DESC");
         if ($stmt === false) {
             return false;
         }
@@ -505,7 +498,6 @@ class Conexion
         $stmt->close();
         return $consultas;
     }
-    
 
     public function getPagosByUserId($user_id)
     {
@@ -717,15 +709,15 @@ class Conexion
 
     //pago
 
-    public function insertarPago($usuario_id, $numero_mesa, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado, $imagen)
+    public function insertarPago($usuario_id, $numero_mesa, $nombre, $monto_total, $metodo_pago, $n_operacion,$imagen)
     {
         $fecha_pago = date('Y-m-d H:i:s'); // Fecha y hora actual del pago
 
         $query = "INSERT INTO pagos (usuario_id, numero_mesa, nombre, monto_total, metodo_pago, n_operacion, fecha_pago, estado, imagen)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                  VALUES (?, ?, ?, ?, ?, ?, ?, 'pendiente', ?)";
 
         $stmt = $this->con->prepare($query);
-        $stmt->bind_param("issssssss", $usuario_id, $numero_mesa, $nombre, $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $estado, $imagen);
+        $stmt->bind_param("isssssss", $usuario_id, $numero_mesa, $nombre, $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $imagen);
 
 
         if ($stmt->execute()) {

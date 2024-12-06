@@ -394,7 +394,7 @@ $totalGeneral = 0; // Inicializa el total general
                                         <th>Turno</th>
                                         <th>Hora</th>
                                         <th>Pago</th>
-                                        <th>Estado Cancelacion</th>
+                                        <th>Estado pago</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -414,7 +414,7 @@ $totalGeneral = 0; // Inicializa el total general
                                             <td style="color: 
                                             <?php
                                             switch (strtolower($mispago['estado'])) {
-                                                case 'pendiente':
+                                                case 'pendiente.':
                                                     echo 'red';
                                                     break;
                                                 case 'en proceso':

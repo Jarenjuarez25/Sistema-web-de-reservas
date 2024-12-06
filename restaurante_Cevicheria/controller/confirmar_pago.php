@@ -14,8 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
     $monto_total = $_POST['monto_total'];
     $metodo_pago = $_POST['opcion'];
     $n_operacion = $_POST['numero_operacion'];
-    $estado = "Pendiente";
-    $nuevo_estado = "Pendiente.";
     $imagen = '';
 
     try {
@@ -49,14 +47,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
         }
 
         // Insertar el pago
-        if (!$con->insertarPago($user_id, $numero_mesa,$nombre, $monto_total, $metodo_pago, $n_operacion, $estado, $imagen)) {
+        if (!$con->insertarPago($user_id, $numero_mesa,$nombre, $monto_total, $metodo_pago, $n_operacion, $imagen)) {
             throw new Exception('Error al registrar el pago.');
         }
 
-        // Actualizar estado de la reserva
-        if (!$con->actualizarEstadoReserva1($user_id, $numero_mesa, $nuevo_estado)) {
-            throw new Exception('No se encontró ninguna reserva para actualizar.');
-        }
 
         // Enviar correo
         enviarCorreoPago($correo, $nombre, $monto_total, $metodo_pago, $n_operacion, $nuevo_estado);

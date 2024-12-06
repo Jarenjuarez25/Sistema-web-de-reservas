@@ -28,13 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Verificar si la cantidad de personas excede el límite
         if ($cantidad_personas > $limite_grupo_grande) {
-            // Lógica para grupos grandes (e.g., marcar como pendiente de aprobación)
+            // Lógica para grupos grandes
             $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, estado, telefono, fecha_reservacion, turno, hora_reserva, pago) 
-                    VALUES (?, ?, ?, ?, 'Pendiente', ?, ?, ?, ?, '20')";
+                    VALUES (?, ?, ?, ?, 'Pendiente.', ?, ?, ?, ?, '20')";
         } else {
             // Lógica para reservas normales
             $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, estado, telefono, fecha_reservacion, turno, hora_reserva, pago) 
-                    VALUES (?, ?, ?, ?, 'Pendiente', ?, ?, ?, ?, '10')";
+                    VALUES (?, ?, ?, ?, 'Pendiente.', ?, ?, ?, ?, '10')";
         }
         
         $stmt = $con->getConexion()->prepare($sql);
