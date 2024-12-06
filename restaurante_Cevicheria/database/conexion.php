@@ -481,7 +481,7 @@ class Conexion
 
     public function getMisPagosByUserId($user_id)
     {
-        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? AND estado = 'pendiente' ORDER BY fecha_reserva DESC");
+        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? AND estado = 'pendiente.' ORDER BY fecha_reserva DESC");
         if ($stmt === false) {
             return false;
         }
@@ -714,6 +714,22 @@ class Conexion
         $fecha_pago = date('Y-m-d H:i:s'); // Fecha y hora actual del pago
 
         $query = "INSERT INTO pagos (usuario_id, numero_mesa, nombre, monto_total, metodo_pago, n_operacion, fecha_pago, estado, imagen)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, 'pendiente', ?)";
+
+        $stmt = $this->con->prepare($query);
+        $stmt->bind_param("isssssss", $usuario_id, $numero_mesa, $nombre, $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $imagen);
+
+
+        if ($stmt->execute()) {
+            return true; // Éxito al insertar en la base de datos
+        } else {
+            return false; // Error al insertar en la base de datos
+        }
+    }
+
+    public function insertarPago2()
+    {
+        $query = "INSERT INTO reservas (usuario_id, numero_mesa, nombre, monto_total, metodo_pago, n_operacion, fecha_pago, estado, imagen)
                   VALUES (?, ?, ?, ?, ?, ?, ?, 'pendiente', ?)";
 
         $stmt = $this->con->prepare($query);

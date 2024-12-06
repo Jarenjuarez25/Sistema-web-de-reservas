@@ -50,6 +50,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
         if (!$con->insertarPago($user_id, $numero_mesa,$nombre, $monto_total, $metodo_pago, $n_operacion, $imagen)) {
             throw new Exception('Error al registrar el pago.');
         }
+        
+        if (!$con->insertarPago2($user_id, $numero_mesa,$nombre, $monto_total, $metodo_pago, $n_operacion, $imagen)) {
+            throw new Exception('Error al registrar el pago.');
+        }
 
 
         // Enviar correo
