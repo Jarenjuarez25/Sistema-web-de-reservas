@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="text" id="apellidos" class="form-control mb-3" name="apellidos" value="<?php echo ($row['apellidos'] ?? ''); ?>" placeholder="Apellidos*"required>
         
         <label>Correo:</label>
-        <input type="email" id="correo" class="form-control mb-3" name="correo" value="<?php echo ($row['correo'] ?? ''); ?>" required placeholder="Correo*">
+        <input type="email" id="correo" class="form-control mb-3" name="correo" value="<?php echo ($row['correo'] ?? ''); ?>" readonly placeholder="Correo*">
         
         <button type="submit" class="btn btn-primary">Actualizar</button>
         <a href="index.php" class="btn btn-secondary">Cancelar</a>

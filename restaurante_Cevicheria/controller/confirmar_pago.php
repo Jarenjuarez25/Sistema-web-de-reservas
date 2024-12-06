@@ -14,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
     $monto_total = $_POST['monto_total'];
     $metodo_pago = $_POST['opcion'];
     $n_operacion = $_POST['numero_operacion'];
+    $estado = "Pendiente";
     $nuevo_estado = "Pendiente.";
-    $estado = 'Pendiente';
     $imagen = '';
 
     try {
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
         }
 
         // Enviar correo
-        enviarCorreoPago($correo, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado);
+        enviarCorreoPago($correo, $nombre, $monto_total, $metodo_pago, $n_operacion, $nuevo_estado);
 
         $_SESSION['mensaje'] = 'Pago exitoso. Verifique su correo o en Mis Pagos para más información!.';
         $_SESSION['tipo_mensaje'] = 'exito';

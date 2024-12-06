@@ -39,6 +39,12 @@ if (isset($_SESSION['user_id'])) {
         .form-group {
             margin-bottom: 1rem;
         }
+        .is-required:after {
+        content: '*';
+        margin-left: 3px;
+        color: red;
+        font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -59,16 +65,16 @@ if (isset($_SESSION['user_id'])) {
                 <input type="hidden" id="numeroMesa" name="numeroMesa" value="<?php echo htmlspecialchars($numeroMesa); ?>">
                     
                     <div class="row">
-                        <label for="telefono">Teléfono</label>
+                        <label for="telefono" class="form-label is-required">Teléfono</label>
                         <div class="col-md-6 form-group">
-                            <input type="text" class="form-control" id="telefono" name="telefono" maxlength="9" required>
+                            <input type="text" class="form-control" id="telefono" name="telefono" maxlength="9" placeholder="Ingrese un numero de contacto" title="Ingrese un telefono"required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <label for="cantidadPersonas">Número de Personas</label>
-                            <select class="form-control" id="cantidadPersonas" name="cantidadPersonas" required>
+                            <label for="cantidadPersonas" class="form-label is-required">Número de Personas</label>
+                            <select class="form-control" id="cantidadPersonas" name="cantidadPersonas" title="Selccione la cantidad de personas maximo 20"required>
                                 <option value="">Seleccione una cantidad</option>
                                 <option value="11">11</option>
                                 <option value="12">12</option>
@@ -84,15 +90,15 @@ if (isset($_SESSION['user_id'])) {
                             <small class="form-text text-muted" min="20">Mínimo 20 personas</small>
                         </div>
                         <div class="col-md-6 form-group">
-                            <label for="fecha_reserva">Fecha de Reserva</label>
-                            <input type="date" class="form-control" id="fecha_reserva" name="fecha_reserva" required>
+                            <label for="fecha_reserva" class="form-label is-required">Fecha de Reserva</label>
+                            <input type="date" class="form-control" id="fecha_reserva" name="fecha_reserva" title="Ingrese una fecha de su reserva" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <label for="turno">Turno</label>
-                            <select class="form-select" id="turno" name="turno" required>
+                            <label for="turno" class="form-label is-required">Turno</label>
+                            <select class="form-select" id="turno" name="turno" title="Seleccione un turno" required>
                                 <option value="" disabled selected>Selecciona una opción</option>
                                 <option value="Mañana">Mañana/10:00-11:59</option>
                                 <option value="Tarde">Tarde/12:00-18:00</option>
@@ -102,13 +108,13 @@ if (isset($_SESSION['user_id'])) {
                     </div>
 
                     <div class="col-md-6 form-group">
-                        <label for="hora_reserva">Hora de Reserva</label>
-                        <input type="time" class="form-control" id="hora" name="hora" min="10:00" max="23:00" required>
+                        <label for="hora_reserva" class="form-label is-required">Hora de Reserva</label>
+                        <input type="time" class="form-control" id="hora" name="hora" min="10:00" max="23:00" title="Seleccione una hora su reserva">
                     </div>
 
                     <div class="form-group">
-                        <label for="descripcion">Descripción</label>
-                        <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Información adicional sobre su grupo o reserva (opcional)"></textarea>
+                        <label for="descripcion" class="form-label is-required">Descripción</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Información adicional sobre su grupo o reserva (opcional)" title="Escriba una descripcion (opcional)"></textarea>
                     </div>
 
 

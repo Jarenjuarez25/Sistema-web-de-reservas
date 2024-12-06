@@ -21,35 +21,39 @@
 <button class="boton-salir" onclick="location.href='/restaurante_Cevicheria/index.php'">SALIR</button>
 <nav class="menu">
       <section class="menu_contenedor">
-         <h1 class="menu_logo"> Panel administrativo - RestCevicheria Luigy's</h1>
+         <h1 class="menu_logo"> Panel administrativo</h1>
       </section>
    </nav>
    
       <div class="section-Gre">
-         <h2>Reservas</h2>
-         <a href="gestion_reservas/liberar_mesas.php">Ir a Gestión de Reservas</a>
+         <h2>Gestion de reservas</h2>
+         <a href="gestion_reservas/liberar_mesas.php">PULSE AQUI!</a>
       </div>
 
       <div class="section-Gu">
-         <h2>Usuarios</h2>
-         <a href="gestion_usuario/index.php">Ir a Gestión de Usuarios</a>
+         <h2>Gestion de usuarios</h2>
+         <a href="gestion_usuario/index.php">PULSE AQUI!</a>
       </div>
 
       <div class="section-Grese">
-         <h2>Productos</h2>
-         <a href="gestion_productos/admin-menu-panel.php">Gestion de Productos</a>
+         <h2>Gestion de productos</h2>
+         <a href="gestion_productos/admin-menu-panel.php">PULSE AQUI!</a>
       </div> 
 
       <div class="section-Gr">
-         <h2>Reclamos</h2>
-         <a href="gestion_reclamos/index.php">Ir a Gestión Reclamos</a>
+         <h2>Gestion de reclamos</h2>
+         <a href="gestion_reclamos/index.php">PULSE AQUI!</a>
       </div>
 
       <div class="section-dahs">
          <h2>DASHBOARD</h2>
-         <a href="Dashboard/index.php">Ir a Gestión Reclamos</a>
+         <a href="Dashboard/index.php">PULSE AQUI!</a>
       </div>
 
+      <div class="section-contac">
+         <h2>Gestion de contacto</h2>
+      <a href="/restaurante_Cevicheria/Principal_admin/gestion_contacto/index.php">PULSE AQUI!</a>
+      </div>
    <script src="/restaurante_Cevicheria/js/loader.js"></script>
 </body>
 </html>

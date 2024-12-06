@@ -5,7 +5,7 @@ require_once __DIR__ . '../src/PHPMailer.php';
 require_once __DIR__ . '../src/SMTP.php';
 require_once __DIR__ . '../src/Exception.php';
 
-function enviarRespuestaReclamacion($correo, $asunto, $mensaje, $respuesta) {
+function enviarRespuestaReclamacion($nombres, $apellidos, $correo, $asunto, $mensaje, $respuesta) {
     $mail = new PHPMailer(true);
 
     try {
@@ -24,13 +24,13 @@ function enviarRespuestaReclamacion($correo, $asunto, $mensaje, $respuesta) {
 
         // Contenido del correo
         $mail->isHTML(true);
-        $mail->Subject = 'Respuesta de reclamo.';
-        $mail->Body = "Tu reclamo con el asunto: $asunto<br>
-        Y el mensaje:<br><br>
-        <p>$mensaje</p><br><br>
+        $mail->Subject = 'Respuesta de Mensaje.';
+        $mail->Body = "Hola! $nombres, $apellidos<br>
+        <p>Tu mensaje: $mensaje</p><br><br>
+        Con el asunto: $asunto.<br>
         Ya tiene una respuesta:<br><br>
         <p>$respuesta</p><br><br>
-        Gracias por elegirnos como tu primera opcion!.<br><br>
+        Gracias por elegirnos como tu primera opcione!.<br><br>
         Saludos,<br> Soporte RestCevicheria Luigys";
 
         // Enviar correo

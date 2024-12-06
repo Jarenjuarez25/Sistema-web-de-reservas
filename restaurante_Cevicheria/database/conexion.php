@@ -35,6 +35,8 @@ class Conexion
         $sql = 'SELECT
             r.id,
             u.correo,
+            u.nombre,
+            u.apellidos,
             r.telefono,
             r.asunto,
             r.descripcion,
@@ -50,6 +52,40 @@ class Conexion
             $reclamo[] = $row;
         }
         return $reclamo;
+    }
+
+    //para ver los contactos
+    public function Mostrar_contacto()
+    {
+        $sql = 'SELECT id,nombre,apellidos,telefono,correo,asunto,mensaje,fecha_contatanos,estado,respuesta FROM contactanos ORDER BY fecha_contatanos ASC';   
+
+        $resultado = $this->con->query($sql);
+        if (!$resultado) {
+            die("Error en la consulta SQL: " . $this->con->error);
+        }
+        $contactos = array();
+        while ($row = $resultado->fetch_assoc()) {
+            $contactos[] = $row;
+        }
+    
+        return $contactos;
+    }
+    
+    
+    public function contactoCod()
+    {
+        $sql = 'SELECT id,nombre,apellidos,telefono,correo,asunto,mensaje,fecha_contatanos,estado,respuesta FROM contactanos';   
+
+        $resultado = $this->con->query($sql);
+        if (!$resultado) {
+            die("Error en la consulta SQL: " . $this->con->error);
+        }
+        $contactos = array();
+        while ($row = $resultado->fetch_assoc()) {
+            $contactos[] = $row;
+        }
+    
+        return $contactos;
     }
 
     public function insertReclamaciones($usuario_id, $telefono, $asunto, $descripcion)
@@ -91,9 +127,21 @@ class Conexion
         $sql = "UPDATE tbreclamos SET estado = 'En proceso' WHERE id='$id'";
         $this->con->query($sql);
     }
+
+    //para aceptar el contacto
+    public function aceptar_contacto($id){
+        $sql = "UPDATE contactanos SET estado = 'Leida' WHERE id='$id'";
+        $this->con->query($sql);
+    }
     public function edit_reclamo($id, $respuesta, $estado)
     {
         $sql = "UPDATE tbreclamos SET respuesta='$respuesta', estado ='$estado' WHERE id='$id'";
+        $this->con->query($sql);
+    }
+
+    public function update_contact($id, $respuesta)
+    {
+        $sql = "UPDATE contactanos SET respuesta='$respuesta', estado ='Resuelta' WHERE id='$id'";
         $this->con->query($sql);
     }
 
@@ -230,6 +278,27 @@ class Conexion
             return null;
         }
     }
+
+    public function getMensajesByUserId($user_id)
+    {
+        $sql = "SELECT * FROM contactanos WHERE id = ?";
+        $stmt = $this->con->prepare($sql);
+
+        if ($stmt === false) {
+            throw new Exception("Error al preparar la consulta: " . $this->con->error);
+        }
+
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows == 1) {
+            return $result->fetch_assoc();
+        } else {
+            return null;
+        }
+    }
+
 
     public function getUserRole($email)
     {
@@ -412,7 +481,14 @@ class Conexion
 
     public function getMisPagosByUserId($user_id)
     {
-        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? AND estado = 'Pendiente' ORDER BY fecha_reserva DESC");
+        $stmt = $this->con->prepare("
+            SELECT * 
+            FROM reservas 
+            WHERE usuario_id = ? 
+            AND estado NOT IN ('Pendiente', 'Pendiente.') 
+            ORDER BY fecha_reserva DESC
+        ");
+        
         if ($stmt === false) {
             return false;
         }
@@ -429,6 +505,7 @@ class Conexion
         $stmt->close();
         return $consultas;
     }
+    
 
     public function getPagosByUserId($user_id)
     {
@@ -576,7 +653,8 @@ class Conexion
             r.telefono,
             r.turno,
             r.hora_reserva,
-            u.nombre
+            u.nombre,
+            u.apellidos
             FROM reservas r 
             JOIN tbusuario u ON r.usuario_id = u.id 
             ORDER BY r.fecha_reserva DESC";
@@ -688,6 +766,7 @@ class Conexion
         p.id,
         p.numero_mesa,
         u.nombre AS usuario,
+        u.apellidos,
         u.correo AS correo,
         p.monto_total,
         p.metodo_pago,

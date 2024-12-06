@@ -54,8 +54,8 @@ $pagos = $con->Mostrar_Pagos();
                                 <th style="width: 150px" class="text-center">Usuario</th>
                                 <th style="width: 80px" class="text-center">Mesa N°</th>
                                 <th style="width: 310px" class="text-center">Correo</th>
-                                <th class="text-center" style="width: 155px">Monto Total</th>
-                                <th class="text-center" style="width: 120px">Método de Pago</th>
+                                <th class="text-center" style="width: 150px">Monto Total</th>
+                                <th class="text-center" style="width: 110px">Método de Pago</th>
                                 <th class="text-center" style="width: 110px">N° de operación</th>
                                 <th class="text-center" style="width: 114px">Fecha de registro</th>
                                 <th class="text-center" style="width: 100px">Estado</th>
@@ -67,11 +67,11 @@ $pagos = $con->Mostrar_Pagos();
                             <?php foreach ($pagos as $pago) { ?>
                                 <tr>
                                     <td style="width: 45px" class="text-center"><?php echo $pago['id']; ?></td>
-                                    <td style="width: 150px" class="text-center"><?php echo ($pago['usuario']); ?></td>
+                                    <td style="width: 150px" class="text-center"><?php echo ($pago['usuario']. ' ' . $pago['apellidos']); ?></td>
                                     <td style="width: 80px" class="text-center"><?php echo $pago['numero_mesa']; ?></td>
                                     <td style="width: 310px" class="text-center"><?php echo ($pago['correo']); ?></td>
                                     <td class="text-center" style="width: 150px"><?php echo $pago['monto_total']; ?></td>
-                                    <td class="text-center" style="width: 120px"><?php echo $pago['metodo_pago']; ?></td>
+                                    <td class="text-center" style="width: 110px"><?php echo $pago['metodo_pago']; ?></td>
                                     <td class="text-center" style="width: 110px"><?php echo $pago['n_operacion']; ?></td>
                                     <td class="text-center" style="width: 114px"><?php echo $pago['fecha_pago']; ?></td>
                                     <td class="text-center" style="width: 120px; 
@@ -87,7 +87,8 @@ $pagos = $con->Mostrar_Pagos();
                                         <?php echo htmlspecialchars($pago['estado']); ?>
                                     </td>
                                     <td class="text-center" style="width: 160px">
-                                        <?php if ($pago['estado'] === 'pendiente') { ?>
+                                        <?php if ($pago['estado'] === 'pendiente
+                                    ') { ?>
                                             <!-- Botón para confirmar -->
                                             <a href="/restaurante_Cevicheria/controller/confirmar_pago_Admin.php?id=<?= $pago['id'] 
                                             ?>" class="btn btn-warning btn-sm" style="background: #198754; border: none; color: white">
@@ -117,6 +118,9 @@ $pagos = $con->Mostrar_Pagos();
                     </table>
                 </div>
             </div>
+
+
+            
         </div>
     </div>
 
@@ -150,7 +154,7 @@ $pagos = $con->Mostrar_Pagos();
                                 <?php foreach ($reservas as $reserva): ?>
                                     <tr id="reserva-<?php echo $reserva['id']; ?>">
                                         <td style="width: 45px" class="text-center"><?php echo $reserva['id']; ?></td>
-                                        <td style="width: 150px" class="text-center"><?php echo $reserva['nombre']; ?></td>
+                                        <td style="width: 150px" class="text-center"><?php echo $reserva['nombre'] . ' ' . $reserva['apellidos']; ?></td>
                                         <td style="width: 80px" class="text-center"><?php echo $reserva['numero_mesa']; ?></td>
                                         <td class="text-center" style="width: 100px"><?php echo $reserva['cantidad_personas']; ?></td>
                                         <td style="width: 190px" class="text-center"><?php echo $reserva['descripcion']; ?></td>
@@ -180,7 +184,7 @@ $pagos = $con->Mostrar_Pagos();
                                         </td>
 
                                         <td class="text-center acciones-reserva" style="width: 100px">
-                                            <?php if ($reserva['estado'] === 'Pendiente'): ?>
+                                            <?php if ($reserva['estado'] === 'Pendiente.'): ?>
                                                 <!-- Botón para aceptar -->
                                                 <button class="btn btn-primary btn-sm btn-aceptar" 
                                                     data-reserva-id="<?php echo $reserva['id']; ?>">

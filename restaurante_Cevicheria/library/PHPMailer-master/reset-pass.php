@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->Port = 587;
             
             // Configuración del correo
-            $mail->setFrom('juarezjarengamer@gmail.com', 'Soporte ResCevicheria Luigys');
+            $mail->setFrom('juarezjarengamer@gmail.com', 'Soporte RestCevicheria Luigys');
             $mail->addAddress($email);
             $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';

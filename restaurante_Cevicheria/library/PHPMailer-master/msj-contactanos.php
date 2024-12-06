@@ -20,7 +20,7 @@ function enviarCorreoReclamacion($nombre_completo,$apellido_completo, $telefono,
         $mail->Port = 587;
         
         // Configuración del remitente y destinatario
-        $mail->setFrom('juarezjarengamer@gmail.com', 'Soporte ResCevicheria Luigys');
+        $mail->setFrom('juarezjarengamer@gmail.com', 'Soporte RestCevicheria Luigys');
         $mail->addAddress($correo, $asunto);
         
         // Contenido del correo
@@ -30,7 +30,7 @@ function enviarCorreoReclamacion($nombre_completo,$apellido_completo, $telefono,
                         Hemos registrado correctamente tu Mensaje con el asunto $asunto, te estaremos contactactando al número $telefono<br>
                         <br>La razón de tu mensaje es:<br>
                         <p>$descripcion</p><br>
-                      Te responderemos lo antes posible, revisa el estado de tu Mensjae en ¨Mis mensajes¨ desde Mi perfil en la pagina Web.<br>,<br>Soporte RestCevicheria Luigys";
+                        Te responderemos lo antes posible,Soporte RestCevicheria Luigys";
 
         // Enviar correo
         $mail->send();

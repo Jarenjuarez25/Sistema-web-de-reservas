@@ -22,7 +22,7 @@
 .section-Gre h2 {
     position: relative;
     top: -40px;
-    left: 198px;
+    left: 143px;
     margin-bottom: 10px;
     text-align: left;
 }
@@ -37,7 +37,7 @@
     border-radius: 9px;
     font-weight: bold;
     top: 120px;
-    left: 196px;
+    left: 237px;
     text-align: center;
     transition: background-color 0.3s, color 0.3s;
 }
@@ -66,7 +66,7 @@
 .section-Gu h2 {
     position: relative;
     top: -40px;
-    left: 197px;
+    left: 139px;
     margin-bottom: 10px;
     text-align: left;
 }
@@ -81,7 +81,7 @@
     border-radius: 9px;
     font-weight: bold;
     top: 112px;
-    left: 196px;
+    left: 236px;
     text-align: center;
     transition: background-color 0.3s, color 0.3s;
 }
@@ -109,7 +109,7 @@
 .section-Grese h2 {
     position: relative;
     top: -40px;
-    left: 188px;
+    left: 136px;
     margin-bottom: 10px;
     text-align: left;
 }
@@ -124,7 +124,7 @@
     border-radius: 9px;
     font-weight: bold;
     top: 112px;
-    left: 200px;
+    left: 234px;
     text-align: center;
     transition: background-color 0.3s, color 0.3s;
 }
@@ -154,7 +154,7 @@
 .section-Gr h2 {
     position: relative;
     top: -40px;
-    left: 189px;
+    left: 130px;
     margin-bottom: 10px;
     text-align: left;
 }
@@ -169,7 +169,7 @@
     border-radius: 9px;
     font-weight: bold;
     top: 112px;
-    left: 207px;
+    left: 238px;
     text-align: center;
     transition: background-color 0.3s, color 0.3s;
 }
@@ -198,7 +198,7 @@
 .section-dahs h2 {
     position: relative;
     top: -40px;
-    left: 164px;
+    left: 184px;
     margin-bottom: 10px;
     text-align: left;
 }
@@ -213,12 +213,56 @@
     border-radius: 9px;
     font-weight: bold;
     top: 112px;
-    left: 200px;
+    
+    left: 246px;
     text-align: center;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .section-dahs a:hover {
+    background-color: #031b34;
+    color: white;
+}
+
+/*Gestion de contactos*/
+.section-contac{
+        position: relative;
+        padding: 105px 50px;
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        width: 39%;
+        top: -62%;
+        left: 54%;
+        box-shadow: 2px 9px 8px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+    }
+
+
+.section-contac h2 {
+    position: relative;
+    top: -40px;
+    left: 145px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.section-contac a {
+    position: absolute;
+    text-decoration: none;
+    color: black;
+    padding: 17px 10px;
+    box-shadow: 2px 9px 30px rgba(0,0,0,0.2);
+    border: 0.5px solid #0a0a0a;
+    border-radius: 9px;
+    font-weight: bold;
+    top: 112px;
+    left: 239px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.section-contac a:hover {
     background-color: #031b34;
     color: white;
 }

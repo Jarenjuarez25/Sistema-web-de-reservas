@@ -84,7 +84,6 @@ if (isset($_SESSION['user_id'])) {
     </div>
 
 <div class="nosotros">
-  <div class="container">
       <h2>CONOCE UN POCO MAS DE ESTA LINDA FAMILIA!</h2>
       
       <p class="intro">Descubre nuestra historia, nuestra misión y nuestra pasión por ofrecer el mejor ceviche y platos marinos en un ambiente acogedor y auténtico.</p>
@@ -111,8 +110,9 @@ if (isset($_SESSION['user_id'])) {
 
           </div>
         </div>
-  </div>
 </div>
+
+
     <script src="/restaurante_Cevicheria/js/drop.js"></script>
     <script src="/restaurante_Cevicheria/js/loader.js"></script>
     </body>

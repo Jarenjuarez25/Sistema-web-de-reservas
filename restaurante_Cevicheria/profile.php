@@ -315,7 +315,7 @@ $totalGeneral = 0; // Inicializa el total general
                                         <th>Cantidad de personas</th>
                                         <th>Descripcion</th>
                                         <th>Telefono</th>
-                                        <th>Fecha</th>
+                                        <th>Fecha reserva</th>
                                         <th>Turno</th>
                                         <th>Hora</th>
                                         <th>Pago</th>
@@ -394,7 +394,7 @@ $totalGeneral = 0; // Inicializa el total general
                                         <th>Turno</th>
                                         <th>Hora</th>
                                         <th>Pago</th>
-                                        <th>Estado</th>
+                                        <th>Estado Cancelacion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -502,7 +502,7 @@ $totalGeneral = 0; // Inicializa el total general
                                         <th>Numero de operacion</th>
                                         <th>Metodo Pago</th>
                                         <th>Monto total</th>
-                                        <th>Estado</th>
+                                        <th>Estado Aprobacion</th>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -195,3 +195,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+// desactivar disa anteriores
+document.addEventListener('DOMContentLoaded', function() {
+    const fechaHoy = new Date();
+    
+    const anio = fechaHoy.getFullYear();
+    const mes = (fechaHoy.getMonth() + 1).toString().padStart(2, '0'); 
+    const dia = fechaHoy.getDate().toString().padStart(2, '0');
+    const fechaFormateada = `${anio}-${mes}-${dia}`;
+    
+    // Asigna la fecha mínima al input de fecha
+    const fechaInput = document.getElementById('fecha_reserva');
+    fechaInput.min = fechaFormateada;
+});

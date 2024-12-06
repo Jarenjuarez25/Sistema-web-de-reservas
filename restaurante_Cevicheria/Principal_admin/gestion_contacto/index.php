@@ -1,9 +1,10 @@
 <?php
 require_once '../../database/conexion.php';
 $con = new Conexion();
-$reclamo = $con->Mostrar_Reclamaciones();
+$contactos = $con->Mostrar_contacto();
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +12,7 @@ $reclamo = $con->Mostrar_Reclamaciones();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reclamos</title>
+    <title>Contactanos</title>
     <link rel="icon" href="/restaurante_Cevicheria/Images/Logo.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -33,7 +34,7 @@ $reclamo = $con->Mostrar_Reclamaciones();
     </nav>
 
     <div class="container my-4">
-        <h2 class="text-center">Reclamos</h2>
+        <h2 class="text-center">Mensajes de contacto</h2>
         <div class="table-container border rounded p-3 shadow-sm">
             <table class="table table-hover align-middle">
                 <thead>
@@ -47,18 +48,18 @@ $reclamo = $con->Mostrar_Reclamaciones();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($reclamo as $reclamos) { ?>
+                    <?php foreach ($contactos as $contacto) { ?>
                         <tr>
-                            <td class="text-center"><?php echo $reclamos['id']; ?></td>
-                            <td class="text-center"><?php echo htmlspecialchars($reclamos['nombre'] . ' ' . $reclamos['apellidos']); ?></td>
-                            <td class="text-center"><?php echo htmlspecialchars($reclamos['correo']); ?></td>
-                            <td class="text-center"><?php echo htmlspecialchars($reclamos['telefono']); ?></td>
-                            <?php ($reclamos['asunto']); ?>
-                            <?php ($reclamos['descripcion']); ?>
-                            <?php ($reclamos['respuesta']); ?>
+                            <td class="text-center"><?php echo $contacto['id']; ?></td>
+                            <td class="text-center"><?php echo htmlspecialchars($contacto['nombre'] . ' ' . $contacto['apellidos']); ?></td>
+                            <td class="text-center"><?php echo htmlspecialchars($contacto['correo']); ?></td>
+                            <td class="text-center"><?php echo htmlspecialchars($contacto['telefono']); ?></td>
+                            <?php ($contacto['asunto']); ?>
+                            <?php ($contacto['mensaje']); ?>
+                            <?php ($contacto['respuesta']); ?>
                             
-                            <td class="text-center text-<?php echo $reclamos['estado'] === 'Pendiente' ? 'danger' : ($reclamos['estado'] === 'Resuelto' ? 'success' : 'warning'); ?>">
-                                <?php echo htmlspecialchars(ucfirst($reclamos['estado'])); ?>
+                            <td class="text-center text-<?php echo $contacto['estado'] === 'Pendiente' ? 'danger' : ($contacto['estado'] === 'Resuelto' ? 'success' : 'warning'); ?>">
+                                <?php echo htmlspecialchars(ucfirst($contacto['estado'])); ?>
                             </td>
                             <td class="text-center">
                                 <!-- Botón "Ver detalles" -->
@@ -66,21 +67,25 @@ $reclamo = $con->Mostrar_Reclamaciones();
                                     class="btn btn-view-details btn-sm mb-1"
                                     data-bs-toggle="modal"
                                     data-bs-target="#detailModal"
-                                    onclick="showDetails('<?php echo htmlspecialchars(json_encode($reclamos)); ?>')">
+                                    onclick="showDetails('<?php echo htmlspecialchars(json_encode($contacto)); ?>')">
                                     Ver detalles
                                 </button>
 
                                 <!-- Mostrar botones según el estado -->
+                                <?php if ($contacto['estado'] === 'Resuelto') { ?>
+                                    <!-- Botón para reclamos resueltos -->
+                                    <button class="btn btn-success btn-sm" disabled>Resuelto</button>
 
-                                <?php } if ($reclamos['estado'] === 'En proceso') { ?>
+
+                                <?php } if ($contacto['estado'] === 'Leída') { ?>
                                     <!-- Botones para reclamos pendientes -->
-                                    <a href="/restaurante_Cevicheria/Principal_admin/gestion_reclamos/vistas/responder-reclamo.php?id=<?= $reclamos['id']; ?>"
+                                    <a href="/restaurante_Cevicheria/Principal_admin/gestion_contacto/vistas/responder-contacto.php?id=<?= $contacto['id']; ?>"
                                         class="btn btn-warning btn-sm mb-1">
                                         <i class="bi bi-reply"></i> Responder
                                     </a>
 
-                                    <?php } elseif ($reclamos['estado'] === 'Pendiente') { ?>
-                                    <a href="/restaurante_Cevicheria/controller/leer_reclamo.php?id=<?= $reclamos['id']; ?>"
+                                    <?php } elseif ($contacto['estado'] === 'Pendiente') { ?>
+                                    <a href="/restaurante_Cevicheria/controller/leer-contacto.php?id=<?= $contacto['id']; ?>"
                                         class="btn btn-success btn-sm mb-1">
                                         <i class="bi bi-check-circle"></i> Aceptar
                                     </a>
@@ -90,6 +95,7 @@ $reclamo = $con->Mostrar_Reclamaciones();
                             <?php } ?>
                             </td>
                         </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>

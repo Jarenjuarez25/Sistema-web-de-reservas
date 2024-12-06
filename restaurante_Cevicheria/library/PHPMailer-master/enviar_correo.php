@@ -20,7 +20,7 @@ function enviarCorreoVerificacion($email, $nombreUsuario, $token) {
         $mail->Port = 587;
 
         // Configuración del remitente y destinatario
-        $mail->setFrom('juarezjarengamer@gmail.com', 'Soporte ResCevicheria Luigys');
+        $mail->setFrom('juarezjarengamer@gmail.com', 'Soporte RestCevicheria Luigys');
         $mail->addAddress($email, $nombreUsuario); // Email y nombre del destinatario
 
         // Contenido del correo
@@ -28,7 +28,7 @@ function enviarCorreoVerificacion($email, $nombreUsuario, $token) {
         $mail->Subject = 'Registro Rescevicheria';
         $mail->Body = "Hola $nombreUsuario,<br><br>Por favor, haz clic en el siguiente enlace para verificar tu correo:<br><br>
         <a href='http://localhost:3000/restaurante_Cevicheria/controller/verificar-email.php?token=$token'>Verificar mi correo</a><br><br>
-        Este enlace expirará en 20 minutos.<br><br>Saludos,<br>Soporte ResCevicheria Luigys";
+        Este enlace expirará en 20 minutos.<br><br>Saludos,<br>Soporte RestCevicheria Luigys";
 
         // Enviar correo
         $mail->send();

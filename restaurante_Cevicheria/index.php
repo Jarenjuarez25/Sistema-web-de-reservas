@@ -101,12 +101,11 @@ if (isset($_SESSION['user_id'])) {
         </div>
 
     </div>
-
-
+    
     <div class="seccion-2">
         <h1>RestCevicheria Luigy's</h1>
-
         <div class="cards-container">
+            
     <div class="card pilares">
         <a href="/restaurante_Cevicheria/Principal_usuario/nosotros/index.php" alt="Leer-mas">
             <img src="Images/carta.jpg" alt="Pilares" style="color: black">
@@ -152,9 +151,11 @@ if (isset($_SESSION['user_id'])) {
             </div>
             </a> 
         </div>
-    </div>
 
     </div>
+    </div>
+
+
         <div class="seccion-3">
             <div class="separador-1"></div>
             <h2>MENÚ</h2>
@@ -162,12 +163,11 @@ if (isset($_SESSION['user_id'])) {
                     <p>Nuestro compromiso es ofrecer platillos deliciosos de pescados y mariscos,
                         preparados bajo estrictos controles de calidad.
                     </p>
+
                     <div class="a">
                         <a href="/restaurante_Cevicheria/Principal_usuario/menu/index.php"><img src="/restaurante_Cevicheria/Images/comida.png" alt="ronda"></a>
                     </div>
-                <div class="separador-2"></div>
-            <div class="separador-3"></div>
-    </div>
+        </div>
 
 
     <div class="seccion-4">
@@ -216,7 +216,25 @@ if (isset($_SESSION['user_id'])) {
                 <h3>DATOS DE CONTACTO</h3>
                 <p><a href="https://wa.me/51952308626" target="_blank" style="color:black">- +51 952308626</a></p>
                 <p><a href="https://mail.google.com/mail/?view=cm&to=Luigy14851@gmail.com" target="_blank" style="color:black">- Luigy14851@gmail.com</a></p>
+            
+                <h3>SÍGUENOS EN:</h3>
+
+            <div class="social-icons">
+                    <a href="https://www.facebook.com/restcevicheria.luigys" target="_blank">
+                        <img src="/restaurante_Cevicheria/Images/facebook.png"></a>
+
+                    <a href="https://www.instagram.com/rest.cevicherialuigys/" target="_blank">
+                        <img src="/restaurante_Cevicheria/Images/instagram.png"></a>
+
+                    <a href="https://www.tiktok.com/@cevicheria_luigys" target="_blank">
+                        <img src="/restaurante_Cevicheria/Images/tik-tok.png"></a>
+                </div>
+            
             </div>
+            
+
+
+
 
             <div class="footer-section contact-info">
                 <h3>LIBRO DE RECLAMACIONES</h3>
@@ -224,18 +242,6 @@ if (isset($_SESSION['user_id'])) {
                     <img src="/restaurante_Cevicheria/Images/LIBRO-RECLAMACIONES-negro.png" alt=""
                         class="info-libro-reclamaciones" ></a>
 
-                <h3 class="socialTittle">SÍGUENOS EN:</h3>
-                <div class="social-icons">
-                    <a href="https://www.facebook.com/restcevicheria.luigys" target="_blank">
-                        <img src="/restaurante_Cevicheria/Images/facebook.png" alt="aea" class="social-fc"></a>
-
-                    <a href="https://www.instagram.com/rest.cevicherialuigys/" target="_blank">
-                        <img src="/restaurante_Cevicheria/Images/instagram.png" alt="" class="social-ig"></a>
-
-                    <a href="https://www.tiktok.com/@cevicheria_luigys" target="_blank">
-                        <img src="/restaurante_Cevicheria/Images/tik-tok.png" alt="" class="social-tikTok"></a>
-
-                </div>
             </div>
 
             <div class="footer-section links">

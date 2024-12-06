@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/restaurante_Cevicheria/css/edit_reserva.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <div class="row justify-content-center">
@@ -66,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <h2 class="text-center mb-4">Editar Reserva</h2>
                     <form method="POST" action="">
                         <input type="hidden" name="idReserva" value="<?php echo $row['id']; ?>">
-                        
+
                         <div class="mb-3">
                             <label for="cantidad_personas" class="form-label">Cantidad de personas:</label>
                             <input type="number" class="form-control" id="cantidad_personas" name="cantidad_personas" min="1" max="20" value="<?php echo $row['cantidad_personas']; ?>">
@@ -85,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         <div class="mb-3">
                             <label for="fecha_reserva" class="form-label">Fecha de reserva:</label>
-                            <input type="date" class="form-control" id="fecha_reserva" name="fecha_reserva" value="<?php echo (date('Y-m-d', strtotime($row['fecha_reserva'])));  ?>">
+                            <input type="date" class="form-control" id="fecha_reserva" name="fecha_reserva" value="<?php echo (date('Y-m-d', strtotime($row['fecha_reservacion'])));  ?>">
                         </div>
 
                         <div class="mb-3">
@@ -112,5 +114,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // desactivar disa anteriores
+        document.addEventListener('DOMContentLoaded', function() {
+            const fechaHoy = new Date();
+
+            const anio = fechaHoy.getFullYear();
+            const mes = (fechaHoy.getMonth() + 1).toString().padStart(2, '0');
+            const dia = fechaHoy.getDate().toString().padStart(2, '0');
+            const fechaFormateada = `${anio}-${mes}-${dia}`;
+
+            // Asigna la fecha mínima al input de fecha
+            const fechaInput = document.getElementById('fecha_reserva');
+            fechaInput.min = fechaFormateada;
+        });
+    </script>
 </body>
+
 </html>

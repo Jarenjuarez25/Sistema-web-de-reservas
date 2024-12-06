@@ -23,8 +23,6 @@ function abrirModalReserva(numero_mesa) {
 }
 
 
-
-
 function realizarReserva() {
     // Validar formulario antes de enviar
     const form = document.getElementById('reservaForm');
@@ -47,7 +45,7 @@ function realizarReserva() {
         const modalMensajeBody = document.getElementById('modalMensajeBody');
 
         if (data.success) {
-            modalMensajeBody.textContent = 'Reserva realizada con éxito, Se cobrara un adicional de 10so, ve a "Pagos" en mi perfil y procede con el pago!';
+            modalMensajeBody.textContent = 'Reserva realizada con éxito, Se cobrara un adicional de 10so por reservas pequeñas y 20so por reservas grandes, ve a "Pagos" en mi perfil y procede con el pago!';
             mensajeModal.show();
             
             document.getElementById('mensajeModal').addEventListener('hidden.bs.modal', () => {
@@ -157,4 +155,18 @@ document.addEventListener('DOMContentLoaded', function() {
         var modal = new bootstrap.Modal(mensajeModal);
         modal.show();
     }
+});
+
+// desactivar disa anteriores
+document.addEventListener('DOMContentLoaded', function() {
+    const fechaHoy = new Date();
+    
+    const anio = fechaHoy.getFullYear();
+    const mes = (fechaHoy.getMonth() + 1).toString().padStart(2, '0'); 
+    const dia = fechaHoy.getDate().toString().padStart(2, '0');
+    const fechaFormateada = `${anio}-${mes}-${dia}`;
+    
+    // Asigna la fecha mínima al input de fecha
+    const fechaInput = document.getElementById('fecha_reserva');
+    fechaInput.min = fechaFormateada;
 });

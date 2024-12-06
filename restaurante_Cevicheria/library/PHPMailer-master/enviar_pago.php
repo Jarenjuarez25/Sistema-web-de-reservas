@@ -6,7 +6,7 @@ require '../library/PHPMailer-master/src/PHPMailer.php';
 require '../library/PHPMailer-master/src/SMTP.php';
 require '../library/PHPMailer-master/src/Exception.php';
 
-function enviarCorreoPago($correo, $nombre ,$monto_total, $metodo_pago, $n_operacion, $estado){
+function enviarCorreoPago($correo, $nombre ,$monto_total, $metodo_pago, $n_operacion, $nuevo_estado){
     $mail = new PHPMailer(true);
 
     try {
@@ -31,7 +31,7 @@ function enviarCorreoPago($correo, $nombre ,$monto_total, $metodo_pago, $n_opera
                       Detalles del pago:<br>
                       Método de pago: $metodo_pago<br>
                       N° de operación: $n_operacion<br>
-                      Estado: $estado<br>
+                      Estado: $nuevo_estado<br>
                       Monto Total: $monto_total<br><br>
                       Gracias por tu compra.<br><br>
                       Saludos,<br>

@@ -11,12 +11,11 @@ body {
     padding-top: 1px;
 }
 
-
-
 /* Sección "Nosotros" */
 .nosotros {
     background-color: #1a1a33;
     padding: 100px 20px;
+    height: auto;
 }
 
 .nosotros h2 {

@@ -178,16 +178,16 @@ body {
 
 /*Register*/
 .registrarBoton {
-    position: relative;
+    position: absolute;
     padding: 20px;
     width: 300px;
     background-color: #031b34;
     box-shadow: 0 0 7px rgba(0,0,0,0.8);
     transition: box-shadow 0.100s ease;
     color: white;
-    border: none;
-    top: 330px;
-    left: 613px;
+    top: 49%;
+    /* left: 613px; */
+    right: 39%;
     border-radius: 4px;
     cursor: pointer;
     transition: transform 0.7s ease;
@@ -502,7 +502,7 @@ body {
 }
 
 .loginBoton {
-    position: relative;
+    position: absolute;
     padding: 20px;
     width: 300px;
     background-color: #031b34;
@@ -510,8 +510,8 @@ body {
     transition: box-shadow 0.100s ease;
     color: white;
     border: none;
-    top: 211px;
-    left: 613px;
+    top: 39%;
+    right: 39%;
     border-radius: 4px;
     cursor: pointer;
     box-shadow: 0 0 7px rgba(0,0,0,0.8);
