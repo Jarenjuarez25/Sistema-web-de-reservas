@@ -425,7 +425,7 @@ $totalGeneral = 0; // Inicializa el total general
                                                     break;
                                             }
                                             ?>">
-                                                <?php echo htmlspecialchars($mispago['estado']); ?>
+                                                <?php echo htmlspecialchars($mispago['estado_2']); ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -447,7 +447,7 @@ $totalGeneral = 0; // Inicializa el total general
                                     <div class="form-check">
                                         <label class="form-check-label" for="opcion1">
                                             <br>Yape
-                                            <img src="/restaurante_Cevicheria/Images/yape.jpg" alt="Opción 1" class="opcion-imagen" style="display: none;">
+                                            <img src="/restaurante_Cevicheria/Images/pagoValido.PNG" alt="Opción 1" class="opcion-imagen" style="display: none;">
                                         </label>
                                         <input class="form-check-input" type="radio" value="Yape" id="opcion1" name="opcion" required>
                                     </div>
@@ -455,7 +455,7 @@ $totalGeneral = 0; // Inicializa el total general
                                     <div class="form-check" style="margin-top: -86px; margin-left: 50%;">
                                         <label class="form-check-label" for="opcion2">
                                             <br>Plin
-                                            <img src="/restaurante_Cevicheria/Images/yape.jpg" alt="Opción 2" class="opcion-imagen" style="display: none;">
+                                            <img src="/restaurante_Cevicheria/Images/pagoValido.PNG" alt="Opción 2" class="opcion-imagen" style="display: none;">
                                         </label>
                                         <input class="form-check-input" type="radio" value="Plin" id="opcion2" name="opcion" required>
                                     </div>
@@ -465,7 +465,12 @@ $totalGeneral = 0; // Inicializa el total general
                                             <br>Deposito a cuenta
                                         </label>
                                         <input class="form-check-input" type="radio" value="Cuenta Bancaria" id="opcion3" name="opcion" required><br>
-                                        <p alt="Opción 3" class="opcion-imagen" style="display: none;">Bcp:<br> N° de cuenta: 53595951438062 <br> Lesly Tatiana Oliva Huaman</p>
+                                        <p alt="Opción 3" class="opcion-imagen" style="display: none;">Bcp:<br> N° de cuenta: 47595819324052 <br> Jose Luis Zapata Velasques<br><br>
+                                        CCI:<br> N° de cuenta: 00247519581932405228 <br> Jose Luis Zapata Velasques<br><br>
+                                        Cuenta simple Interbank:<br> N° de cuenta: 7703191532766 <br> Jose Luis Zapata Velasques<br><br>
+                                        Cuenta Interbancario Interbank:<br> N° de cuenta: 00377001319153276655 <br> Jose Luis Zapata Velasques<br>
+                                    </p>
+
                                     </div>
 
                                 </div>

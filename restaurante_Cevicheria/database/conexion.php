@@ -481,7 +481,7 @@ class Conexion
 
     public function getMisPagosByUserId($user_id)
     {
-        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? AND estado = 'pendiente.' ORDER BY fecha_reserva DESC");
+        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? AND estado_2 = 'pendiente.' ORDER BY fecha_reserva DESC");
         if ($stmt === false) {
             return false;
         }
