@@ -304,7 +304,7 @@ $totalGeneral = 0; // Inicializa el total general
                         </table>
                     </div>
 
-                    <!--Reservas unicamente-->
+                    <!--Mis reservas-->
                     <div id="profile-reservas1" class="tab-content">
                         <h2>Mis reservas</h2>
                         <div class="table-container" style="max-height: 400px; overflow-y: auto; position: relative;">
@@ -356,23 +356,21 @@ $totalGeneral = 0; // Inicializa el total general
                                                 <?php echo htmlspecialchars($reserva['estado']); ?>
                                             </td>
                                             <td>
-    <!-- Mostrar botón de Editar solo si el estado es Pendiente o En proceso -->
-    <?php if (strtolower($reserva['estado']) === 'pendiente' || strtolower($reserva['estado']) === 'pendiente.') : ?>
-        <a href="/restaurante_Cevicheria/edit_reserva.php?id=<?php echo htmlspecialchars($reserva['id']); ?>" class="btn btn-primary btn-sm">
-            <i class="bi bi-pencil-square"></i> Editar
-        </a><br>
-    <?php endif; ?>
+                                            <!-- Mostrar botón de Editar solo si el estado es Pendiente o En proceso -->
+                                            <?php if (strtolower($reserva['estado']) === 'pendiente' || strtolower($reserva['estado']) === 'pendiente.') : ?>
+                                                <a href="/restaurante_Cevicheria/edit_reserva.php?id=<?php echo htmlspecialchars($reserva['id']); ?>" class="btn btn-primary btn-sm">
+                                                    <i class="bi bi-pencil-square"></i> Editar
+                                                </a><br>
+                                            <?php endif; ?>
 
-    <!-- Mostrar botón de Cancelar si el estado es Pendiente o En proceso -->
-    <?php if (strtolower($reserva['estado']) === 'pendiente' || strtolower($reserva['estado']) === 'en proceso' || strtolower($reserva['estado']) === 'pendiente.') : ?>
-        <a href="/restaurante_Cevicheria/controller/cancelar_reserva.php?id=<?php echo htmlspecialchars($reserva['id']); ?>"
-            class="btn btn-danger btn-sm">
-            <i class="bi bi-trash"></i> Cancelar
-        </a>
-    <?php endif; ?>
-</td>
-
-
+                                            <!-- Mostrar botón de Cancelar si el estado es Pendiente o En proceso -->
+                                            <?php if (strtolower($reserva['estado']) === 'pendiente' || strtolower($reserva['estado']) === 'en proceso' || strtolower($reserva['estado']) === 'pendiente.') : ?>
+                                                <a href="/restaurante_Cevicheria/controller/cancelar_reserva.php?id=<?php echo htmlspecialchars($reserva['id']); ?>"
+                                                    class="btn btn-danger btn-sm">
+                                                    <i class="bi bi-trash"></i> Cancelar
+                                                </a>
+                                            <?php endif; ?>
+                                        </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -381,6 +379,18 @@ $totalGeneral = 0; // Inicializa el total general
                     </div>
 
                     <!-- Pagos -->
+                                         <!--
+                    $user_id = $_SESSION['user_id'];
+                    $user_email = $_SESSION['user_email'];
+
+                    $correo = $con->getUserDetails($user_id);
+                    $persona = $con->getPersonaByUserId($user_id);
+                    $usuario = $con->getNombreByUserId($user_id);
+                    $reclamos = $con->getReclamosByUserId($user_id);
+                    $reservas = $con->getReservasByUserId($user_id);
+                    $mispagos = $con->getMisPagosByUserId($user_id); //para pagos esto es
+                    $pagos = $con->getPagosByUserId($user_id);
+                    $totalGeneral = 0; // Inicializa el total general-->
                     <div id="profile-reservas" class="tab-content">
                         <h2>Pagos</h2>
                         <div class="table-container" style="max-height: 400px; overflow-y: auto; position: relative;">

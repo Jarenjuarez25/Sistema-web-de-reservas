@@ -15,6 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
     $metodo_pago = $_POST['opcion'];
     $n_operacion = $_POST['numero_operacion'];
     $imagen = '';
+    $estado = 'Pendiente';
+    $nuevo_estado = 'Pendiente';
 
     try {
         // Subida de la imagen
@@ -51,9 +53,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
             throw new Exception('Error al registrar el pago.');
         }
 
+        if (!$con->actualizarEstadoReserva1($user_id, $numero_mesa, $nuevo_estado)) {
+            throw new Exception('No se encontró ninguna reserva para actualizar.');
+        }
 
+    
         // Enviar correo
-        enviarCorreoPago($correo, $nombre, $monto_total, $metodo_pago, $n_operacion, $nuevo_estado);
+        enviarCorreoPago($correo, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado);
 
         $_SESSION['mensaje'] = 'Pago exitoso. Verifique su correo o en Mis Pagos para más información!.';
         $_SESSION['tipo_mensaje'] = 'exito';

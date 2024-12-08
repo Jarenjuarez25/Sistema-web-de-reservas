@@ -481,7 +481,7 @@ class Conexion
 
     public function getMisPagosByUserId($user_id)
     {
-        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? AND estado_2 = 'pendiente.' ORDER BY fecha_reserva DESC");
+        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? AND estado_2 = 'Pendiente.' AND estado = 'Pendiente.' ORDER BY fecha_reserva DESC");
         if ($stmt === false) {
             return false;
         }
@@ -747,7 +747,7 @@ class Conexion
     public function actualizarEstadoReserva1($usuario_id, $numero_mesa, $nuevo_estado)
     {
         // Consulta SQL para actualizar el estado de la reserva
-        $query = "UPDATE reservas SET estado = ? WHERE usuario_id = ? AND numero_mesa = ?";
+        $query = "UPDATE reservas SET estado_2 = ? WHERE usuario_id = ? AND numero_mesa = ?";
 
         $stmt = $this->con->prepare($query);
         if (!$stmt) {
