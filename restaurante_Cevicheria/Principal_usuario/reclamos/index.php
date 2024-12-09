@@ -47,7 +47,6 @@ if (isset($_SESSION['user_id'])) {
                         <option value="">Selecciona un asunto</option>
                         <option value="Calidad del producto">Calidad del producto</option>
                         <option value="Servicio al cliente">Servicio al cliente</option>
-                        <option value="Compra">Problemas con mi compra</option>
                         <option value="Página Web">Conflictos en la página web</option>
                         <option value="Otro">Otro</option>
                     </select>

@@ -92,7 +92,7 @@ $total_mesas = 40;
             <div class="modal-backdrop-sesion" id="modalSesionBackdrop">
                 <div class="modal-content-sesion">
                     <h2>¡Inicia sesión!</h2>
-                    <p>Debes iniciar sesión para hacer una reserva.</p>
+                    <p>Debes Registrarte e Iniciar sesion para realizar una reserva!.</p>
                     <button class="modal-btn-sesion" onclick="redireccionarLogin()">Iniciar sesión</button>
                 </div>
             </div>

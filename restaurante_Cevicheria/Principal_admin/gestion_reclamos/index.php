@@ -53,10 +53,6 @@ $reclamo = $con->Mostrar_Reclamaciones();
                             <td class="text-center"><?php echo htmlspecialchars($reclamos['nombre'] . ' ' . $reclamos['apellidos']); ?></td>
                             <td class="text-center"><?php echo htmlspecialchars($reclamos['correo']); ?></td>
                             <td class="text-center"><?php echo htmlspecialchars($reclamos['telefono']); ?></td>
-                            <?php ($reclamos['asunto']); ?>
-                            <?php ($reclamos['descripcion']); ?>
-                            <?php ($reclamos['respuesta']); ?>
-                            
                             <td class="text-center text-<?php echo $reclamos['estado'] === 'Pendiente' ? 'danger' : ($reclamos['estado'] === 'Resuelto' ? 'success' : 'warning'); ?>">
                                 <?php echo htmlspecialchars(ucfirst($reclamos['estado'])); ?>
                             </td>
@@ -71,26 +67,25 @@ $reclamo = $con->Mostrar_Reclamaciones();
                                 </button>
 
                                 <!-- Mostrar botones según el estado -->
-
-                                <?php } if ($reclamos['estado'] === 'En proceso') { ?>
+                                <?php if ($reclamos['estado'] === 'En proceso') { ?>
                                     <!-- Botones para reclamos pendientes -->
                                     <a href="/restaurante_Cevicheria/Principal_admin/gestion_reclamos/vistas/responder-reclamo.php?id=<?= $reclamos['id']; ?>"
                                         class="btn btn-warning btn-sm mb-1">
                                         <i class="bi bi-reply"></i> Responder
                                     </a>
-
-                                    <?php } elseif ($reclamos['estado'] === 'Pendiente') { ?>
+                                <?php } elseif ($reclamos['estado'] === 'Pendiente') { ?>
                                     <a href="/restaurante_Cevicheria/controller/leer_reclamo.php?id=<?= $reclamos['id']; ?>"
                                         class="btn btn-success btn-sm mb-1">
                                         <i class="bi bi-check-circle"></i> Aceptar
                                     </a>
-
-                                    <?php } else { ?>
-                                <td>No disponible</td>
-                            <?php } ?>
-                            </td>
+                                <?php } else { ?>
+                            <td>No disponible</td>
+                        <?php } ?>
+                        </td>
                         </tr>
+                    <?php } ?>
                 </tbody>
+
             </table>
         </div>
     </div>

@@ -349,6 +349,9 @@ $totalGeneral = 0; // Inicializa el total general
                                                                     case 'pendiente':
                                                                         echo 'red';
                                                                         break;
+                                                                    case 'completado':
+                                                                            echo 'green';
+                                                                            break;
                                                                 }
                                                                 ?>">
                                                 <?php echo htmlspecialchars($reserva['estado']); ?>
@@ -369,6 +372,7 @@ $totalGeneral = 0; // Inicializa el total general
                                                     </a>
                                                 <?php endif; ?>
                                             </td>
+                                            
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -563,7 +567,6 @@ foreach ($mispagos as $mispago):
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Selecciona la tabla de reservas en la sección de pagos
             const paymentTable = document.querySelector("#profile-reservas .table tbody");
             const mostrarFormPagoButton = document.getElementById("mostrar-form-pago");
 
@@ -571,18 +574,14 @@ foreach ($mispagos as $mispago):
                 const tableRows = paymentTable.querySelectorAll("tr");
 
                 if (tableRows.length === 0) {
-                    // Oculta el botón de confirmación si no hay filas
                     mostrarFormPagoButton.style.display = "none";
                 } else {
-                    // Muestra el botón de confirmación
                     mostrarFormPagoButton.style.display = "block";
                 }
             }
 
-            // Verifica la visibilidad del botón cuando se carga la página
             updatePaymentButtonVisibility();
 
-            // Observa cambios en la tabla (por si se eliminan reservas dinámicamente)
             const observer = new MutationObserver(updatePaymentButtonVisibility);
             observer.observe(paymentTable, {
                 childList: true
@@ -590,14 +589,12 @@ foreach ($mispagos as $mispago):
         });
     </script>
     <script>
-    // Obtener todos los checkboxes
     const checkboxes = document.querySelectorAll('.select-reserva');
     const totalMontoElem = document.getElementById('totalMonto');
     const montoTotalInput = document.getElementById('monto_total');
     const numeroMesaInput = document.getElementById('numero_mesa');
     const mostrarFormPagoBtn = document.getElementById('mostrar-form-pago');
 
-    // Función para actualizar el monto total, los números de mesa y habilitar/deshabilitar el botón
     function actualizarMonto() {
         let total = 0;
         let mesasSeleccionadas = [];
@@ -607,29 +604,25 @@ foreach ($mispagos as $mispago):
             if (checkbox.checked) {
                 total += parseFloat(checkbox.getAttribute('data-monto'));
                 mesasSeleccionadas.push(checkbox.getAttribute('data-numero-mesa'));
-                algunaSeleccionada = true;  // Si al menos uno está marcado
+                algunaSeleccionada = true; 
             }
         });
 
-        // Actualizar el monto total en la interfaz
         totalMontoElem.textContent = total.toFixed(2);
         montoTotalInput.value = total.toFixed(2);
         numeroMesaInput.value = mesasSeleccionadas.join(',');
 
-        // Activar o desactivar el botón según si se seleccionó alguna reserva
         if (algunaSeleccionada) {
-            mostrarFormPagoBtn.disabled = false; // Activar el botón
+            mostrarFormPagoBtn.disabled = false;
         } else {
-            mostrarFormPagoBtn.disabled = true; // Desactivar el botón
+            mostrarFormPagoBtn.disabled = true;
         }
     }
 
-    // Añadir eventos a cada checkbox
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', actualizarMonto);
     });
 
-    // Inicializar el monto total al cargar la página
     actualizarMonto();
 </script>
 </body>
