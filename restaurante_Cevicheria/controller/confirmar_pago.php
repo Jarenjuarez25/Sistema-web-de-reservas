@@ -15,11 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
     $metodo_pago = $_POST['opcion'];
     $n_operacion = $_POST['numero_operacion'];
     $imagen = '';
-    $estado = 'Pendiente';
-    $nuevo_estado = 'Pendiente';
+    $estado = 'En tramite';
 
     try {
-        // Subida de la imagen
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === 0) {
             $allowedExtensions = ['jpg', 'jpeg', 'png'];
             $fileExtension = strtolower(pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION));
@@ -48,24 +46,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
             $imagen = $fileName;
         }
 
-        // Insertar el pago
-        if (!$con->insertarPago($user_id, $numero_mesa,$nombre, $monto_total, $metodo_pago, $n_operacion, $imagen)) {
-            throw new Exception('Error al registrar el pago.');
+$numeros_mesas = $_POST['numero_mesa'];
+
+if (!$con->insertarPago($user_id, $numeros_mesas, $nombre, $monto_total, $metodo_pago, $n_operacion, $imagen)) {
+    throw new Exception('Error al registrar el pago.');
+}
+
+        $numeros_mesas = explode(',', $_POST['numero_mesa']);
+
+        foreach ($numeros_mesas as $numero_mesa) {
+            if (!$con->actualizarEstadoReservas($user_id, intval($numero_mesa), $estado)) {
+                throw new Exception('No se pudo actualizar el estado de la reserva para la mesa ' . $numero_mesa);
+            }
         }
 
-        if (!$con->actualizarEstadoReserva1($user_id, $numero_mesa, $nuevo_estado)) {
-            throw new Exception('No se encontró ninguna reserva para actualizar.');
-        }
-
-    
-        // Enviar correo
         enviarCorreoPago($correo, $nombre, $monto_total, $metodo_pago, $n_operacion, $estado);
 
         $_SESSION['mensaje'] = 'Pago exitoso. Verifique su correo o en Mis Pagos para más información!.';
         $_SESSION['tipo_mensaje'] = 'exito';
         header("Location: /restaurante_Cevicheria/profile.php");
         exit();
-
     } catch (Exception $e) {
         $_SESSION['mensaje'] = 'Error: ' . $e->getMessage();
         $_SESSION['tipo_mensaje'] = 'error';
@@ -78,6 +78,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirmar_pago'])) {
     header("Location: /restaurante_Cevicheria/profile.php");
     exit();
 }
-
-
-?>

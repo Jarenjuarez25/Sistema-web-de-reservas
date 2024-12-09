@@ -76,7 +76,7 @@ $pagos = $con->Mostrar_Pagos();
                                     <td class="text-center" style="width: 114px"><?php echo $pago['fecha_pago']; ?></td>
                                     <td class="text-center" style="width: 120px; 
                                         <?php
-                                        if ($pago['estado'] === 'pendiente') {
+                                        if ($pago['estado'] === 'En tramite') {
                                             echo 'color: red;';
                                         } if ($pago['estado'] === 'completado') {
                                             echo 'color: green;';
@@ -87,8 +87,7 @@ $pagos = $con->Mostrar_Pagos();
                                         <?php echo htmlspecialchars($pago['estado']); ?>
                                     </td>
                                     <td class="text-center" style="width: 160px">
-                                        <?php if ($pago['estado'] === 'pendiente
-                                    ') { ?>
+                                        <?php if ($pago['estado'] === 'En tramite') { ?>
                                             <!-- Botón para confirmar -->
                                             <a href="/restaurante_Cevicheria/controller/confirmar_pago_Admin.php?id=<?= $pago['id'] 
                                             ?>" class="btn btn-warning btn-sm" style="background: #198754; border: none; color: white">
@@ -166,13 +165,13 @@ $pagos = $con->Mostrar_Pagos();
                                         <td class="text-center estado-reserva" style="width: 100px; color:
                                             <?php
                                             switch (strtolower($reserva['estado'])) {
-                                                case 'pendiente.':
-                                                    echo 'red';
+                                                case 'en tramite':
+                                                    echo 'orange';
                                                     break;
                                                 case 'en proceso':
                                                     echo 'blue';
                                                     break;
-                                                case 'resuelto':
+                                                case 'completado':
                                                     echo 'green';
                                                     break;
                                                 case 'cancelado':
@@ -184,18 +183,18 @@ $pagos = $con->Mostrar_Pagos();
                                         </td>
 
                                         <td class="text-center acciones-reserva" style="width: 100px">
-                                            <?php if ($reserva['estado'] === 'Pendiente.'): ?>
-                                                <!-- Botón para aceptar -->
-                                                <button class="btn btn-primary btn-sm btn-aceptar" 
-                                                    data-reserva-id="<?php echo $reserva['id']; ?>">
-                                                    Aceptar
-                                                </button>
+                                            <?php if ($reserva['estado'] === 'En tramite'): ?>
+                                                <!-- Botón para acpetar reserva -->
+                                                <a href="/restaurante_Cevicheria/controller/aceptar_reserva_admin.php?id=<?= $reserva['id'] 
+                                            ?>" class="btn btn-warning btn-sm" style="background: #198754; border: none; color: white">
+                                                <i class="fa-regular fa-circle-check"></i>Aceptar
+                                            </a>
                                             <?php elseif ($reserva['estado'] === 'En proceso'): ?>
                                                 <!-- Botón para liberar -->
-                                                <button class="btn btn-success btn-sm btn-liberar" 
-                                                    data-reserva-id="<?php echo $reserva['id']; ?>">
-                                                    Liberar
-                                                </button>
+                                                <a href="/restaurante_Cevicheria/controller/liberar_mesa_admin.php?id=<?= $reserva['id'] 
+                                            ?>" class="btn btn-warning btn-sm" style="background: #d83838; border: none; color: white">
+                                                <i class="bi bi-trash"></i>Liberar
+                                            </a>
                                             <?php else: ?>
                                                 <span class="text-muted">No disponible</span>
                                             <?php endif; ?>

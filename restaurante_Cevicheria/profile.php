@@ -164,7 +164,7 @@ $totalGeneral = 0; // Inicializa el total general
                                     <input type="text" class="form-control" id="apellido_p"
                                         name="apellido_p"
                                         value="<?php echo htmlspecialchars($persona['apellidos']); ?>">
-                                        <span class="edit-icon" data-target="correo"><i class="fas fa-edit"></i></span>
+                                    <span class="edit-icon" data-target="correo"><i class="fas fa-edit"></i></span>
                                 </div>
                             </div>
 
@@ -173,7 +173,7 @@ $totalGeneral = 0; // Inicializa el total general
                                 <div style="display: flex; align-items: center;">
                                     <input type="tel" class="form-control" id="dni" name="dni"
                                         value="<?php echo htmlspecialchars($persona['dni']); ?>">
-                                       <span class="edit-icon" data-target="correo"><i class="fas fa-edit"></i></span>
+                                    <span class="edit-icon" data-target="correo"><i class="fas fa-edit"></i></span>
                                 </div>
                             </div>
 
@@ -182,7 +182,7 @@ $totalGeneral = 0; // Inicializa el total general
                                 <div style="display: flex; align-items: center;">
                                     <input type="date" class="form-control" id="telefono" name="telefono"
                                         value="<?php echo htmlspecialchars($persona['fechaNacimiento']); ?>">
-                                        <span class="edit-icon" data-target="correo"><i class="fas fa-edit"></i></span>
+                                    <span class="edit-icon" data-target="correo"><i class="fas fa-edit"></i></span>
                                 </div>
                             </div>
                             <button class="boton2" id="updateButton1"><i class="bi bi-pencil-square"></i> Actualizar</button>
@@ -197,8 +197,8 @@ $totalGeneral = 0; // Inicializa el total general
                             <div class="form-group">
                                 <label for="correo">Correo:</label>
                                 <div style="display: flex; align-items: center;">
-                                <input type="email" name="correo" id="correo" class="form-control" value="<?php echo htmlspecialchars($correo['correo']); ?>" required>
-                                    
+                                    <input type="email" name="correo" id="correo" class="form-control" value="<?php echo htmlspecialchars($correo['correo']); ?>" required>
+
                                     <span class="edit-icon" data-target="correo"><i class="fas fa-edit"></i></span>
                                 </div>
                             </div>
@@ -318,7 +318,6 @@ $totalGeneral = 0; // Inicializa el total general
                                         <th>Fecha reserva</th>
                                         <th>Turno</th>
                                         <th>Hora</th>
-                                        <th>Pago</th>
                                         <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -333,11 +332,10 @@ $totalGeneral = 0; // Inicializa el total general
                                             <td><?php echo htmlspecialchars(date('d-m-Y', strtotime($reserva['fecha_reservacion']))); ?></td>
                                             <td><?php echo htmlspecialchars($reserva['turno']); ?></td>
                                             <td><?php echo htmlspecialchars($reserva['hora_reserva']); ?></td>
-                                            <td><?php echo htmlspecialchars($reserva['pago']); ?></td>
                                             <td style="color: <?php
                                                                 switch (strtolower($reserva['estado'])) {
-                                                                    case 'pendiente':
-                                                                        echo 'red';
+                                                                    case 'en tramite':
+                                                                        echo 'orange';
                                                                         break;
                                                                     case 'en proceso':
                                                                         echo 'blue';
@@ -348,7 +346,7 @@ $totalGeneral = 0; // Inicializa el total general
                                                                     case 'cancelado':
                                                                         echo 'red';
                                                                         break;
-                                                                    case 'pendiente.':
+                                                                    case 'pendiente':
                                                                         echo 'red';
                                                                         break;
                                                                 }
@@ -356,21 +354,21 @@ $totalGeneral = 0; // Inicializa el total general
                                                 <?php echo htmlspecialchars($reserva['estado']); ?>
                                             </td>
                                             <td>
-                                            <!-- Mostrar botón de Editar solo si el estado es Pendiente o En proceso -->
-                                            <?php if (strtolower($reserva['estado']) === 'pendiente' || strtolower($reserva['estado']) === 'pendiente.') : ?>
-                                                <a href="/restaurante_Cevicheria/edit_reserva.php?id=<?php echo htmlspecialchars($reserva['id']); ?>" class="btn btn-primary btn-sm">
-                                                    <i class="bi bi-pencil-square"></i> Editar
-                                                </a><br>
-                                            <?php endif; ?>
+                                                <!-- Mostrar botón de Editar solo si el estado es Pendiente o En proceso -->
+                                                <?php if (strtolower($reserva['estado']) === 'pendiente' ||  strtolower($reserva['estado']) === 'en tramite') : ?>
+                                                    <a href="/restaurante_Cevicheria/edit_reserva.php?id=<?php echo htmlspecialchars($reserva['id']); ?>" class="btn btn-primary btn-sm">
+                                                        <i class="bi bi-pencil-square"></i> Editar
+                                                    </a><br>
+                                                <?php endif; ?>
 
-                                            <!-- Mostrar botón de Cancelar si el estado es Pendiente o En proceso -->
-                                            <?php if (strtolower($reserva['estado']) === 'pendiente' || strtolower($reserva['estado']) === 'en proceso' || strtolower($reserva['estado']) === 'pendiente.') : ?>
-                                                <a href="/restaurante_Cevicheria/controller/cancelar_reserva.php?id=<?php echo htmlspecialchars($reserva['id']); ?>"
-                                                    class="btn btn-danger btn-sm">
-                                                    <i class="bi bi-trash"></i> Cancelar
-                                                </a>
-                                            <?php endif; ?>
-                                        </td>
+                                                <!-- Mostrar botón de Cancelar si el estado es Pendiente o En proceso -->
+                                                <?php if (strtolower($reserva['estado']) === 'en tramite' || strtolower($reserva['estado']) === 'pendiente') : ?>
+                                                    <a href="/restaurante_Cevicheria/controller/cancelar_reserva.php?id=<?php echo htmlspecialchars($reserva['id']); ?>"
+                                                        class="btn btn-danger btn-sm">
+                                                        <i class="bi bi-trash"></i> Cancelar
+                                                    </a>
+                                                <?php endif; ?>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -379,24 +377,13 @@ $totalGeneral = 0; // Inicializa el total general
                     </div>
 
                     <!-- Pagos -->
-                                         <!--
-                    $user_id = $_SESSION['user_id'];
-                    $user_email = $_SESSION['user_email'];
-
-                    $correo = $con->getUserDetails($user_id);
-                    $persona = $con->getPersonaByUserId($user_id);
-                    $usuario = $con->getNombreByUserId($user_id);
-                    $reclamos = $con->getReclamosByUserId($user_id);
-                    $reservas = $con->getReservasByUserId($user_id);
-                    $mispagos = $con->getMisPagosByUserId($user_id); //para pagos esto es
-                    $pagos = $con->getPagosByUserId($user_id);
-                    $totalGeneral = 0; // Inicializa el total general-->
                     <div id="profile-reservas" class="tab-content">
                         <h2>Pagos</h2>
                         <div class="table-container" style="max-height: 400px; overflow-y: auto; position: relative;">
                             <table class="table" style="width: 100%; border-collapse: collapse;">
                                 <thead style="position: sticky; top: 0; background-color: #f8f9fa; z-index: 1;">
                                     <tr>
+                                        <th>Seleccionar</th>
                                         <th>Numero de mesa</th>
                                         <th>Cantidad de personas</th>
                                         <th>Descripcion</th>
@@ -408,50 +395,57 @@ $totalGeneral = 0; // Inicializa el total general
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    $totalGeneral = 0;
-                                    foreach ($mispagos as $mispago):
-                                        $totalGeneral += (float)$mispago['pago'];
-                                    ?>
-                                        <tr>
-                                            <td><?php echo htmlspecialchars($mispago['numero_mesa']); ?></td>
-                                            <td><?php echo htmlspecialchars($mispago['cantidad_personas']); ?></td>
-                                            <td><?php echo htmlspecialchars($mispago['descripcion']); ?></td>
-                                            <td><?php echo htmlspecialchars(date('d-m-Y', strtotime($reserva['fecha_reservacion']))); ?></td>
-                                            <td><?php echo htmlspecialchars($mispago['turno']); ?></td>
-                                            <td><?php echo htmlspecialchars($mispago['hora_reserva']); ?></td>
-                                            <td>S/ <?php echo number_format($mispago['pago'], 2); ?></td>
-                                            <td style="color: 
-                                            <?php
-                                            switch (strtolower($mispago['estado'])) {
-                                                case 'pendiente.':
-                                                    echo 'red';
-                                                    break;
-                                                case 'en proceso':
-                                                    echo 'blue';
-                                                    break;
-                                                case 'resuelto':
-                                                    echo 'green';
-                                                    break;
-                                            }
-                                            ?>">
-                                                <?php echo htmlspecialchars($mispago['estado_2']); ?>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
+                                <?php
+$totalGeneral = 0;
+foreach ($mispagos as $mispago):
+    $totalGeneral += (float)$mispago['pago'];
+?>
+    <tr>
+        <td>
+            <!-- Checkbox para seleccionar la reserva -->
+            <input type="checkbox" class="select-reserva" data-monto="<?php echo number_format($mispago['pago'], 2); ?>" data-numero-mesa="<?php echo htmlspecialchars($mispago['numero_mesa']); ?>">
+        </td>
+        <td><?php echo htmlspecialchars($mispago['numero_mesa']); ?></td> <!-- Aquí muestra el número de mesa combinado -->
+        <td><?php echo htmlspecialchars($mispago['cantidad_personas']); ?></td>
+        <td><?php echo htmlspecialchars($mispago['descripcion']); ?></td>
+        <td><?php echo htmlspecialchars(date('d-m-Y', strtotime($mispago['fecha_reservacion']))); ?></td>
+        <td><?php echo htmlspecialchars($mispago['turno']); ?></td>
+        <td><?php echo htmlspecialchars($mispago['hora_reserva']); ?></td>
+        <td>S/ <?php echo number_format($mispago['pago'], 2); ?></td>
+        <td style="color: 
+        <?php
+            switch (strtolower($mispago['estado'])) {
+                case 'pendiente':
+                    echo 'red';
+                    break;
+                case 'en proceso':
+                    echo 'blue';
+                    break;
+                case 'resuelto':
+                    echo 'green';
+                    break;
+            }
+        ?>">
+            <?php echo htmlspecialchars($mispago['estado']); ?>
+        </td>
+    </tr>
+<?php endforeach; ?>
+
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="6" class="text-right font-weight-bold">Total a pagar:</td>
-                                        <td colspan="2" class="font-weight-bold">S/ <?php echo number_format($totalGeneral, 2); ?> PEN</td>
-                                    </tr>
-                                </tfoot>
                             </table>
+                        </div>
+                        <div class="total-container">
+                            <p>Total a pagar: <span id="totalMonto">S/ <?php echo number_format($totalGeneral, 2); ?> PEN</span></p>
+                            <span style="color:red">Para Confirmar pago debe seleccionar al menos una reserva*</span>
                         </div>
 
                         <div class="text-center mt-4">
                             <form id="confirmar-pago-form" action="/restaurante_Cevicheria/controller/confirmar_pago.php" method="POST" style="display: none;" enctype="multipart/form-data">
-                                <input type="hidden" name="numero_mesa" value="<?php echo htmlspecialchars($mispago['numero_mesa']); ?>">
+                                <!-- Campos de pago -->
+                                <input type="hidden" name="monto_total" id="monto_total" value="<?php echo number_format($totalGeneral, 2); ?>">
+                                <input type="hidden" name="numero_mesa" id="numero_mesa" value="">
+
+                                <!-- Métodos de pago -->
                                 <div class="form-group">
                                     <p>Selecciona un método de pago:</p>
                                     <div class="form-check">
@@ -476,32 +470,31 @@ $totalGeneral = 0; // Inicializa el total general
                                         </label>
                                         <input class="form-check-input" type="radio" value="Cuenta Bancaria" id="opcion3" name="opcion" required><br>
                                         <p alt="Opción 3" class="opcion-imagen" style="display: none;">Bcp:<br> N° de cuenta: 47595819324052 <br> Jose Luis Zapata Velasques<br><br>
-                                        CCI:<br> N° de cuenta: 00247519581932405228 <br> Jose Luis Zapata Velasques<br><br>
-                                        Cuenta simple Interbank:<br> N° de cuenta: 7703191532766 <br> Jose Luis Zapata Velasques<br><br>
-                                        Cuenta Interbancario Interbank:<br> N° de cuenta: 00377001319153276655 <br> Jose Luis Zapata Velasques<br>
-                                    </p>
+                                            CCI:<br> N° de cuenta: 00247519581932405228 <br> Jose Luis Zapata Velasques<br><br>
+                                            Cuenta simple Interbank:<br> N° de cuenta: 7703191532766 <br> Jose Luis Zapata Velasques<br><br>
+                                            Cuenta Interbancario Interbank:<br> N° de cuenta: 00377001319153276655 <br> Jose Luis Zapata Velasques<br>
+                                        </p>
 
                                     </div>
-
                                 </div>
+
                                 <div class="form-group">
                                     <label for="numero_operacion">Número de Operación:</label>
                                     <input type="text" class="form-control" id="numero_operacion" name="numero_operacion" placeholder="Ingrese el número de operación" maxlength="8" required>
                                 </div>
 
                                 <div>
-                                    <!--cap de pago-->
+                                    <!-- Cap de pago -->
                                     <label for="imagen">Subir imagen de comprobante:</label>
                                     <input type="file" id="imagen" name="imagen" class="form-control-file" accept="image/*" required>
                                 </div>
 
-                                <input type="hidden" name="monto_total" value="<?php echo number_format($totalGeneral, 2); ?>">
                                 <button type="submit" class="boton2" name="confirmar_pago"><i class="bi bi-check-circle"></i>Confirmar pago</button>
                             </form>
+
                             <button id="mostrar-form-pago" class="btn btn-primary"><i class="bi bi-check-circle"></i>Confirmar</button>
                         </div>
                     </div>
-
 
                     <!-- pago -->
                     <div id="profile-Pagos" class="tab-content">
@@ -524,7 +517,7 @@ $totalGeneral = 0; // Inicializa el total general
                                     <?php foreach ($pagos as $pago): ?>
                                         <tr>
                                             <td><?php echo htmlspecialchars($pago['id']); ?></td>
-                                            <td><?php echo htmlspecialchars($pago['numero_mesa']); ?></td>
+                                            <td><?php echo htmlspecialchars(str_replace(',', ', ', $pago['numero_mesa'])); ?></td>
                                             <td><?php echo htmlspecialchars($pago['fecha_pago']); ?></td>
                                             <td><?php echo htmlspecialchars($pago['n_operacion']); ?></td>
                                             <td><?php echo htmlspecialchars($pago['metodo_pago']); ?></td>
@@ -532,6 +525,9 @@ $totalGeneral = 0; // Inicializa el total general
                                             <td style="color: 
                                             <?php
                                             switch (strtolower($pago['estado'])) {
+                                                case 'en tramite':
+                                                    echo 'orange';
+                                                    break;
                                                 case 'completado':
                                                     echo 'green';
                                                     break;
@@ -553,6 +549,8 @@ $totalGeneral = 0; // Inicializa el total general
                             </table>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -591,6 +589,49 @@ $totalGeneral = 0; // Inicializa el total general
             });
         });
     </script>
+    <script>
+    // Obtener todos los checkboxes
+    const checkboxes = document.querySelectorAll('.select-reserva');
+    const totalMontoElem = document.getElementById('totalMonto');
+    const montoTotalInput = document.getElementById('monto_total');
+    const numeroMesaInput = document.getElementById('numero_mesa');
+    const mostrarFormPagoBtn = document.getElementById('mostrar-form-pago');
+
+    // Función para actualizar el monto total, los números de mesa y habilitar/deshabilitar el botón
+    function actualizarMonto() {
+        let total = 0;
+        let mesasSeleccionadas = [];
+        let algunaSeleccionada = false;
+
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                total += parseFloat(checkbox.getAttribute('data-monto'));
+                mesasSeleccionadas.push(checkbox.getAttribute('data-numero-mesa'));
+                algunaSeleccionada = true;  // Si al menos uno está marcado
+            }
+        });
+
+        // Actualizar el monto total en la interfaz
+        totalMontoElem.textContent = total.toFixed(2);
+        montoTotalInput.value = total.toFixed(2);
+        numeroMesaInput.value = mesasSeleccionadas.join(',');
+
+        // Activar o desactivar el botón según si se seleccionó alguna reserva
+        if (algunaSeleccionada) {
+            mostrarFormPagoBtn.disabled = false; // Activar el botón
+        } else {
+            mostrarFormPagoBtn.disabled = true; // Desactivar el botón
+        }
+    }
+
+    // Añadir eventos a cada checkbox
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', actualizarMonto);
+    });
+
+    // Inicializar el monto total al cargar la página
+    actualizarMonto();
+</script>
 </body>
 
 </html>

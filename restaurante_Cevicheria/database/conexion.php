@@ -481,23 +481,24 @@ class Conexion
 
     public function getMisPagosByUserId($user_id)
     {
-        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? AND estado_2 = 'Pendiente.' AND estado = 'Pendiente.' ORDER BY fecha_reserva DESC");
-        if ($stmt === false) {
-            return false;
+        $stmt = $this->con->prepare("SELECT * FROM reservas WHERE usuario_id = ? AND estado = 'pendiente' ORDER BY fecha_reservacion DESC");
+        if (!$stmt) {
+            throw new Exception("Error al preparar la consulta: " . $this->con->error);
         }
-        if (!$stmt->bind_param('i', $user_id)) {
-            $stmt->close();
-            return false;
-        }
+    
+        $stmt->bind_param('i', $user_id);
+    
         if (!$stmt->execute()) {
-            $stmt->close();
-            return false;
+            throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
         }
+    
         $result = $stmt->get_result();
         $consultas = $result->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
+    
         return $consultas;
     }
+    
 
     public function getPagosByUserId($user_id)
     {
@@ -659,23 +660,6 @@ class Conexion
     }
 
 
-
-    public function actualizarEstadoReserva($id, $estado)
-    {
-        $sql = "UPDATE reservas SET estado = ? WHERE id = ?";
-        $stmt = $this->con->prepare($sql);
-
-        if ($stmt === false) {
-            die("Error en la preparación de la consulta: " . $this->con->error);
-        }
-
-        $stmt->bind_param("si", $estado, $id);
-        $success = $stmt->execute();
-        $stmt->close();
-
-        return $success;
-    }
-
     public function verificarSiExiste($idUsuario)
     {
         $sql = "SELECT * FROM reservas WHERE usuario_id = ? AND (estado = 'Pendiente' OR estado = 'En proceso')";
@@ -709,58 +693,74 @@ class Conexion
 
     //pago
 
-    public function insertarPago($usuario_id, $numero_mesa, $nombre, $monto_total, $metodo_pago, $n_operacion,$imagen)
+    public function insertarPago($usuario_id, $numero_mesa, $nombre, $monto_total, $metodo_pago, $n_operacion, $imagen)
     {
         $fecha_pago = date('Y-m-d H:i:s'); // Fecha y hora actual del pago
-
+    
+        // Asegúrate de que el campo 'numero_mesa' en la tabla 'pagos' pueda manejar valores como '1,2,3'
         $query = "INSERT INTO pagos (usuario_id, numero_mesa, nombre, monto_total, metodo_pago, n_operacion, fecha_pago, estado, imagen)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, 'pendiente', ?)";
-
+                  VALUES (?, ?, ?, ?, ?, ?, ?, 'En tramite', ?)";
+    
+        // Aquí aseguramos que 'numero_mesa' es pasado correctamente como string
         $stmt = $this->con->prepare($query);
         $stmt->bind_param("isssssss", $usuario_id, $numero_mesa, $nombre, $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $imagen);
-
-
+    
         if ($stmt->execute()) {
             return true; // Éxito al insertar en la base de datos
         } else {
-            return false; // Error al insertar en la base de datos
+            // Deberías agregar más información al error para detectar la causa
+            throw new Exception('Error al registrar el pago: ' . $stmt->error);
         }
     }
+    
+    
 
-    public function insertarPago2()
+    public function actualizarEstadoReservas($usuario_id, $numero_mesa, $estado) 
     {
-        $query = "INSERT INTO reservas (usuario_id, numero_mesa, nombre, monto_total, metodo_pago, n_operacion, fecha_pago, estado, imagen)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, 'pendiente', ?)";
-
-        $stmt = $this->con->prepare($query);
-        $stmt->bind_param("isssssss", $usuario_id, $numero_mesa, $nombre, $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $imagen);
-
-
-        if ($stmt->execute()) {
-            return true; // Éxito al insertar en la base de datos
-        } else {
-            return false; // Error al insertar en la base de datos
+        // Convertir el string de números de mesa en un array para procesarlo
+        $numeros_mesas = explode(',', $numero_mesa);
+    
+        foreach ($numeros_mesas as $numero) {
+            // Consulta SQL para actualizar el estado de cada reserva
+            $query = "UPDATE reservas SET estado = ? WHERE usuario_id = ? AND numero_mesa = ?";
+        
+            $stmt = $this->con->prepare($query);
+            if (!$stmt) {
+                throw new Exception("Error al preparar la consulta: " . $this->con->error);
+            }
+        
+            $stmt->bind_param("sis", $estado, $usuario_id, $numero);
+        
+            if (!$stmt->execute()) {
+                throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
+            }
         }
+        
+        return true; // Si se actualizó con éxito todas las mesas
     }
+    
+    
+        
 
-
-    public function actualizarEstadoReserva1($usuario_id, $numero_mesa, $nuevo_estado)
+        public function obtenerTotalReservasPendientes($usuario_id)
     {
-        // Consulta SQL para actualizar el estado de la reserva
-        $query = "UPDATE reservas SET estado_2 = ? WHERE usuario_id = ? AND numero_mesa = ?";
-
+        $query = "SELECT SUM(cantidad_personas) AS total_personas FROM reservas WHERE usuario_id = ? AND estado = 'Pendiente'";
         $stmt = $this->con->prepare($query);
+
         if (!$stmt) {
             throw new Exception("Error al preparar la consulta: " . $this->con->error);
         }
 
-        $stmt->bind_param("sis", $nuevo_estado, $usuario_id, $numero_mesa);
+        $stmt->bind_param("i", $usuario_id);
 
         if (!$stmt->execute()) {
             throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
         }
 
-        return $stmt->affected_rows > 0; // Retorna true si alguna fila fue modificada
+        $result = $stmt->get_result();
+        $data = $result->fetch_assoc();
+
+        return $data['total_personas']; // Retorna el total de personas de las reservas pendientes
     }
 
 
@@ -814,6 +814,18 @@ class Conexion
         $this->con->query($sql);
     }
 
+    public function Aceptar_mesa($id)
+    {
+        $sql = "UPDATE reservas SET estado = 'En proceso' WHERE id = $id";
+        $this->con->query($sql);
+    }
+
+    public function liberar_mesa($id)
+    {
+        $sql = "UPDATE reservas SET estado = 'Completado' WHERE id = $id";
+        $this->con->query($sql);
+    }
+    
     public function obtenerDetallePago($id)
     {
         $query = "SELECT * FROM pagos WHERE id = ?";

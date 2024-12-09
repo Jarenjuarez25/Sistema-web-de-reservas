@@ -21,30 +21,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $turno = $_POST['turno'];
     $hora = $_POST['hora'];
     $fecha_reservacion = $_POST['fecha_reserva'];
-    
-    // Definir límite de personas para grupos grandes
-    $limite_grupo_grande = 10;
-    
+
     try {
-        // Verificar si la cantidad de personas excede el límite
-        if ($cantidad_personas > $limite_grupo_grande) {
-            // Lógica para grupos grandes
-            $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, estado, estado_2, telefono, fecha_reservacion, turno, hora_reserva, pago) 
-                    VALUES (?, ?, ?, ?, 'Pendiente', 'Pendiente', ?, ?, ?, ?, '20')";
-        } else {
-            // Lógica para reservas normales
-            $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, estado, estado_2, telefono, fecha_reservacion, turno, hora_reserva, pago) 
-                    VALUES (?, ?, ?, ?, 'Pendiente', 'Pendiente', ?, ?, ?, ?, '10')";
-        }
-        
+        // Determinar el pago según la cantidad de personas
+        $pago = ($cantidad_personas >= 1 && $cantidad_personas <= 10) ? 10 : 20;
+
+        // Único INSERT para manejar todos los casos
+        $sql = "INSERT INTO reservas (
+                    usuario_id, 
+                    numero_mesa, 
+                    cantidad_personas, 
+                    descripcion, 
+                    estado, 
+                    telefono, 
+                    fecha_reservacion,
+                    fecha_reserva,
+                    turno, 
+                    hora_reserva, 
+                    pago
+                ) VALUES (?, ?, ?, ?, 'Pendiente', ?, ?, current_timestamp(),?, ?, ?)";
+
         $stmt = $con->getConexion()->prepare($sql);
-        $stmt->bind_param("iiisssss", $user_id, $numero_mesa, $cantidad_personas, $descripcion, $telefono, $fecha_reservacion, $turno, $hora);
+        $stmt->bind_param("iiisssssi", $user_id, $numero_mesa, $cantidad_personas, $descripcion, $telefono, $fecha_reservacion, $turno, $hora, $pago);
         
         if ($stmt->execute()) {
             echo json_encode([
                 'success' => true,
                 'message' => 'Reserva creada exitosamente',
-                'estado' => $cantidad_personas > $limite_grupo_grande ? 'Pendiente' : 'Reservado'
+                'estado' => 'Pendiente'
             ]);
         } else {
             throw new Exception('Error al insertar la reserva');

@@ -279,10 +279,10 @@ $total_mesas = 40;
                             const elementoMesa = document.querySelector(`.mesa-card[data-numero-mesa="${mesa.numero_mesa}"]`);
                             if (elementoMesa) {
                                 const estadoTexto = elementoMesa.querySelector('.card-text');
-                                estadoTexto.textContent = (mesa.estado === 'Pendiente' || mesa.estado === 'En proceso' || mesa.estado === 'Pendiente.') ? 'Ocupada' : 'Disponible';
+                                estadoTexto.textContent = (mesa.estado === 'En tramite' || mesa.estado === 'Pendiente' || mesa.estado === 'En proceso') ? 'Ocupada' : 'Disponible';
 
                                 // Cambiar las clases según el estado
-                                if (mesa.estado === 'Pendiente' || mesa.estado === 'En proceso' || mesa.estado === 'Pendiente.') {
+                                if (mesa.estado === 'En tramite' || mesa.estado === 'Pendiente' || mesa.estado === 'En proceso') {
                                     elementoMesa.classList.add('ocupada');
                                     elementoMesa.classList.remove('disponible');
                                     elementoMesa.style.pointerEvents = 'none'; // Deshabilitar el clic en mesas ocupadas
