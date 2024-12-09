@@ -193,7 +193,7 @@ if (isset($_SESSION['user_id'])) {
                 target="_blank" class="tarjeta-link">
                 <div class="reseña_bloque">
                     <h3>Mego</h3>
-                    <p>Muy rica la. Comida recomendado.</p>
+                    <p>Muy rica la Comida recomendado.</p>
                 </div>
             </a>
 

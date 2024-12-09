@@ -197,8 +197,7 @@ $totalGeneral = 0; // Inicializa el total general
                             <div class="form-group">
                                 <label for="correo">Correo:</label>
                                 <div style="display: flex; align-items: center;">
-                                    <input type="email" name="correo" id="correo" class="form-control" value="<?php echo htmlspecialchars($correo['correo']); ?>" required>
-
+                                    <input type="email" name="correo" id="correo" class="form-control" value="<?php echo htmlspecialchars($correo['correo']); ?>" required readonly>
                                     <span class="edit-icon" data-target="correo"><i class="fas fa-edit"></i></span>
                                 </div>
                             </div>

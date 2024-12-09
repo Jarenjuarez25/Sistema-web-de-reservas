@@ -39,7 +39,7 @@ $con = new Conexion();
 
                 <div class="form-group col-md-6">
                     <label for="telefono">Apellidos.</label>
-                    <input type="text" class="form-control" id="apellido" name="apellido_completo" placeholder="Ingresa un número de contacto." 
+                    <input type="text" class="form-control" id="apellido" name="apellido_completo" placeholder="Ingresa sus apellidos completos." 
                     title="Ingrese un número valido." required>
                 </div>
 

@@ -87,7 +87,7 @@ if (isset($_SESSION['user_id'])) {
                                 <option value="19">19</option>
                                 <option value="20">20</option>
                             </select>
-                            <small class="form-text text-muted" min="20">Mínimo 20 personas</small>
+                            <small class="form-text text-muted" min="20">Maximo 20 personas</small>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="fecha_reserva" class="form-label is-required">Fecha de Reserva</label>
