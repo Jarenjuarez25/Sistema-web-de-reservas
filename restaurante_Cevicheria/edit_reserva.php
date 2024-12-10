@@ -1,4 +1,12 @@
 <?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+?>
+
+<?php
 require('database/conexion.php');
 $con = new Conexion();
 $conexion = $con->getConexion();
@@ -24,7 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query = mysqli_query($conexion, $sql);
 
     if ($query) {
-        echo "<script>alert('Reserva actualizada exitosamente'); window.location.href='/restaurante_Cevicheria/profile.php';</script>";
+        $_SESSION['mensaje'] = "Reserva Actualizada correctamente.";
+        $_SESSION['tipo_mensaje'] = "exito";
+        header("Location: /restaurante_Cevicheria/profile.php");
+        exit();
     } else {
         echo "<script>alert('Error al actualizar la reserva: " . mysqli_error($conexion) . "');</script>";
     }

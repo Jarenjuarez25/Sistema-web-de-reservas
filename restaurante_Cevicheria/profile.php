@@ -198,8 +198,10 @@ $totalGeneral = 0; // Inicializa el total general
                                 <label for="correo">Correo:</label>
                                 <div style="display: flex; align-items: center;">
                                     <input type="email" name="correo" id="correo" class="form-control" value="<?php echo htmlspecialchars($correo['correo']); ?>" required readonly>
+                                    
                                     <span class="edit-icon" data-target="correo"><i class="fas fa-edit"></i></span>
                                 </div>
+                                <span style="color:red">Marcar el icono para editar*</span>
                             </div>
                             <button type="submit" class="boton2" id="updateConfEmailButton" disabled>Actualizar</button>
                         </form>
@@ -399,40 +401,40 @@ $totalGeneral = 0; // Inicializa el total general
                                 </thead>
                                 <tbody>
                                 <?php
-$totalGeneral = 0;
-foreach ($mispagos as $mispago):
-    $totalGeneral += (float)$mispago['pago'];
-?>
-    <tr>
-        <td>
-            <!-- Checkbox para seleccionar la reserva -->
-            <input type="checkbox" class="select-reserva" data-monto="<?php echo number_format($mispago['pago'], 2); ?>" data-numero-mesa="<?php echo htmlspecialchars($mispago['numero_mesa']); ?>">
-        </td>
-        <td><?php echo htmlspecialchars($mispago['numero_mesa']); ?></td> <!-- Aquí muestra el número de mesa combinado -->
-        <td><?php echo htmlspecialchars($mispago['cantidad_personas']); ?></td>
-        <td><?php echo htmlspecialchars($mispago['descripcion']); ?></td>
-        <td><?php echo htmlspecialchars(date('d-m-Y', strtotime($mispago['fecha_reservacion']))); ?></td>
-        <td><?php echo htmlspecialchars($mispago['turno']); ?></td>
-        <td><?php echo htmlspecialchars($mispago['hora_reserva']); ?></td>
-        <td>S/ <?php echo number_format($mispago['pago'], 2); ?></td>
-        <td style="color: 
-        <?php
-            switch (strtolower($mispago['estado'])) {
-                case 'pendiente':
-                    echo 'red';
-                    break;
-                case 'en proceso':
-                    echo 'blue';
-                    break;
-                case 'resuelto':
-                    echo 'green';
-                    break;
-            }
-        ?>">
-            <?php echo htmlspecialchars($mispago['estado']); ?>
-        </td>
-    </tr>
-<?php endforeach; ?>
+                                $totalGeneral = 0;
+                                foreach ($mispagos as $mispago):
+                                    $totalGeneral += (float)$mispago['pago'];
+                                ?>
+                                    <tr>
+                                        <td>
+                                            <!-- Checkbox para seleccionar la reserva -->
+                                            <input type="checkbox" class="select-reserva" data-monto="<?php echo number_format($mispago['pago'], 2); ?>" data-numero-mesa="<?php echo htmlspecialchars($mispago['numero_mesa']); ?>">
+                                        </td>
+                                        <td><?php echo htmlspecialchars($mispago['numero_mesa']); ?></td> <!-- Aquí muestra el número de mesa combinado -->
+                                        <td><?php echo htmlspecialchars($mispago['cantidad_personas']); ?></td>
+                                        <td><?php echo htmlspecialchars($mispago['descripcion']); ?></td>
+                                        <td><?php echo htmlspecialchars(date('d-m-Y', strtotime($mispago['fecha_reservacion']))); ?></td>
+                                        <td><?php echo htmlspecialchars($mispago['turno']); ?></td>
+                                        <td><?php echo htmlspecialchars($mispago['hora_reserva']); ?></td>
+                                        <td>S/ <?php echo number_format($mispago['pago'], 2); ?></td>
+                                        <td style="color: 
+                                        <?php
+                                            switch (strtolower($mispago['estado'])) {
+                                                case 'pendiente':
+                                                    echo 'red';
+                                                    break;
+                                                case 'en proceso':
+                                                    echo 'blue';
+                                                    break;
+                                                case 'resuelto':
+                                                    echo 'green';
+                                                    break;
+                                            }
+                                        ?>">
+                                            <?php echo htmlspecialchars($mispago['estado']); ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
 
                                 </tbody>
                             </table>
@@ -453,32 +455,37 @@ foreach ($mispagos as $mispago):
                                     <p>Selecciona un método de pago:</p>
                                     <div class="form-check">
                                         <label class="form-check-label" for="opcion1">
-                                            <br>Yape
+                                            <br>IziPay
                                             <img src="/restaurante_Cevicheria/Images/pagoValido.PNG" alt="Opción 1" class="opcion-imagen" style="display: none;">
                                         </label>
-                                        <input class="form-check-input" type="radio" value="Yape" id="opcion1" name="opcion" required>
+                                        <input class="form-check-input" type="radio" value="IziPay" id="opcion1" name="opcion" required>
                                     </div>
 
-                                    <div class="form-check" style="margin-top: -86px; margin-left: 50%;">
+                                    <div class="form-check">
                                         <label class="form-check-label" for="opcion2">
-                                            <br>Plin
-                                            <img src="/restaurante_Cevicheria/Images/pagoValido.PNG" alt="Opción 2" class="opcion-imagen" style="display: none;">
+                                            <br>BCP
                                         </label>
-                                        <input class="form-check-input" type="radio" value="Plin" id="opcion2" name="opcion" required>
+                                        <input class="form-check-input" type="radio" value="Bcp" id="opcion2" name="opcion" required><br>
+                                        <p alt="Opción 2" class="opcion-imagen" style="display: none;">Bcp:<br>
+                                        N° de cuenta: 47595819324052 <br>
+                                        CCI: 00247519581932405228 <br>
+                                        Titular: Jose Luis Zapata Velasques<br><br>
+                                        </p>
                                     </div>
 
                                     <div class="form-check">
                                         <label class="form-check-label" for="opcion3">
-                                            <br>Deposito a cuenta
+                                            <br>Interbank
                                         </label>
-                                        <input class="form-check-input" type="radio" value="Cuenta Bancaria" id="opcion3" name="opcion" required><br>
-                                        <p alt="Opción 3" class="opcion-imagen" style="display: none;">Bcp:<br> N° de cuenta: 47595819324052 <br> Jose Luis Zapata Velasques<br><br>
-                                            CCI:<br> N° de cuenta: 00247519581932405228 <br> Jose Luis Zapata Velasques<br><br>
-                                            Cuenta simple Interbank:<br> N° de cuenta: 7703191532766 <br> Jose Luis Zapata Velasques<br><br>
-                                            Cuenta Interbancario Interbank:<br> N° de cuenta: 00377001319153276655 <br> Jose Luis Zapata Velasques<br>
+                                        <input class="form-check-input" type="radio" value="Interbank" id="opcion3" name="opcion" required><br>
+                                        <p alt="Opción 3" class="opcion-imagen" style="display: none;">Interbank:<br>
+                                        Cuenta simple Interbank: 7703191532766 <br>
+                                        Cuenta Interbancario Interbank: 00377001319153276655<br>
+                                        CCI: 00247519581932405228 <br>
+                                        Titular: Jose Luis Zapata Velasques<br>
                                         </p>
-
                                     </div>
+
                                 </div>
 
                                 <div class="form-group">

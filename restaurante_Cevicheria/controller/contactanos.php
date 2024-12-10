@@ -18,10 +18,11 @@ if (isset($_POST['nombre_completo'],$_POST['apellido_completo'],$_POST['telefono
 
         enviarCorreoReclamacion($nombre_completo,$apellido_completo,$telefono,$correo,  $asunto, $descripcion);
 
-        $_SESSION['mensaje'] = '¡Reclamación enviada exitosamente! Mira tu reclamo en tu correo o en Mis Reclamos.';
-        $_SESSION['tipo_mensaje'] = 'exito';
-        header('Location: /restaurante_Cevicheria/Principal_usuario/contactanos/index.php');
-        exit();
+    echo "<script>
+        alert('Mensaje enviado, muy pronto le responderemos!');
+        window.location.href = '/restaurante_Cevicheria/Principal_usuario/contactanos/index.php';
+    </script>";
+    exit();
     } catch (Exception $e) {
         $_SESSION['mensaje'] = 'Hubo un error al procesar tu reclamación. Por favor, intenta nuevamente.';
         $_SESSION['tipo_mensaje'] = 'error';

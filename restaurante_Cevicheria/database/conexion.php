@@ -192,13 +192,18 @@ class Conexion
     //insertar usuario cuando se registra
     public function insertUser($nombre, $apellidos, $dni, $correo, $contrasenia, $genero, $fechaNacimiento)
     {
-        $sql = "INSERT INTO tbusuario (nombre, apellidos, dni, correo, contrasenia, cargo_id, genero, fechaNacimiento) VALUES (?, ?, ?, ?, ?, 2, ?, ?)";
-
+        $contrasena_encriptada = password_hash($contrasenia, PASSWORD_DEFAULT);  
+    
+        $sql = "INSERT INTO tbusuario (nombre, apellidos, dni, correo, contrasenia, cargo_id, genero, fechaNacimiento, estado) 
+                VALUES (?, ?, ?, ?, ?, 2, ?, ?, 'activo')";
+    
         $stmt = $this->con->prepare($sql);
         if ($stmt === false) {
             die("Error en la preparación de la consulta: " . $this->con->error);
         }
-        $stmt->bind_param("sssssss", $nombre, $apellidos, $dni, $correo, $contrasenia, $genero, $fechaNacimiento);
+    
+        $stmt->bind_param("sssssss", $nombre, $apellidos, $dni, $correo, $contrasena_encriptada, $genero, $fechaNacimiento);
+    
         if ($stmt->execute()) {
             $last_id = $this->con->insert_id;
             $stmt->close();
@@ -208,6 +213,7 @@ class Conexion
             return false;
         }
     }
+    
     // Verificar el email y te se actualiza a 1 la activacion
     public function verifyToken($token)
     {
@@ -300,11 +306,11 @@ class Conexion
     }
 
 
-    public function getUserRole($email)
+    public function getUserRole($correo)
     {
-        $query = "SELECT rol_id FROM usuarios WHERE email = ?";
+        $query = "SELECT cargo_id FROM tbusuario WHERE correo = ?";
         $stmt = $this->con->prepare($query);
-        $stmt->bind_param('s', $email);
+        $stmt->bind_param('s', $correo);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
@@ -323,11 +329,11 @@ class Conexion
         return $id;
     }
 
-    public function isEmailVerified($email)
+    public function isEmailVerified($correo)
     {
         $sql = "SELECT verificado FROM tbusuario WHERE correo = ?";
         $stmt = $this->con->prepare($sql);
-        $stmt->bind_param('s', $email);
+        $stmt->bind_param('s', $correo);
         $stmt->execute();
         $stmt->bind_result($verificado);
         $stmt->fetch();
@@ -337,9 +343,17 @@ class Conexion
 
     public function loginUser($correo, $contraseña)
     {
-        $sql = "SELECT * FROM tbusuario WHERE correo = '$correo'";
-        $result = $this->con->query($sql);
-
+        $sql = "SELECT * FROM tbusuario WHERE correo = ?";
+        $stmt = $this->con->prepare($sql);
+    
+        if ($stmt === false) {
+            die("Error en la preparación de la consulta: " . $this->con->error);
+        }
+    
+        $stmt->bind_param("s", $correo); // 's' para string
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
         if ($result->num_rows == 1) {
             $user = $result->fetch_assoc();
             if (password_verify($contraseña, $user['contrasenia'])) {
@@ -347,11 +361,14 @@ class Conexion
                 $_SESSION['user_nombre'] = $user['nombre'];
                 $_SESSION['user_correo'] = $user['correo'];
                 $_SESSION['user_cargo_id'] = $user['cargo_id'];
+                $stmt->close();
                 return true;
             }
         }
+        $stmt->close();
         return false;
     }
+    
 
     public function validateResetToken($email, $token)
     {
@@ -383,7 +400,7 @@ class Conexion
     public function updateEmail($user_id, $new_email)
     {
         if (empty($new_email)) {
-            return false;  // Si el correo está vacío, no lo actualices
+            return false; 
         }
     
         $sql = "UPDATE tbusuario SET correo = ? WHERE id = ?";
@@ -393,11 +410,10 @@ class Conexion
             throw new Exception("Error al preparar la consulta: " . $this->con->error);
         }
     
-        $stmt->bind_param('si', $new_email, $user_id); // Asegúrate de que este parámetro esté bien
+        $stmt->bind_param('si', $new_email, $user_id);
         if ($stmt->execute()) {
-            return true;  // Si se ejecuta correctamente, se actualiza el correo
+            return true;
         } else {
-            // Agrega esta línea para obtener el error de la consulta
             error_log("Error al ejecutar la consulta de actualización: " . $stmt->error);
             return false;
         }
@@ -412,26 +428,25 @@ class Conexion
         $stmt->bind_param('i', $user_id);
         return $stmt->execute();
     }
-    public function updateUserPasswordById($usuario_id, $newPassword)
-    {
-        // Actualiza la contraseña en texto plano
+
+    public function updateUserPasswordById($usuario_id, $newPassword) {
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
         $stmt = $this->con->prepare("UPDATE tbusuario SET contrasenia = ? WHERE id = ?");
-        $stmt->bind_param('si', $newPassword, $usuario_id);
+        $stmt->bind_param('si', $hashedPassword, $usuario_id);
         return $stmt->execute();
     }
+
     public function getLastError()
     {
         return $this->con->error; // Devuelve el último error de la base de datos
     }
 
     //restablecer contrasena
-    public function updateUserPassword($email, $newPassword)
-    {
+
+    public function updateUserPassword($email, $newPassword) {
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
         $stmt = $this->con->prepare("UPDATE tbusuario SET contrasenia = ? WHERE correo = ?");
-        if ($stmt === false) {
-            die("Prepare failed: " . $this->con->error);
-        }
-        $stmt->bind_param('ss', $newPassword, $email);
+        $stmt->bind_param('ss', $hashedPassword, $email);
         return $stmt->execute();
     }
 
@@ -622,8 +637,6 @@ class Conexion
     }
 
 
-
-
     public function insertarReserva($usuario_id, $numeroMesa, $cantidadPersonas, $descripcion, $telefono, $turno, $horaReserva)
     {
         $sql = "INSERT INTO reservas (usuario_id, numero_mesa, cantidad_personas, descripcion, fecha_reserva, estado, telefono, turno, hora_reserva, pago)
@@ -695,20 +708,17 @@ class Conexion
 
     public function insertarPago($usuario_id, $numero_mesa, $nombre, $monto_total, $metodo_pago, $n_operacion, $imagen)
     {
-        $fecha_pago = date('Y-m-d H:i:s'); // Fecha y hora actual del pago
+        $fecha_pago = date('Y-m-d H:i:s');
     
-        // Asegúrate de que el campo 'numero_mesa' en la tabla 'pagos' pueda manejar valores como '1,2,3'
         $query = "INSERT INTO pagos (usuario_id, numero_mesa, nombre, monto_total, metodo_pago, n_operacion, fecha_pago, estado, imagen)
                   VALUES (?, ?, ?, ?, ?, ?, ?, 'En tramite', ?)";
     
-        // Aquí aseguramos que 'numero_mesa' es pasado correctamente como string
         $stmt = $this->con->prepare($query);
         $stmt->bind_param("isssssss", $usuario_id, $numero_mesa, $nombre, $monto_total, $metodo_pago, $n_operacion, $fecha_pago, $imagen);
     
         if ($stmt->execute()) {
-            return true; // Éxito al insertar en la base de datos
+            return true;
         } else {
-            // Deberías agregar más información al error para detectar la causa
             throw new Exception('Error al registrar el pago: ' . $stmt->error);
         }
     }
@@ -717,11 +727,9 @@ class Conexion
 
     public function actualizarEstadoReservas($usuario_id, $numero_mesa, $estado) 
     {
-        // Convertir el string de números de mesa en un array para procesarlo
         $numeros_mesas = explode(',', $numero_mesa);
     
         foreach ($numeros_mesas as $numero) {
-            // Consulta SQL para actualizar el estado de cada reserva
             $query = "UPDATE reservas SET estado = ? WHERE usuario_id = ? AND numero_mesa = ?";
         
             $stmt = $this->con->prepare($query);
@@ -736,7 +744,7 @@ class Conexion
             }
         }
         
-        return true; // Si se actualizó con éxito todas las mesas
+        return true;
     }
     
     

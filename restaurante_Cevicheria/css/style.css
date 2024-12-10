@@ -67,7 +67,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .navbar ul li a:hover {
-    color: blue;
+    color: rgb(51, 51, 152);
 }
 
 .logo {

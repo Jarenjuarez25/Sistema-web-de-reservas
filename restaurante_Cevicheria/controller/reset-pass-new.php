@@ -34,13 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         unset($_SESSION['reset_email']);
         unset($_SESSION['valid_token']);
 
-        $_SESSION['mensaje'] = "Tu contraseña ha sido restablecida exitosamente.";
-        $_SESSION['tipo_mensaje'] = "exito";
         header("Location: /restaurante_Cevicheria/Principal_usuario/actuali_pass/exitosa.html");
         exit();
     } else {
-        $_SESSION['mensaje'] = "Error al restablecer la contraseña.";
-        $_SESSION['tipo_mensaje'] = "error";
         header("Location: /restaurante_Cevicheria/Principal_usuario/actuali_pass/error.html");
         exit();
     }

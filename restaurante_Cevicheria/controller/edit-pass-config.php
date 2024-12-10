@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['current_password']) &
 
     // Verificar la contraseña actual
     $result = $con->getUserDetails($user_id);
-    if ($result && $current_password === $result['contrasenia']) {
+    if ($result && password_verify($current_password, $result['contrasenia'])) {
         // Validar si las nuevas contraseñas coinciden
         if ($new_password !== $confirm_password) {
             $_SESSION['mensaje'] = "Las contraseñas no coinciden.";
@@ -26,6 +26,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['current_password']) &
             exit();
         }
 
+                // Validar la fortaleza de la contraseña
+                if (strlen($new_password) < 8) {
+                    $_SESSION['mensaje'] = "La contraseña debe tener al menos 8 caracteres.";
+                    $_SESSION['tipo_mensaje'] = "error";
+                    header("Location: ../profile.php");
+                    exit();
+                } elseif (!preg_match('/[A-Z]/', $new_password)) {
+                    $_SESSION['mensaje'] = "La contraseña debe tener al menos una letra mayúscula.";
+                    $_SESSION['tipo_mensaje'] = "error";
+                    header("Location: ../profile.php");
+                    exit();
+                } elseif (!preg_match('/\d/', $new_password)) {
+                    $_SESSION['mensaje'] = "La contraseña debe tener al menos un número.";
+                    $_SESSION['tipo_mensaje'] = "error";
+                    header("Location: ../profile.php");
+                    exit();
+                } elseif (!preg_match('/[!@#$%^&*()\-_=+{}\[\]:;"\'<>,.?\/|\\\`~¡¿]/', $new_password)) {
+                    $_SESSION['mensaje'] = "La contraseña debe tener al menos un carácter especial.";
+                    $_SESSION['tipo_mensaje'] = "error";
+                    header("Location: ../profile.php");
+                    exit();
+                }
+                
         // Actualizar la contraseña del usuario (sin hashear)
         if ($con->updateUserPasswordById($user_id, $new_password)) {
             $_SESSION['mensaje'] = "Contraseña actualizada correctamente.";

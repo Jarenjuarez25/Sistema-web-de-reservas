@@ -35,7 +35,10 @@ function enviarRespuestaReclamacion($nombres, $apellidos, $correo, $asunto, $men
 
         // Enviar correo
         $mail->send();
-        echo 'El correo de verificación ha sido enviado correctamente a ' . $correo;
+        echo "<script>
+        alert('El correo de verificación ha sido enviado correctamente a $correo')
+        window.location = '/restaurante_Cevicheria/Principal_usuario/contactanos/index.php';
+      </script>";
     } catch (Exception $e) {
         echo 'Hubo un error al enviar el correo: ' . $mail->ErrorInfo;
     }

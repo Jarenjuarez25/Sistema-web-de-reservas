@@ -23,6 +23,7 @@ if ($con->isEmailRegistered($correo)) {
     </script>";
     exit();
 } else {
+    
     $sql_usuario = $con->insertUser($nombre, $apellidos, $dni, $correo, $contrasenia, $genero, $fechaNacimiento);
     
     $token_verificacion = bin2hex(random_bytes(20));

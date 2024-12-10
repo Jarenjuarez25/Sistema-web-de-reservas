@@ -230,11 +230,7 @@ if (isset($_SESSION['user_id'])) {
                         <img src="/restaurante_Cevicheria/Images/tik-tok.png"></a>
                 </div>
             
-            </div>
-            
-
-
-
+            </div> 
 
             <div class="footer-section contact-info">
                 <h3>LIBRO DE RECLAMACIONES</h3>
@@ -249,7 +245,7 @@ if (isset($_SESSION['user_id'])) {
                     <li><a href="/restaurante_Cevicheria/Principal_usuario/nosotros/index.php">Nosotros</a></li>
                     <li><a href="/restaurante_Cevicheria/Principal_usuario/menu/index.php">Menu</a></li>
                     <li><a
-                            href="https://www.gob.pe/institucion/indecopi/campa%C3%B1as/65149-libro-de-reclamaciones-todo-lo-que-debe-saber-antes-de-solicitarlo">Política
+                            href="https://www.gob.pe/institucion/indecopi/campa%C3%B1as/65149-libro-de-reclamaciones-todo-lo-que-debe-saber-antes-de-solicitarlo" target="_blank">Política
                             de privacidad</a>
                     </li>
                     <li><a href="/restaurante_Cevicheria/Principal_usuario/contactanos/index.php" target="_blank">contactanos</a></li>

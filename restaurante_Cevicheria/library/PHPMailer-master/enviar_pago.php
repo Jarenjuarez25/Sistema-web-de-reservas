@@ -1,4 +1,5 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -6,7 +7,8 @@ require '../library/PHPMailer-master/src/PHPMailer.php';
 require '../library/PHPMailer-master/src/SMTP.php';
 require '../library/PHPMailer-master/src/Exception.php';
 
-function enviarCorreoPago($correo, $nombre ,$monto_total, $metodo_pago, $n_operacion, $nuevo_estado){
+function enviarCorreoPago($correo, $nombre, $monto_total, $metodo_pago, $n_operacion, $nuevo_estado)
+{
     $mail = new PHPMailer(true);
 
     try {
@@ -33,9 +35,13 @@ function enviarCorreoPago($correo, $nombre ,$monto_total, $metodo_pago, $n_opera
                       N° de operación: $n_operacion<br>
                       Estado: $nuevo_estado<br>
                       Monto Total: $monto_total<br><br>
-                      Gracias por tu compra.<br><br>
+                      Gracias por tu reserva!.<br><br>
                       Saludos,<br>
                       Soporte RestCevicheria Luigys";
+
+        $mail->Priority = 1;
+        $mail->AddCustomHeader("X-MSMail-Priority: High");
+        $mail->AddCustomHeader("Importance: High");
 
         // Enviar correo
         $mail->send();

@@ -182,15 +182,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(data => {
                     if (data.status === 'success') {
                         reservationRow.remove();
-                        alert('Reserva cancelada exitosamente');
                         location.reload();
                     } else {
-                        alert('No se pudo cancelar la reserva');
+                        console.error('Error:', error);
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Ocurrió un error al cancelar la reserva');
                 });
         });
     });
