@@ -94,8 +94,6 @@ $totalGeneral = 0; // Inicializa el total general
     if (isset($_SESSION['mensaje'])) {
         $mensaje = $_SESSION['mensaje'];
         $tipo_mensaje = $_SESSION['tipo_mensaje'];
-
-        // Default icons based on message type
         $icon = ($tipo_mensaje == 'exito')
             ? '<i class="bi bi-check-circle-fill"></i>'
             : '<i class="bi bi-exclamation-triangle-fill"></i>';
@@ -105,7 +103,6 @@ $totalGeneral = 0; // Inicializa el total general
         unset($_SESSION['tipo_mensaje']);
     }
 
-    // Error messages
     if (isset($_SESSION['errors'])) {
         echo "<div class='mensaje error'>";
         echo '<i class="bi bi-x-circle-fill"></i>';
